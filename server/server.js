@@ -12,16 +12,6 @@ server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
 
-app.get("/api/customers", (req, res) => {
-  const customers = [
-    { name: "Vikas Raj", age: 21 },
-    { name: "Rashika", age: 20 },
-    { name: "Gaurav", age: 22 }
-  ];
-
-  res.json(customers);
-});
-
 io.on("connection", client => {
   console.log("New User Connected.");
 
@@ -29,10 +19,11 @@ io.on("connection", client => {
     console.log("User Disconnected.");
   });
 
-  client.on("subscribeToTimer", interval => {
-    console.log("Client is subscribing to timer with interval " + interval);
-    setInterval(() => {
-      client.emit("timer", new Date());
-    }, interval);
+  client.on("createEmail", data => console.log(data));
+
+  client.emit("newEmail", {
+    from: "vikasraj1911@gmail.com",
+    text: "What is happening?",
+    createdAt: new Date()
   });
 });

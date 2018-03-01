@@ -1,35 +1,51 @@
 import React, { Component } from "react";
+import socketIO from "socket.io-client";
+
 import AuxComp from "../HOC/AuxComp";
-// import { subscribeToTimer } from "../api";
+import MessagesList from "./MessagesList/MessagesList";
+import Textarea from "./Textarea/Textarea";
+import UsersList from "./UsersList/UsersList";
 
 class App extends Component {
   state = {
-    timer: null,
-    customers: null
+    io: socketIO(),
+    connect: null
   };
+
   componentDidMount() {
-    // subscribeToTimer((err, timestamp) => {
-    //   this.setState({ timer: timestamp });
-    // });
-    fetch("/api/customers")
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ customers: data });
-        console.log(data);
-      });
+    const io = socketIO();
+    this.onConnect(io);
+    this.onDisconnect(io);
   }
+
+  onConnect = io => {
+    io.on("connect", () => {
+      this.setState({ connect: "User Connected" });
+      console.log("User Connected");
+
+      io.emit("createEmail", {
+        to: "vikasraj505@gmail.com",
+        text: "hey, what's up"
+      });
+    });
+
+    io.on("newEmail", data => console.log(data));
+  };
+
+  onDisconnect = io => {
+    io.on("disconnect", () => {
+      this.setState({ connect: "User Disconnected" });
+      console.log("User Disconnected");
+    });
+  };
 
   render() {
     return (
       <AuxComp>
-        {this.state.customers &&
-          this.state.customers.map(customer => (
-            <AuxComp key={customer.name}>
-              <small>{customer.name}</small>
-              <br />
-            </AuxComp>
-          ))}
-        <small>{this.state.timer}</small>
+        <UsersList />
+        <MessagesList />
+        <Textarea />
+        <small>{this.state.connect}</small>
       </AuxComp>
     );
   }
