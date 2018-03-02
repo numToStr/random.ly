@@ -60,10 +60,22 @@ class App extends Component {
   render() {
     return (
       <AuxComp>
-        <Input submit={this.onCreateMessage} />
-        <MessagesList messagesList={this.state.messages} />
-        <UsersList />
-        <small>{this.state.connect}</small>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-4 px-0">
+              <UsersList />
+            </div>
+            <div className="col-8">
+              <div className="d-flex flex-column h-100">
+                <div className="flex-grow">
+                  <MessagesList messagesList={this.state.messages} />
+                </div>
+                <small>{this.state.connect}</small>
+                <Input submit={this.onCreateMessage} />
+              </div>
+            </div>
+          </div>
+        </div>
       </AuxComp>
     );
   }

@@ -9,19 +9,40 @@ class textarea extends Component {
     this.setState({ msg: event.target.value });
   };
 
+  onFormSubmit = event => {
+    this.props.submit(event, this.state.msg);
+    this.setState({ msg: "" });
+  };
+
   render() {
     return (
-      <form onSubmit={event => this.props.submit(event, this.state.msg)}>
-        <input
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          className="form-control rounded-0 border border-dark"
-          onInput={this.setMsg}
-          value={this.state.msg}
-        />
-        <button className="btn btn-dark rounded-0">Submit</button>
+      <form onSubmit={this.onFormSubmit} className="py-3">
+        <div className="input-group">
+          <input
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            className="form-control rounded-0 border border-dark"
+            onInput={this.setMsg}
+            value={this.state.msg}
+            autoFocus
+          />
+          <div className="input-group-append">
+            <button
+              type="submit"
+              className="btn btn-sm btn-dark rounded-0 ml-1"
+            >
+              Submit
+            </button>
+            {/* <button
+              className="btn btn-sm btn-dark rounded-0 ml-1"
+              type="button"
+            >
+              Location
+            </button> */}
+          </div>
+        </div>
       </form>
     );
   }

@@ -5,7 +5,7 @@ import classes from "./UsersList.css";
 class UsersList extends Component {
   render() {
     return (
-      <div className={classes.UsersList}>
+      <div className={"bg-light " + classes.UsersList}>
         <p>Users</p>
       </div>
     );

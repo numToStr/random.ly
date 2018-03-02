@@ -3,8 +3,7 @@ import React from "react";
 const message = props => {
   return (
     <div>
-      <p>{props.message.from}</p>
-      <p>{props.message.text}</p>
+      <small>{props.message.from + ": " + props.message.text}</small>
     </div>
   );
 };
