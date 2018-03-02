@@ -22,14 +22,9 @@ class App extends Component {
     io.on("connect", () => {
       this.setState({ connect: "User Connected" });
       console.log("User Connected");
-
-      io.emit("createEmail", {
-        to: "vikasraj505@gmail.com",
-        text: "hey, what's up"
-      });
     });
 
-    io.on("newEmail", data => console.log(data));
+    io.on("newMessage", msg => console.log(msg));
   };
 
   onDisconnect = io => {

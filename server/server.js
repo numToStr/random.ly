@@ -15,15 +15,27 @@ server.listen(port, () => {
 io.on("connection", client => {
   console.log("New User Connected.");
 
-  client.on("disconnect", () => {
-    console.log("User Disconnected.");
+  client.emit("newMessage", {
+    from: "ADMIN",
+    text: "Welcome to the Chat room.",
+    createdAt: new Date().getTime()
   });
 
-  client.on("createEmail", data => console.log(data));
+  client.broadcast.emit("newMessage", {
+    from: "ADMIN",
+    text: "<User> joined",
+    createdAt: new Date().getTime()
+  });
 
-  client.emit("newEmail", {
-    from: "vikasraj1911@gmail.com",
-    text: "What is happening?",
-    createdAt: new Date()
+  client.on("createMessage", msg => {
+    io.emit("newMessage", {
+      from: msg.from,
+      text: msg.text,
+      createdAt: new Date().getTime()
+    });
+  });
+
+  client.on("disconnect", () => {
+    console.log("User Disconnected.");
   });
 });
