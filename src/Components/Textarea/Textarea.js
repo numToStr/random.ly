@@ -23,7 +23,7 @@ class textarea extends Component {
             id=""
             cols="30"
             rows="10"
-            className="form-control rounded-0 border border-dark"
+            className="form-control rounded-0 border border-secondary"
             onInput={this.setMsg}
             value={this.state.msg}
             autoFocus
@@ -31,7 +31,7 @@ class textarea extends Component {
           <div className="input-group-append">
             <button
               type="submit"
-              className="btn btn-sm btn-dark rounded-0 ml-1"
+              className="btn btn-sm btn-primary rounded-0 ml-1"
             >
               Submit
             </button>
