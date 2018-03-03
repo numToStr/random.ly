@@ -57,6 +57,18 @@ class App extends Component {
     );
   };
 
+  scrollToBottom = () => {
+    const container = this.messagesListContainer;
+
+    const clientHeight = container.clientHeight;
+    const scrollTop = container.scrollTop;
+    const scrollHeight = container.scrollHeight;
+
+    if (clientHeight + scrollTop >= scrollHeight) {
+      console.log("should scroll");
+    }
+  };
+
   render() {
     return (
       <AuxComp>
@@ -66,8 +78,11 @@ class App extends Component {
               <UsersList />
             </div>
             <div className="col-8">
-              <div className="d-flex flex-column h-100">
-                <div className="flex-grow">
+              <div className="d-flex flex-column vh-100">
+                <div
+                  className="flex-grow overflow-auto"
+                  ref={el => (this.messagesListContainer = el)}
+                >
                   <MessagesList messagesList={this.state.messages} />
                 </div>
                 <small>{this.state.connect}</small>

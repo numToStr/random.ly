@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 
-import classes from "./UsersList.css";
-
 class UsersList extends Component {
   render() {
     return (
-      <div className={"bg-light " + classes.UsersList}>
+      <div className={"bg-light vh-100"}>
         <p>Users</p>
       </div>
     );
