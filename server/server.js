@@ -3,6 +3,7 @@ const express = require("express");
 const socketIO = require("socket.io");
 
 const { generateMsg } = require("./utils/message");
+const { isRealString } = require("./utils/validation");
 
 const app = express();
 const server = http.Server(app);
@@ -15,6 +16,13 @@ server.listen(port, () => {
 });
 
 io.on("connection", client => {
+  client.on("join", (params, callback) => {
+    if (!isRealString(params.name) || !isRealString(params.room)) {
+      callback("Display Name or Room Name is not valid.");
+    }
+    callback();
+  });
+
   console.log("New User Connected.");
 
   client.emit("newMessage", generateMsg("ADMIN", "Welcome to the Chat room."));
