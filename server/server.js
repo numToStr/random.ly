@@ -16,18 +16,32 @@ server.listen(port, () => {
 });
 
 io.on("connection", client => {
+  console.log("New User Connected.");
+
+  // client.emit("newMessage", generateMsg("ADMIN", "Welcome to the Chat room."));
+  // client.broadcast.emit("newMessage", generateMsg("ADMIN", "<User> joined"));
+
   client.on("join", (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       callback("Display Name or Room Name is not valid.");
     }
+    client.join(params.room);
+    // client.leave(params.room);
+
+    // io.emit() -> io.to('room').emit();
+    // client.broadcast.emit() -> client.broadcast.to('room').emit();
+    // client.emit()
+
+    client.emit(
+      "newMessage",
+      generateMsg("ADMIN", "Welcome to the Chat room.")
+    );
+    client.broadcast
+      .in(params.room)
+      .emit("newMessage", generateMsg("ADMIN", `${params.name} joined`));
+
     callback();
   });
-
-  console.log("New User Connected.");
-
-  client.emit("newMessage", generateMsg("ADMIN", "Welcome to the Chat room."));
-
-  client.broadcast.emit("newMessage", generateMsg("ADMIN", "<User> joined"));
 
   client.on("createMessage", (msg, callback) => {
     io.emit("newMessage", generateMsg(msg.from, msg.text));
