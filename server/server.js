@@ -20,20 +20,18 @@ server.listen(port, () => {
 io.on("connection", client => {
   console.log("New User Connected.");
 
-  // client.emit("newMessage", generateMsg("ADMIN", "Welcome to the Chat room."));
-  // client.broadcast.emit("newMessage", generateMsg("ADMIN", "<User> joined"));
-
   client.on("join", (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       return callback("Display Name or Room Name is not valid.");
     }
 
     client.join(params.room);
+    // client.leave(params.room);
 
     users.removeUser(client.id);
     users.addUser(client.id, params.name, params.room);
-    io.emit("updateUserList", users.getUserList(params.room));
-    // client.leave(params.room);
+
+    io.in(params.room).emit("updateUserList", users.getUserList(params.room));
 
     // io.emit() -> io.to('room').emit();
     // client.broadcast.emit() -> client.broadcast.to('room').emit();
@@ -51,14 +49,19 @@ io.on("connection", client => {
   });
 
   client.on("createMessage", (msg, callback) => {
-    io.emit("newMessage", generateMsg(msg.from, msg.text));
+    const user = users.getUser(client.id);
+
+    if (user && isRealString(msg.text)) {
+      io.in(user.room).emit("newMessage", generateMsg(user.name, msg.text));
+    }
+
     callback("Succesfull");
   });
 
   client.on("disconnect", () => {
     const user = users.removeUser(client.id);
     if (user) {
-      io.to(user.room).emit("updateUserList", users.getUser(user.room));
+      io.to(user.room).emit("updateUserList", users.getUserList(user.room));
       io
         .to(user.room)
         .emit("newMessage", generateMsg("ADMIN", `${user.name} has left`));

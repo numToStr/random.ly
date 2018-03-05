@@ -12,7 +12,8 @@ class Chat extends Component {
     io: socketIO(),
     connect: null,
     messages: [],
-    chatData: {}
+    currentUser: {},
+    userList: []
   };
 
   componentDidMount() {
@@ -34,14 +35,14 @@ class Chat extends Component {
       for (const param of query.entries()) {
         data[param[0]] = param[1];
       }
-      this.setState({ chatData: data });
+      this.setState({ currentUser: data });
 
       this.state.io.emit("join", data, err => {
         if (err) {
           alert(err);
           // this.props.history.goBack();
         } else {
-          console.log("User Connected");
+          console.log("User Connected", this.state.currentUser);
         }
       });
     });
@@ -54,12 +55,13 @@ class Chat extends Component {
           messages: [...prevState.messages, msg]
         };
       });
-      //   console.log(this.state.messages);
     });
   };
 
   onUpdateUserList = () => {
-    this.state.io.on("updateUserList", users => console.log("List", users));
+    this.state.io.on("updateUserList", users =>
+      this.setState({ userList: users })
+    );
   };
 
   onDisconnect = () => {
@@ -75,7 +77,7 @@ class Chat extends Component {
     this.state.io.emit(
       "createMessage",
       {
-        from: this.state.chatData.name,
+        // from: this.state.chatData.name,
         text: msg
       },
       data => console.log("Got It: " + data)
