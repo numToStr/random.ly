@@ -4,7 +4,7 @@ class Users {
   }
 
   addUser(id, name, room) {
-    const user = { id, name, room };
+    const user = { id, name, room, joinedAt: new Date() };
     this.users.push(user);
     return user;
   }
