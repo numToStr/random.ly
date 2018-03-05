@@ -35,16 +35,10 @@ class Chat extends Component {
       for (const param of query.entries()) {
         data[param[0]] = param[1];
       }
+
       this.setState({ currentUser: data });
 
-      this.state.io.emit("join", data, err => {
-        if (err) {
-          alert(err);
-          // this.props.history.goBack();
-        } else {
-          console.log("User Connected", this.state.currentUser);
-        }
-      });
+      this.onJoin();
     });
   };
 
@@ -62,6 +56,17 @@ class Chat extends Component {
     this.state.io.on("updateUserList", users =>
       this.setState({ userList: users })
     );
+  };
+
+  onJoin = () => {
+    this.state.io.emit("join", this.state.currentUser, err => {
+      if (err) {
+        alert(err);
+        // this.props.history.goBack();
+      } else {
+        console.log("User Connected", this.state.currentUser);
+      }
+    });
   };
 
   onDisconnect = () => {
