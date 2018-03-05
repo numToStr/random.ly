@@ -13,7 +13,7 @@ class Chat extends Component {
     connect: null,
     messages: [],
     currentUser: {},
-    userList: []
+    usersList: []
   };
 
   componentDidMount() {
@@ -54,7 +54,7 @@ class Chat extends Component {
 
   onUpdateUserList = () => {
     this.state.io.on("updateUserList", users =>
-      this.setState({ userList: users })
+      this.setState({ usersList: users })
     );
   };
 
@@ -107,7 +107,10 @@ class Chat extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-4 px-0">
-              <UsersList />
+              <UsersList
+                usersList={this.state.usersList}
+                currentUser={this.state.currentUser}
+              />
             </div>
             <div className="col-8">
               <div className="d-flex flex-column vh-100">
