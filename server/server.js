@@ -4,12 +4,14 @@ const socketIO = require("socket.io");
 
 const { generateMsg } = require("./utils/message");
 const { isRealString } = require("./utils/validation");
+const { Users } = require("./utils/users");
 
 const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
 
 const port = process.env.PORT || 5000;
+const users = new Users();
 
 server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
@@ -23,9 +25,14 @@ io.on("connection", client => {
 
   client.on("join", (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
-      callback("Display Name or Room Name is not valid.");
+      return callback("Display Name or Room Name is not valid.");
     }
+
     client.join(params.room);
+
+    users.removeUser(client.id);
+    users.addUser(client.id, params.name, params.room);
+    io.emit("updateUserList", users.getUserList(params.room));
     // client.leave(params.room);
 
     // io.emit() -> io.to('room').emit();
@@ -38,7 +45,7 @@ io.on("connection", client => {
     );
     client.broadcast
       .in(params.room)
-      .emit("newMessage", generateMsg("ADMIN", `${params.name} joined`));
+      .emit("newMessage", generateMsg("ADMIN", `${params.name} has joined`));
 
     callback();
   });
@@ -49,6 +56,12 @@ io.on("connection", client => {
   });
 
   client.on("disconnect", () => {
-    console.log("User Disconnected.");
+    const user = users.removeUser(client.id);
+    if (user) {
+      io.to(user.room).emit("updateUserList", users.getUser(user.room));
+      io
+        .to(user.room)
+        .emit("newMessage", generateMsg("ADMIN", `${user.name} has left`));
+    }
   });
 });

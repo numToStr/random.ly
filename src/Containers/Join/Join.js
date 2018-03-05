@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import socketIO from "socket.io-client";
 
 class Join extends Component {
   state = {
@@ -18,23 +17,10 @@ class Join extends Component {
     ];
     const queryString = queryParams.join("&");
 
-    socketIO().emit(
-      "join",
-      {
-        name: this.state.displayName,
-        room: this.state.roomName
-      },
-      err => {
-        if (err) {
-          alert(err);
-        } else {
-          this.props.history.push({
-            pathname: "/chat",
-            search: "?" + queryString
-          });
-        }
-      }
-    );
+    this.props.history.push({
+      pathname: "/chat",
+      search: "?" + queryString
+    });
   };
 
   render() {

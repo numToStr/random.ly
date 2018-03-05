@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import ReactDOM from "react-dom";
 import socketIO from "socket.io-client";
 
 import Input from "../Input/Input";
@@ -17,20 +18,32 @@ class Chat extends Component {
   componentDidMount() {
     this.onConnect();
     this.onNewMessage();
+    this.onUpdateUserList();
     this.onDisconnect();
 
-    const query = new URLSearchParams(this.props.location.search);
-    const data = {};
-    for (const param of query.entries()) {
-      data[param[0]] = param[1];
-    }
-    this.setState({ chatData: data });
+    // const node = ReactDOM.findDOMNode(this.msgList);
+    // console.log(node);
   }
 
   onConnect = () => {
     this.state.io.on("connect", () => {
       this.setState({ connect: "User Connected" });
-      console.log("User Connected");
+
+      const query = new URLSearchParams(this.props.location.search);
+      const data = {};
+      for (const param of query.entries()) {
+        data[param[0]] = param[1];
+      }
+      this.setState({ chatData: data });
+
+      this.state.io.emit("join", data, err => {
+        if (err) {
+          alert(err);
+          // this.props.history.goBack();
+        } else {
+          console.log("User Connected");
+        }
+      });
     });
   };
 
@@ -43,6 +56,10 @@ class Chat extends Component {
       });
       //   console.log(this.state.messages);
     });
+  };
+
+  onUpdateUserList = () => {
+    this.state.io.on("updateUserList", users => console.log("List", users));
   };
 
   onDisconnect = () => {
@@ -91,7 +108,10 @@ class Chat extends Component {
                   className="flex-grow overflow-auto"
                   ref={el => (this.messagesListContainer = el)}
                 >
-                  <MessagesList messagesList={this.state.messages} />
+                  <MessagesList
+                    ref={el => (this.msgList = el)}
+                    messagesList={this.state.messages}
+                  />
                 </div>
                 <small>{this.state.connect}</small>
                 <Input submit={this.onCreateMessage} />
