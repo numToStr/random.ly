@@ -1,17 +1,33 @@
 import React from "react";
 
+import styles from "./Message.css";
+
 const message = props => {
+  const createdAt = new Date(props.message.createdAt);
+
   return (
-    <div>
-      <div className="d-inline-block my-2">
-        <div className="bg-primary text-white py-2 px-3 rounded">
-          <small>{props.message.from + ": " + props.message.text}</small>
+    <section>
+      <div className="d-inline-block mb-2 ml-3">
+        <small
+          className={
+            "bg-light text-muted px-3 d-inline-block box-shadow badge-pill " +
+            styles.MessageOwner
+          }
+        >
+          {props.message.from}
+        </small>
+        <div
+          className={
+            "bg-primary text-white py-2 px-3 box-shadow " + styles.MessageText
+          }
+        >
+          <small>{props.message.text}</small>
         </div>
-        <div className="text-right">
-          <small>{props.message.createdAt}</small>
+        <div className="text-right text-secondary">
+          <small>{`${createdAt.getHours()} : ${createdAt.getMinutes()}`}</small>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

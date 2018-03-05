@@ -1,0 +1,22 @@
+.MessageOwner {
+  transform: translate(10%, 40%);
+  position: relative;
+  z-index: 5;
+}
+
+.MessageText {
+  position: relative;
+  min-width: 5rem;
+}
+
+.MessageText::before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-top: 0.8rem solid #007bff;
+  border-right: 0.8rem solid transparent;
+  border-left: 0.8rem solid transparent;
+  left: -0.8rem;
+  top: 0;
+}
