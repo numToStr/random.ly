@@ -11,6 +11,11 @@ class Join extends Component {
   goToChat = e => {
     e.preventDefault();
 
+    if (!this.state.displayName || !this.state.roomName) {
+      alert("Display Name or Room Name is not valid.");
+      return;
+    }
+
     const queryParams = [
       encodeURIComponent("name") +
         "=" +

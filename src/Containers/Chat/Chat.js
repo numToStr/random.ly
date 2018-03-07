@@ -62,7 +62,7 @@ class Chat extends Component {
     this.state.io.emit("join", this.state.currentUser, err => {
       if (err) {
         alert(err);
-        // this.props.history.goBack();
+        this.props.history.replace("/");
       } else {
         console.log("User Connected", this.state.currentUser);
       }
