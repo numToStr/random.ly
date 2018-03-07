@@ -1,12 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 import Message from "./Message/Message";
 
-const Messages = props => {
-  const message = props.messages.map(msg => (
-    <Message key={msg.createdAt} message={msg} />
-  ));
-
-  return <div>{message}</div>;
-};
+class Messages extends Component {
+  render() {
+    return this.props.messages.map(msg => (
+      <Message key={msg.createdAt} message={msg} />
+    ));
+  }
+}
 
 export default Messages;

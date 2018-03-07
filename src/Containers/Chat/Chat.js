@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import ReactDOM from "react-dom";
 import socketIO from "socket.io-client";
 
 import Input from "../Input/Input";
@@ -21,9 +20,6 @@ class Chat extends Component {
     this.onNewMessage();
     this.onUpdateUserList();
     this.onDisconnect();
-
-    // const node = ReactDOM.findDOMNode(this.msgList);
-    // console.log(node);
   }
 
   onConnect = () => {
@@ -82,23 +78,10 @@ class Chat extends Component {
     this.state.io.emit(
       "createMessage",
       {
-        // from: this.state.chatData.name,
         text: msg
       },
       data => console.log("Got It: " + data)
     );
-  };
-
-  scrollToBottom = () => {
-    const container = this.messagesListContainer;
-
-    const clientHeight = container.clientHeight;
-    const scrollTop = container.scrollTop;
-    const scrollHeight = container.scrollHeight;
-
-    if (clientHeight + scrollTop >= scrollHeight) {
-      console.log("should scroll");
-    }
   };
 
   render() {
@@ -106,23 +89,16 @@ class Chat extends Component {
       <AuxComp>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-4 px-0">
-              <UsersList
-                usersList={this.state.usersList}
-                currentUser={this.state.currentUser}
-              />
-            </div>
-            <div className="col-8">
+            <UsersList
+              usersList={this.state.usersList}
+              currentUser={this.state.currentUser}
+            />
+            <div className="col-12 col-md-8">
               <div className="d-flex flex-column vh-100">
-                <div
-                  className="flex-grow overflow-auto"
-                  ref={el => (this.messagesListContainer = el)}
-                >
-                  <MessagesList
-                    ref={el => (this.msgList = el)}
-                    messagesList={this.state.messages}
-                  />
-                </div>
+                <MessagesList
+                  ref={el => (this.msgList = el)}
+                  messagesList={this.state.messages}
+                />
                 <small>{this.state.connect}</small>
                 <Input submit={this.onCreateMessage} />
               </div>
