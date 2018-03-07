@@ -45,6 +45,8 @@ class Chat extends Component {
           messages: [...prevState.messages, msg]
         };
       });
+
+      this.scrollToBottom();
     });
   };
 
@@ -84,6 +86,31 @@ class Chat extends Component {
     );
   };
 
+  scrollToBottom = () => {
+    const messagesContainer = this.messagesListContainer;
+    const newMessage =
+      messagesContainer.children[messagesContainer.children.length - 1];
+    const lastMessage = messagesContainer.children[
+      messagesContainer.children.length - 2
+    ]
+      ? messagesContainer.children[messagesContainer.children.length - 2]
+      : 0;
+
+    const clientHeight = messagesContainer.clientHeight;
+    const scrollTop = messagesContainer.scrollTop;
+    const scrollHeight = messagesContainer.scrollHeight;
+
+    const newMessageHeight = newMessage.clientHeight;
+    const lastMessageHeight = lastMessage.clientHeight;
+
+    if (
+      clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
+      scrollHeight
+    ) {
+      messagesContainer.scrollTop = scrollHeight;
+    }
+  };
+
   render() {
     return (
       <AuxComp>
@@ -95,11 +122,13 @@ class Chat extends Component {
             />
             <div className="col-12 col-md-8">
               <div className="d-flex flex-column vh-100">
-                <MessagesList
-                  ref={el => (this.msgList = el)}
-                  messagesList={this.state.messages}
-                />
-                <small>{this.state.connect}</small>
+                <div
+                  className="flex-grow overflow-auto mt-2"
+                  ref={el => (this.messagesListContainer = el)}
+                >
+                  <MessagesList messagesList={this.state.messages} />
+                </div>
+                {/* <small>{this.state.connect}</small> */}
                 <Input submit={this.onCreateMessage} />
               </div>
             </div>

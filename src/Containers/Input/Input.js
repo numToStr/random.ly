@@ -4,11 +4,7 @@ import Textarea from "../../Components/Textarea/Textarea";
 
 class Input extends Component {
   render() {
-    return (
-      <div>
-        <Textarea submit={this.props.submit} />
-      </div>
-    );
+    return <Textarea submit={this.props.submit} />;
   }
 }
 
