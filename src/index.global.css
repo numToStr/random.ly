@@ -27,3 +27,19 @@
   border-radius: 3em;
   background: #aaa;
 }
+
+.btn-primary-randomly {
+  color: #fff;
+  background: #0fa;
+}
+.btn-primary-randomly:hover {
+  color: #fff;
+  background: #00dd8d;
+}
+.btn-primary-randomly:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 170, 0.5);
+}
+
+/* .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 170, 0.5) !important;
+} */

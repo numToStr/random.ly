@@ -71,10 +71,7 @@ class Join extends Component {
                 />
               </div>
               <div className="text-center">
-                <button
-                  className="btn w-100 badge-pill text-white font-weight-bold"
-                  style={{ background: "#0fa" }}
-                >
+                <button className="btn btn-primary-randomly w-100 badge-pill text-white font-weight-bold">
                   Let's Chat
                 </button>
               </div>
