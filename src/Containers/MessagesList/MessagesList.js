@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import Message from "../../Components/Message/Message";
 
 class MessagesList extends Component {
@@ -10,4 +12,10 @@ class MessagesList extends Component {
   }
 }
 
-export default MessagesList;
+const mapStateToProps = state => {
+  return {
+    messagesList: state.messages
+  };
+};
+
+export default connect(mapStateToProps)(MessagesList);

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import socketIO from "socket.io-client";
 
+import * as actionTypes from "../../store/actionTypes";
+
 import Input from "../Input/Input";
 import AuxComp from "../../HOC/AuxComp";
 import MessagesList from "../MessagesList/MessagesList";
@@ -35,7 +37,7 @@ class Chat extends Component {
           messages: [...prevState.messages, msg]
         };
       });
-
+      this.props.onSetMessages(this.state.messages);
       this.scrollToBottom();
     });
   };
@@ -131,7 +133,7 @@ class Chat extends Component {
                   className="flex-grow overflow-auto mt-2"
                   ref={el => (this.messagesListContainer = el)}
                 >
-                  <MessagesList messagesList={this.state.messages} />
+                  <MessagesList />
                 </div>
                 {/* <small>{this.state.connect}</small> */}
                 <Input submit={this.onCreateMessage} />
@@ -150,4 +152,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Chat);
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetMessages: messages =>
+      dispatch({ type: actionTypes.SET_MESSAGES, messages })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

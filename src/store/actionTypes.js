@@ -1,0 +1,2 @@
+export const SET_CURRENTUSER = "SET_CURRENTUSER";
+export const SET_MESSAGES = "SET_MESSAGES";
