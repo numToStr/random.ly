@@ -8,8 +8,8 @@ const setCurrentUser = (state, action) => {
   return {
     ...state,
     currentUser: {
-      name: "Vikas",
-      room: "test101"
+      name: action.currentUser.name,
+      room: action.currentUser.room
     }
   };
 };

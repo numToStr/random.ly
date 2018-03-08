@@ -17,19 +17,6 @@ class Join extends Component {
     //   return;
     // }
 
-    // const queryParams = [
-    //   encodeURIComponent("name") +
-    //     "=" +
-    //     encodeURIComponent(this.state.displayName),
-    //   encodeURIComponent("room") + "=" + encodeURIComponent(this.state.roomName)
-    // ];
-    // const queryString = queryParams.join("&");
-
-    // this.props.history.push({
-    //   pathname: "/chat",
-    //   search: "?" + queryString
-    // });
-
     this.props.onSetCurrentUser({
       name: this.state.displayName,
       room: this.state.roomName
@@ -89,12 +76,6 @@ class Join extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     ...state
-//   };
-// };
-
 const mapDispatchToProps = dispatch => {
   return {
     onSetCurrentUser: currentUser =>
@@ -102,4 +83,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(/*mapStateToProps*/ null, mapDispatchToProps)(Join);
+export default connect(null, mapDispatchToProps)(Join);
