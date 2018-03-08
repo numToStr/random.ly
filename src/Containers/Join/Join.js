@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import RandomLy from "../../assets/images/random-ly";
 
@@ -11,22 +12,27 @@ class Join extends Component {
   goToChat = e => {
     e.preventDefault();
 
-    if (!this.state.displayName || !this.state.roomName) {
-      alert("Display Name or Room Name is not valid.");
-      return;
-    }
+    // if (!this.state.displayName || !this.state.roomName) {
+    //   alert("Display Name or Room Name is not valid.");
+    //   return;
+    // }
 
-    const queryParams = [
-      encodeURIComponent("name") +
-        "=" +
-        encodeURIComponent(this.state.displayName),
-      encodeURIComponent("room") + "=" + encodeURIComponent(this.state.roomName)
-    ];
-    const queryString = queryParams.join("&");
+    // const queryParams = [
+    //   encodeURIComponent("name") +
+    //     "=" +
+    //     encodeURIComponent(this.state.displayName),
+    //   encodeURIComponent("room") + "=" + encodeURIComponent(this.state.roomName)
+    // ];
+    // const queryString = queryParams.join("&");
 
-    this.props.history.push({
-      pathname: "/chat",
-      search: "?" + queryString
+    // this.props.history.push({
+    //   pathname: "/chat",
+    //   search: "?" + queryString
+    // });
+
+    this.props.onSetCurrentUser({
+      name: this.state.displayName,
+      room: this.state.roomName
     });
   };
 
@@ -83,4 +89,17 @@ class Join extends Component {
   }
 }
 
-export default Join;
+// const mapStateToProps = state => {
+//   return {
+//     ...state
+//   };
+// };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetCurrentUser: currentUser =>
+      dispatch({ type: "SET_CURRENTUSER", currentUser })
+  };
+};
+
+export default connect(/*mapStateToProps*/ null, mapDispatchToProps)(Join);
