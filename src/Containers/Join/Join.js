@@ -12,15 +12,20 @@ class Join extends Component {
   goToChat = e => {
     e.preventDefault();
 
-    // if (!this.state.displayName || !this.state.roomName) {
-    //   alert("Display Name or Room Name is not valid.");
-    //   return;
-    // }
+    if (!this.state.displayName || !this.state.roomName) {
+      alert("Display Name or Room Name is not valid.");
+      return;
+    }
 
     this.props.onSetCurrentUser({
       name: this.state.displayName,
       room: this.state.roomName
     });
+
+    sessionStorage.setItem("name", this.state.displayName);
+    sessionStorage.setItem("room", this.state.roomName);
+
+    this.props.history.replace("/chat");
   };
 
   render() {

@@ -1,5 +1,8 @@
 const initState = {
-  currentUser: {},
+  currentUser: {
+    name: "",
+    room: ""
+  },
   users: [],
   messages: []
 };

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import socketIO from "socket.io-client";
 
 import Input from "../Input/Input";
@@ -11,7 +12,6 @@ class Chat extends Component {
     io: socketIO(),
     connect: null,
     messages: [],
-    currentUser: {},
     usersList: []
   };
 
@@ -24,16 +24,6 @@ class Chat extends Component {
 
   onConnect = () => {
     this.state.io.on("connect", () => {
-      this.setState({ connect: "User Connected" });
-
-      const query = new URLSearchParams(this.props.location.search);
-      const data = {};
-      for (const param of query.entries()) {
-        data[param[0]] = param[1];
-      }
-
-      this.setState({ currentUser: data });
-
       this.onJoin();
     });
   };
@@ -56,13 +46,28 @@ class Chat extends Component {
     );
   };
 
+  onGetCurrentUser = () => {
+    const u = {};
+    for (const key in this.props.currentUser) {
+      const val = this.props.currentUser[key];
+      if (val) {
+        u[key] = val;
+      } else {
+        u[key] = sessionStorage[key];
+      }
+    }
+    return u;
+  };
+
   onJoin = () => {
-    this.state.io.emit("join", this.state.currentUser, err => {
+    const curUser = this.onGetCurrentUser();
+    this.state.io.emit("join", curUser, err => {
       if (err) {
         alert(err);
         this.props.history.replace("/");
       } else {
-        console.log("User Connected", this.state.currentUser);
+        this.setState({ connect: "User Connected" });
+        console.log("User Connected", curUser);
       }
     });
   };
@@ -118,7 +123,7 @@ class Chat extends Component {
           <div className="row">
             <UsersList
               usersList={this.state.usersList}
-              currentUser={this.state.currentUser}
+              currentUser={this.props.currentUser}
             />
             <div className="col-12 col-md-8">
               <div className="d-flex flex-column vh-100">
@@ -139,4 +144,10 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser
+  };
+};
+
+export default connect(mapStateToProps)(Chat);
