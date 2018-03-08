@@ -12,9 +12,7 @@ import UsersList from "../UsersList/UsersList";
 class Chat extends Component {
   state = {
     io: socketIO(),
-    connect: null,
-    messages: [],
-    usersList: []
+    connect: null
   };
 
   componentDidMount() {
@@ -31,20 +29,16 @@ class Chat extends Component {
   };
 
   onNewMessage = () => {
+    let msgs = [];
     this.state.io.on("newMessage", msg => {
-      this.setState((prevState, props) => {
-        return {
-          messages: [...prevState.messages, msg]
-        };
-      });
-      this.props.onSetMessages(this.state.messages);
+      msgs = [...msgs, msg];
+      this.props.onSetMessages(msgs);
       this.scrollToBottom();
     });
   };
 
   onUpdateUserList = () => {
     this.state.io.on("updateUserList", users => {
-      this.setState({ usersList: users });
       this.props.onSetUsers(users);
     });
   };
