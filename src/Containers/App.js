@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import Chat from "./Chat/Chat";
-import Join from "./Join/Join";
+import AsyncComp from "../HOC/AsyncComponent";
+
+const Chat = AsyncComp(() => import("./Chat/Chat"));
+const Join = AsyncComp(() => import("./Join/Join"));
 
 class App extends Component {
   render() {
