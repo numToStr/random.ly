@@ -43,9 +43,10 @@ class Chat extends Component {
   };
 
   onUpdateUserList = () => {
-    this.state.io.on("updateUserList", users =>
-      this.setState({ usersList: users })
-    );
+    this.state.io.on("updateUserList", users => {
+      this.setState({ usersList: users });
+      this.props.onSetUsers(users);
+    });
   };
 
   onGetCurrentUser = () => {
@@ -58,18 +59,18 @@ class Chat extends Component {
         u[key] = sessionStorage[key];
       }
     }
-    return u;
+    this.props.onSetCurrentUser(u);
   };
 
   onJoin = () => {
-    const curUser = this.onGetCurrentUser();
-    this.state.io.emit("join", curUser, err => {
+    this.onGetCurrentUser();
+    this.state.io.emit("join", this.props.currentUser, err => {
       if (err) {
         alert(err);
         this.props.history.replace("/");
       } else {
         this.setState({ connect: "User Connected" });
-        console.log("User Connected", curUser);
+        console.log("User Connected", this.props.currentUser);
       }
     });
   };
@@ -123,10 +124,7 @@ class Chat extends Component {
       <AuxComp>
         <div className="container-fluid">
           <div className="row">
-            <UsersList
-              usersList={this.state.usersList}
-              currentUser={this.props.currentUser}
-            />
+            <UsersList />
             <div className="col-12 col-md-8">
               <div className="d-flex flex-column vh-100">
                 <div
@@ -154,8 +152,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onSetCurrentUser: currentUser =>
+      dispatch({ type: actionTypes.SET_CURRENTUSER, currentUser }),
     onSetMessages: messages =>
-      dispatch({ type: actionTypes.SET_MESSAGES, messages })
+      dispatch({ type: actionTypes.SET_MESSAGES, messages }),
+    onSetUsers: users => dispatch({ type: actionTypes.SET_USERS, users })
   };
 };
 

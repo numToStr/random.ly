@@ -23,12 +23,21 @@ const setMessages = (state, action) => {
   };
 };
 
+const setUsers = (state, action) => {
+  return {
+    ...state,
+    users: action.users
+  };
+};
+
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.SET_CURRENTUSER:
       return setCurrentUser(state, action);
     case actionTypes.SET_MESSAGES:
       return setMessages(state, action);
+    case actionTypes.SET_USERS:
+      return setUsers(state, action);
     default:
       return state;
   }
