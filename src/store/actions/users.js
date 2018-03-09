@@ -6,10 +6,3 @@ export const setUsers = users => {
     users
   };
 };
-
-export const setCurrentUser = currentUser => {
-  return {
-    type: actionTypes.SET_CURRENTUSER,
-    currentUser
-  };
-};

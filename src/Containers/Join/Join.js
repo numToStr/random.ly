@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { setCurrentUser, auth } from "../../store/actions/index";
+import { auth } from "../../store/actions/index";
 
 import RandomLy from "../../assets/images/random-ly";
 
@@ -13,20 +13,12 @@ class Join extends Component {
 
   goToChat = e => {
     e.preventDefault();
-
     if (!this.state.displayName || !this.state.roomName) {
       alert("Display Name or Room Name is not valid.");
       return;
     }
 
-    this.props.onSetCurrentUser({
-      name: this.state.displayName,
-      room: this.state.roomName
-    });
-
-    sessionStorage.setItem("name", this.state.displayName);
-    sessionStorage.setItem("room", this.state.roomName);
-    this.props.onAuth();
+    this.props.onAuth(this.state.displayName, this.state.roomName);
     // this.props.history.replace("/chat");
   };
 
@@ -85,8 +77,7 @@ class Join extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetCurrentUser: currentUser => dispatch(setCurrentUser(currentUser)),
-    onAuth: () => dispatch(auth())
+    onAuth: (name, room) => dispatch(auth(name, room))
   };
 };
 

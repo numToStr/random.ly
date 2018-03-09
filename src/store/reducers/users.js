@@ -11,7 +11,7 @@ const initState = {
 const setCurrentUser = (state, action) => {
   return {
     ...state,
-    currentUser: action.currentUser
+    currentUser: action.data
   };
 };
 
@@ -24,7 +24,7 @@ const setUsers = (state, action) => {
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.SET_CURRENTUSER:
+    case actionTypes.AUTH_SUCCESS:
       return setCurrentUser(state, action);
 
     case actionTypes.SET_USERS:
