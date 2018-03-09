@@ -21,8 +21,8 @@ class UsersList extends Component {
 
 const mapStateToProps = state => {
   return {
-    usersList: state.users,
-    currentUser: state.currentUser
+    usersList: state.users.users,
+    currentUser: state.users.currentUser
   };
 };
 
