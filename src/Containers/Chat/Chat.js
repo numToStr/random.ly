@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import socketIO from "socket.io-client";
 
-import * as actionTypes from "../../store/actionTypes";
+import {
+  setCurrentUser,
+  setUsers,
+  messageRecieved
+} from "../../store/actions/index";
 
 import Input from "../Input/Input";
 import AuxComp from "../../HOC/AuxComp";
@@ -146,11 +150,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetCurrentUser: currentUser =>
-      dispatch({ type: actionTypes.SET_CURRENTUSER, currentUser }),
-    onSetMessages: messages =>
-      dispatch({ type: actionTypes.SET_MESSAGES, messages }),
-    onSetUsers: users => dispatch({ type: actionTypes.SET_USERS, users })
+    onSetCurrentUser: currentUser => dispatch(setCurrentUser(currentUser)),
+    onSetMessages: messages => dispatch(messageRecieved(messages)),
+    onSetUsers: users => dispatch(setUsers(users))
   };
 };
 

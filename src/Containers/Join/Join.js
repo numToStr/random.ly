@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import * as actionTypes from "../../store/actionTypes";
+import { setCurrentUser } from "../../store/actions/index";
 
 import RandomLy from "../../assets/images/random-ly";
 
@@ -85,8 +85,7 @@ class Join extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetCurrentUser: currentUser =>
-      dispatch({ type: actionTypes.SET_CURRENTUSER, currentUser })
+    onSetCurrentUser: currentUser => dispatch(setCurrentUser(currentUser))
   };
 };
 
