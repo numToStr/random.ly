@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { setCurrentUser } from "../../store/actions/index";
+import { setCurrentUser, auth } from "../../store/actions/index";
 
 import RandomLy from "../../assets/images/random-ly";
 
@@ -26,8 +26,8 @@ class Join extends Component {
 
     sessionStorage.setItem("name", this.state.displayName);
     sessionStorage.setItem("room", this.state.roomName);
-
-    this.props.history.replace("/chat");
+    this.props.onAuth();
+    // this.props.history.replace("/chat");
   };
 
   render() {
@@ -85,7 +85,8 @@ class Join extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetCurrentUser: currentUser => dispatch(setCurrentUser(currentUser))
+    onSetCurrentUser: currentUser => dispatch(setCurrentUser(currentUser)),
+    onAuth: () => dispatch(auth())
   };
 };
 

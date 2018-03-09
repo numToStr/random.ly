@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 
 import "./index.global.css";
 
@@ -20,7 +21,7 @@ const REDUCER = combineReducers({
   users: usersReducer
 });
 
-const STORE = createStore(REDUCER, composeEnhancers(applyMiddleware()));
+const STORE = createStore(REDUCER, composeEnhancers(applyMiddleware(thunk)));
 
 const APP = (
   <Provider store={STORE}>

@@ -68,3 +68,9 @@ io.on("connection", client => {
     }
   });
 });
+
+app.get("/auth", (req, res) => {
+  res.send({
+    message: "[auth]: successful"
+  });
+});
