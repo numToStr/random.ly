@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import io from "../../store/socket";
+import socketIO from "socket.io-client";
 
+import io from "../../store/socket";
 import {
   setCurrentUser,
   setUsers,
-  messageRecieved
+  messageRecieved,
+  auth
 } from "../../store/actions/index";
 
 import Input from "../Input/Input";
@@ -15,28 +17,30 @@ import UsersList from "../UsersList/UsersList";
 
 class Chat extends Component {
   state = {
+    io: socketIO(),
     connect: null
   };
 
   componentDidMount() {
+    this.onGetCurrentUser();
     this.onConnect();
-    this.onUpdateUserList();
     this.onDisconnect();
   }
 
   onConnect = () => {
-    io.on("connect", () => {
-      this.onGetCurrentUser();
+    this.state.io.on("connect", () => {
+      this.props.onAuth(
+        this.props.currentUser.name,
+        this.props.currentUser.room
+      );
       this.onNewMessage();
-      this.onJoin();
+      this.onUpdateUserList();
     });
   };
 
   onNewMessage = () => {
     let msgs = [];
     io.on("newMessage", msg => {
-      console.error(msg);
-
       msgs = [...msgs, msg];
       this.props.onSetMessages(msgs);
       this.scrollToBottom();
@@ -62,18 +66,6 @@ class Chat extends Component {
     this.props.onSetCurrentUser(u);
   };
 
-  onJoin = () => {
-    io.emit("join", this.props.currentUser, err => {
-      if (err) {
-        console.error(err);
-        this.props.history.replace("/");
-      } else {
-        this.setState({ connect: "User Connected" });
-        console.log("User Connected", this.props.currentUser);
-      }
-    });
-  };
-
   onDisconnect = () => {
     io.on("disconnect", () => {
       this.setState({ connect: "User Disconnected" });
@@ -84,13 +76,9 @@ class Chat extends Component {
   onCreateMessage = (e, msg) => {
     e.preventDefault();
 
-    io.emit(
-      "createMessage",
-      {
-        text: msg
-      },
-      data => console.log("Got It: " + data)
-    );
+    io.emit("createMessage", {
+      text: msg
+    });
   };
 
   scrollToBottom = () => {
@@ -151,6 +139,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onAuth: (name, room) => dispatch(auth(name, room)),
     onSetCurrentUser: currentUser => dispatch(setCurrentUser(currentUser)),
     onSetMessages: messages => dispatch(messageRecieved(messages)),
     onSetUsers: users => dispatch(setUsers(users))

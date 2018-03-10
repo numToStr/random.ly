@@ -57,8 +57,6 @@ io.on("connection", client => {
     if (user && isRealString(msg.text)) {
       io.in(user.room).emit("newMessage", generateMsg(user.name, msg.text));
     }
-
-    callback("Succesfull");
   });
 
   client.on("disconnect", () => {
