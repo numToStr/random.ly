@@ -13,12 +13,14 @@ import registerServiceWorker from "./registerServiceWorker";
 //reducer
 import messagesReducer from "./store/reducers/messages";
 import usersReducer from "./store/reducers/users";
+import authReducer from "./store/reducers/auth";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const REDUCER = combineReducers({
   messages: messagesReducer,
-  users: usersReducer
+  users: usersReducer,
+  auth: authReducer
 });
 
 const STORE = createStore(REDUCER, composeEnhancers(applyMiddleware(thunk)));

@@ -18,12 +18,12 @@ server.listen(port, () => {
 });
 
 io.on("connection", client => {
-  console.log("New User Connected.");
-
   client.on("join", (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       return callback("Display Name or Room Name is not valid.");
     }
+
+    console.log("New User Connected.");
 
     client.join(params.room);
     // client.leave(params.room);
@@ -45,7 +45,7 @@ io.on("connection", client => {
       .in(params.room)
       .emit("newMessage", generateMsg("ADMIN", `${params.name} has joined`));
 
-    callback();
+    callback(null, { ...params, id: client.id });
   });
 
   client.on("createMessage", (msg, callback) => {

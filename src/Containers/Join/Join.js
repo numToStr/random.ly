@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { auth } from "../../store/actions/index";
@@ -17,13 +18,11 @@ class Join extends Component {
       alert("Display Name or Room Name is not valid.");
       return;
     }
-
     this.props.onAuth(this.state.displayName, this.state.roomName);
-    // this.props.history.replace("/chat");
   };
 
   render() {
-    return (
+    let join = (
       <div className="container">
         <div className="row">
           <div className="col-11 col-md-6 col-lg-4 mx-auto pt-4">
@@ -72,8 +71,20 @@ class Join extends Component {
         </div>
       </div>
     );
+
+    if (this.props.isAuth) {
+      join = <Redirect to="/chat" />;
+    }
+
+    return join;
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    isAuth: state.auth.token !== null
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -81,4 +92,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Join);
+export default connect(mapStateToProps, mapDispatchToProps)(Join);

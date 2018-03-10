@@ -30,13 +30,15 @@ export const auth = (name, room) => {
       room
     };
 
-    io.emit("join", currentUser, err => {
+    io.emit("join", currentUser, (err, data) => {
       if (err) {
         dispatch(authFail(err));
-        alert(err);
       } else {
-        dispatch(authSuccess(currentUser));
-        console.log("User Connected", currentUser);
+        dispatch(authSuccess(data));
+        sessionStorage.setItem("name", data.name);
+        sessionStorage.setItem("room", data.room);
+        sessionStorage.setItem("id", data.id);
+        console.log("User Connected", data);
       }
     });
   };
