@@ -35,9 +35,9 @@ export const auth = (name, room) => {
         dispatch(authFail(err));
       } else {
         dispatch(authSuccess(data));
-        sessionStorage.setItem("name", data.name);
-        sessionStorage.setItem("room", data.room);
-        sessionStorage.setItem("id", data.id);
+        sessionStorage.setItem("name", data.currentUser.name);
+        sessionStorage.setItem("room", data.currentUser.room);
+        sessionStorage.setItem("id", data.currentUser.id);
         console.log("User Connected", data);
       }
     });

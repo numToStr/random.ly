@@ -45,7 +45,10 @@ io.on("connection", client => {
       .in(params.room)
       .emit("newMessage", generateMsg("ADMIN", `${params.name} has joined`));
 
-    callback(null, { ...params, id: client.id });
+    callback(null, {
+      currentUser: { ...params, id: client.id },
+      users: users.getUserList(params.room)
+    });
   });
 
   client.on("createMessage", (msg, callback) => {

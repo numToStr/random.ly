@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import socketIO from "socket.io-client";
+import io from "../../store/socket";
 
 import {
   setCurrentUser,
@@ -15,26 +15,28 @@ import UsersList from "../UsersList/UsersList";
 
 class Chat extends Component {
   state = {
-    io: socketIO(),
     connect: null
   };
 
   componentDidMount() {
     this.onConnect();
-    this.onNewMessage();
     this.onUpdateUserList();
     this.onDisconnect();
   }
 
   onConnect = () => {
-    this.state.io.on("connect", () => {
+    io.on("connect", () => {
+      this.onGetCurrentUser();
+      this.onNewMessage();
       this.onJoin();
     });
   };
 
   onNewMessage = () => {
     let msgs = [];
-    this.state.io.on("newMessage", msg => {
+    io.on("newMessage", msg => {
+      console.error(msg);
+
       msgs = [...msgs, msg];
       this.props.onSetMessages(msgs);
       this.scrollToBottom();
@@ -42,7 +44,7 @@ class Chat extends Component {
   };
 
   onUpdateUserList = () => {
-    this.state.io.on("updateUserList", users => {
+    io.on("updateUserList", users => {
       this.props.onSetUsers(users);
     });
   };
@@ -61,10 +63,9 @@ class Chat extends Component {
   };
 
   onJoin = () => {
-    this.onGetCurrentUser();
-    this.state.io.emit("join", this.props.currentUser, err => {
+    io.emit("join", this.props.currentUser, err => {
       if (err) {
-        alert(err);
+        console.error(err);
         this.props.history.replace("/");
       } else {
         this.setState({ connect: "User Connected" });
@@ -74,7 +75,7 @@ class Chat extends Component {
   };
 
   onDisconnect = () => {
-    this.state.io.on("disconnect", () => {
+    io.on("disconnect", () => {
       this.setState({ connect: "User Disconnected" });
       console.log("User Disconnected");
     });
@@ -83,7 +84,7 @@ class Chat extends Component {
   onCreateMessage = (e, msg) => {
     e.preventDefault();
 
-    this.state.io.emit(
+    io.emit(
       "createMessage",
       {
         text: msg
