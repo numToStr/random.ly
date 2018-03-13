@@ -12,13 +12,22 @@ class Join extends Component {
     roomName: ""
   };
 
+  componentDidUpdate() {
+    console.log(this.props.isAuth);
+  }
+
   goToChat = e => {
     e.preventDefault();
     if (!this.state.displayName || !this.state.roomName) {
       alert("Display Name or Room Name is not valid.");
       return;
     }
-    this.props.onAuth(this.state.displayName, this.state.roomName);
+
+    const userId = `__${this.state.displayName}__${
+      this.state.roomName
+    }__${new Date().toLocaleTimeString()}`.replace(/ /, "_");
+
+    this.props.onAuth(this.state.displayName, this.state.roomName, userId);
   };
 
   render() {
@@ -88,7 +97,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (name, room) => dispatch(auth(name, room))
+    onAuth: (name, room, id) => dispatch(auth(name, room, id))
   };
 };
 

@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import socketIO from "socket.io-client";
 
-import io from "../../store/socket";
 import {
   setCurrentUser,
   setUsers,
-  messageRecieved,
-  auth
+  messageRecieved
 } from "../../store/actions/index";
 
 import Input from "../Input/Input";
@@ -15,26 +13,23 @@ import AuxComp from "../../HOC/AuxComp";
 import MessagesList from "../MessagesList/MessagesList";
 import UsersList from "../UsersList/UsersList";
 
+const io = socketIO();
+
 class Chat extends Component {
   state = {
-    io: socketIO(),
     connect: null
   };
 
   componentDidMount() {
-    this.onGetCurrentUser();
     this.onConnect();
+    this.onNewMessage();
+    this.onUpdateUserList();
     this.onDisconnect();
   }
 
   onConnect = () => {
-    this.state.io.on("connect", () => {
-      this.props.onAuth(
-        this.props.currentUser.name,
-        this.props.currentUser.room
-      );
-      this.onNewMessage();
-      this.onUpdateUserList();
+    io.on("connect", () => {
+      this.onJoin();
     });
   };
 
@@ -64,6 +59,23 @@ class Chat extends Component {
       }
     }
     this.props.onSetCurrentUser(u);
+  };
+
+  onJoin = () => {
+    this.onGetCurrentUser();
+
+    io.emit("join", this.props.currentUser, (err, data) => {
+      if (err) {
+        this.props.history.replace("/");
+      } else {
+        sessionStorage.setItem("name", data.currentUser.name);
+        sessionStorage.setItem("room", data.currentUser.room);
+        // sessionStorage.setItem("id", data.currentUser.id);
+
+        this.setState({ connect: "User Connected" });
+        console.log("User Connected", this.props.currentUser);
+      }
+    });
   };
 
   onDisconnect = () => {
@@ -139,7 +151,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (name, room) => dispatch(auth(name, room)),
     onSetCurrentUser: currentUser => dispatch(setCurrentUser(currentUser)),
     onSetMessages: messages => dispatch(messageRecieved(messages)),
     onSetUsers: users => dispatch(setUsers(users))

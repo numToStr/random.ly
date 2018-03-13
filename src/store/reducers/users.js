@@ -23,13 +23,13 @@ const setCurrentUser = (state, action) => {
   };
 };
 
-const setAllUsers = (state, action) => {
-  return {
-    ...state,
-    users: action.data.users,
-    currentUser: action.data.currentUser
-  };
-};
+// const setAllUsers = (state, action) => {
+//   return {
+//     ...state,
+//     users: action.data.users,
+//     currentUser: action.data.currentUser
+//   };
+// };
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
@@ -37,8 +37,8 @@ const reducer = (state = initState, action) => {
       return setCurrentUser(state, action);
     case actionTypes.SET_USERS:
       return setUsers(state, action);
-    case actionTypes.AUTH_SUCCESS:
-      return setAllUsers(state, action);
+    // case actionTypes.AUTH_SUCCESS:
+    //   return setAllUsers(state, action);
     default:
       return state;
   }
