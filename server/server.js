@@ -1,14 +1,21 @@
 const http = require("http");
 const express = require("express");
+const bodyParser = require('body-parser');
 const socketIO = require("socket.io");
 
 const { generateMsg } = require("./utils/message");
 const { isRealString } = require("./utils/validation");
 const { Users } = require("./utils/users");
 
+// server setup
 const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
+
+// express middlewares
+// == body-parser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
 const port = process.env.PORT || 5000;
 const users = new Users();
@@ -16,6 +23,10 @@ const users = new Users();
 server.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
+
+app.post('/client/auth', (req, res) => {
+  res.send({ text: 'ok' })
+})
 
 io.on("connection", client => {
   client.on("join", (params, callback) => {
