@@ -24,7 +24,7 @@ const message = props => {
           <small>{props.message.text}</small>
         </div>
         <div className="text-right text-secondary">
-          <small>{`${createdAt.getHours()} : ${createdAt.getMinutes()}`}</small>
+          <small>{`${createdAt.toLocaleTimeString()}`}</small>
         </div>
       </div>
     </section>

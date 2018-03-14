@@ -9,7 +9,7 @@ const componentName = props => {
         {props.user.name}
       </span>
       <small className="text-muted d-block">
-        {`Joined at: ${joinedAt.getHours()} : ${joinedAt.getMinutes()}`}
+        {`Joined at: ${joinedAt.toLocaleTimeString()}`}
       </small>
     </div>
   );
