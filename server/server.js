@@ -46,7 +46,7 @@ io.on("connection", client => {
       .emit("newMessage", generateMsg("ADMIN", `${params.name} has joined`));
 
     callback(null, {
-      currentUser: { ...params, id: client.id },
+      currentUser: { ...params, token: client.id },
       users: users.getUserList(params.room)
     });
   });

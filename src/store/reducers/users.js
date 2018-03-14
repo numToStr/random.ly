@@ -4,7 +4,7 @@ const initState = {
   currentUser: {
     name: null,
     room: null,
-    id: null
+    token: null
   },
   users: []
 };

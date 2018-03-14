@@ -12,10 +12,6 @@ class Join extends Component {
     roomName: ""
   };
 
-  componentDidUpdate() {
-    console.log(this.props.isAuth);
-  }
-
   goToChat = e => {
     e.preventDefault();
     if (!this.state.displayName || !this.state.roomName) {
@@ -25,7 +21,7 @@ class Join extends Component {
 
     const userId = `__${this.state.displayName}__${
       this.state.roomName
-    }__${new Date().toLocaleTimeString()}`.replace(/ /, "_");
+      }__${new Date().toLocaleString()}`.replace(/[,. ]/g, "_");
 
     this.props.onAuth(this.state.displayName, this.state.roomName, userId);
   };
@@ -97,7 +93,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (name, room, id) => dispatch(auth(name, room, id))
+    onAuth: (name, room, token) => dispatch(auth(name, room, token))
   };
 };
 

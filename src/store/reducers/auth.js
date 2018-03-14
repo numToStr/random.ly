@@ -17,7 +17,7 @@ const authStart = (state, action) => {
 const authSuccess = (state, action) => {
   return {
     ...state,
-    token: action.data.id,
+    token: action.data.token,
     loading: false,
     error: null
   };

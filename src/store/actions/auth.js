@@ -20,14 +20,14 @@ export const authFail = error => {
   };
 };
 
-export const auth = (name, room, id) => {
+export const auth = (name, room, token) => {
   return dispatch => {
     dispatch(authStart());
 
     const currentUser = {
       name,
       room,
-      id
+      token
     };
 
     if (!name) {
@@ -41,7 +41,7 @@ export const auth = (name, room, id) => {
 
     sessionStorage.setItem("name", currentUser.name);
     sessionStorage.setItem("room", currentUser.room);
-    sessionStorage.setItem("id", currentUser.id);
+    sessionStorage.setItem("token", currentUser.token);
 
     dispatch(authSuccess(currentUser));
   };

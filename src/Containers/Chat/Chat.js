@@ -70,7 +70,7 @@ class Chat extends Component {
       } else {
         sessionStorage.setItem("name", data.currentUser.name);
         sessionStorage.setItem("room", data.currentUser.room);
-        // sessionStorage.setItem("id", data.currentUser.id);
+        sessionStorage.setItem("token", data.currentUser.token);
 
         this.setState({ connect: "User Connected" });
         console.log("User Connected", this.props.currentUser);
