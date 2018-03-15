@@ -73,7 +73,7 @@ class Chat extends Component {
         sessionStorage.setItem("token", data.currentUser.token);
 
         this.setState({ connect: "User Connected" });
-        console.log("User Connected", this.props.currentUser);
+        // console.log("User Connected", this.props.currentUser);
       }
     });
   };
@@ -81,7 +81,7 @@ class Chat extends Component {
   onDisconnect = () => {
     io.on("disconnect", () => {
       this.setState({ connect: "User Disconnected" });
-      console.log("User Disconnected");
+      // console.log("User Disconnected");
     });
   };
 
