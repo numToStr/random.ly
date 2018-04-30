@@ -1,8 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles.global.scss';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import React, { Fragment } from "react";
+import ReactDOM from "react-dom";
+import { CssBaseline } from "material-ui";
+import "./styles.global.scss";
+import App from "./components/App/App";
+import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const APP = (
+  <Fragment>
+    <CssBaseline />
+    <App />
+  </Fragment>
+);
+
+ReactDOM.render(APP, document.getElementById("root"));
 registerServiceWorker();
