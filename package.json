@@ -1,0 +1,28 @@
+{
+  "name": "random.ly",
+  "version": "2.0.0-dev",
+  "description": "Real time chat app build with React and Socket.io",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "^8.11.1",
+    "npm": "^5.6.0"
+  },
+  "keywords": [],
+  "author": "https://github.com/vkasraj",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.16",
+    "nodemon": "^1.17.3",
+    "socket.io": "^2.1.0"
+  }
+}
