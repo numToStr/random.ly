@@ -3,6 +3,8 @@ import { CssBaseline } from "material-ui";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
+
+// components
 import reducer from "../../Store/reducer/index";
 import Routes from "../Routes/Routes";
 
