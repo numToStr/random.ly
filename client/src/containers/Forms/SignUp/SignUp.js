@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Field, reduxForm } from "redux-form";
+import validate from '../config/validate';
+// import submit from '../config/asyncValidate'; // for async validations
+
 import {
     TextField,
     Button,
@@ -24,17 +27,18 @@ class SignUp extends Component {
             />
         );
     };
-
+    
     render() {
         return (
             <Fragment>
                 <form
+                    // onSubmit={this.props.handleSubmit(submit)} // for async validations
                     onSubmit={this.props.handleSubmit}
                     noValidate
                     autoComplete="off"
                 >
                     <Field
-                        name="firstName"
+                        name="name"
                         label="Name"
                         placeholder="John Doe"
                         type="text"
@@ -55,8 +59,8 @@ class SignUp extends Component {
                         component={this.inputField}
                     />
                     <FormControl margin="normal" fullWidth>
-                        <Button variant="raised" type="Submit" color="primary">
-                            Create my account
+                        <Button variant="raised" type="Submit" color="primary" disabled={this.props.pristine || this.props.submitting}>
+                            Sign up
                         </Button>
                     </FormControl> 
                 </form>
@@ -66,7 +70,8 @@ class SignUp extends Component {
 }
 
 SignUp = reduxForm({
-    form: "signup"
+    form: "signup",
+    validate
 })(SignUp);
 
 export default SignUp;
