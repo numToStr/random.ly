@@ -6,7 +6,6 @@
 
 const validate = values => {
     const errors = {};
-
     // name validation
     if (!values.name) {
         errors.name = "Required";

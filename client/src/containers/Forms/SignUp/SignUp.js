@@ -15,11 +15,14 @@ class SignUp extends Component {
     };
 
     inputField = field => {
+        const { error, touched } = field.meta;
         return (
             <TextField
                 {...field.input}
                 {...field}
                 margin="normal"
+                error={touched && error ? true: false}
+                helperText={touched && error ? error : null}
                 InputLabelProps={{
                     shrink: true
                 }}
