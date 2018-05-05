@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { CssBaseline } from "material-ui";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
@@ -21,7 +20,6 @@ const APP = (
     <Provider store={STORE}>
         <BrowserRouter>
             <Fragment>
-                <CssBaseline />
                 <Routes />
             </Fragment>
         </BrowserRouter>
