@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
+const mongoose = require('mongoose');
 
 // Routes Imports
 const auth = require('./server/routes/auth');
+
+// mongoose.connect('mongodb://localhost:').then(() => console.log('MongoDB successfully connected!')).catch(e => console.log(e));
 
 const PORT = process.env.PORT || 5000;
 
