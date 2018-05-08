@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.post("/signup", (req, res) => {
 	res.send({
-		welcome: "auth"
+		data: req.body,
+		msg: "Successful"
 	});
 });
 
