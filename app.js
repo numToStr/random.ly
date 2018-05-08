@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 // Routes Imports
 const auth = require("./server/routes/auth");
@@ -13,6 +14,8 @@ mongoose
 
 const PORT = process.env.PORT || 5000;
 
+/* EXPRESS MIDDLEWARES */
+// Request headers ==========
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header(
@@ -21,6 +24,12 @@ app.use(function(req, res, next) {
 	);
 	next();
 });
+
+// Body Parser ===========
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 
 /*
     1) React proxy will not work with only root url, which just have '/'.
