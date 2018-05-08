@@ -1,21 +1,25 @@
 const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Routes Imports
-const auth = require('./server/routes/auth');
+const auth = require("./server/routes/auth");
 
-// mongoose.connect('mongodb://localhost:').then(() => console.log('MongoDB successfully connected!')).catch(e => console.log(e));
+// "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath C:\data\db
+mongoose
+	.connect("mongodb://localhost:27017/randomLy")
+	.then(() => console.log("MongoDB successfully connected!"))
+	.catch(e => console.log(e));
 
 const PORT = process.env.PORT || 5000;
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	next();
 });
 
 /*
@@ -24,14 +28,14 @@ app.use(function (req, res, next) {
 */
 
 app.listen(PORT, () => {
-    console.log(`Server is up on port: ${PORT}`);
+	console.log(`Server is up on port: ${PORT}`);
 });
 
 app.get("/", (req, res) => {
-    res.send({
-        welcome: "home"
-    });
+	res.send({
+		welcome: "home"
+	});
 });
 
 // routes registration
-app.use('/auth', auth);
+app.use("/auth", auth);
