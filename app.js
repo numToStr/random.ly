@@ -7,10 +7,10 @@ const bodyParser = require("body-parser");
 const auth = require("./server/routes/auth");
 
 // "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --port 27017 --dbpath C:\mongodb\data\db
-mongoose
-	.connect("mongodb://localhost:27017/randomLy")
-	.then(() => console.log("MongoDB successfully connected!"))
-	.catch(e => console.log(e));
+// mongoose
+// 	.connect("mongodb://localhost:27017/randomLy")
+// 	.then(() => console.log("MongoDB successfully connected!"))
+// 	.catch(e => console.log(e));
 
 const PORT = process.env.PORT || 5000;
 
