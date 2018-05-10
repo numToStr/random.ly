@@ -40,7 +40,13 @@ router.post("/signup", (req, res) => {
 					new User(newUser)
 						.save()
 						.then(user => {
-							res.send(user);
+							res.send({
+								msg: "Successfully registered",
+								user: {
+									name: user.name,
+									email: user.email
+								}
+							});
 						})
 						.catch(err => {
 							throw err;
