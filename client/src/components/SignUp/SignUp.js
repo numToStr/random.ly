@@ -5,13 +5,15 @@ import axios from "axios";
 import SignUpForm from "../../containers/Forms/SignUp/SignUp";
 
 class SignUp extends Component {
-	onSignUp = values => {
-		axios
-			.post("/auth/signup", values)
-			.then(d => console.log(d.data))
-			.catch(e => {
-				throw e;
-			});
+	onSignUp = (values, err) => {
+		if (values) {
+			axios
+				.post("/auth/signup", values)
+				.then(d => console.log(d.data))
+				.catch(e => {
+					throw e;
+				});
+		}
 	};
 
 	render() {
