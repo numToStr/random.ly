@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Grid } from "material-ui";
+import { Grid, Typography } from "material-ui";
 
 import Header from "../Header/Header";
 
@@ -10,6 +10,14 @@ class Home extends Component {
 				<Grid container>
 					<Grid item xs={12}>
 						<Header title="random.ly" />
+					</Grid>
+					<Grid item xs={12} md={6}>
+						<Typography variant="display3">
+							{/* Chat with random peaple ... and make new friends */}
+						</Typography>
+					</Grid>
+					<Grid item xs={12} md={6}>
+						two
 					</Grid>
 				</Grid>
 			</Fragment>
