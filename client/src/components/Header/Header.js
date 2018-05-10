@@ -26,6 +26,7 @@ class Header extends Component {
 							variant="raised"
 							component={NavLink}
 							to="/user/signup"
+							color="primary"
 						>
 							Signup
 						</Button>
