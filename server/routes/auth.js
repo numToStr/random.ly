@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 const { isEmail, isEmpty } = require("validator");
 const router = express.Router();
 
@@ -57,11 +58,29 @@ router.post("/signup", (req, res) => {
 	});
 });
 
-router.post("/login", (req, res) => {
-	res.send({
-		data: req.body,
-		msg: "Successful"
-	});
+router.post("/login", (req, res, next) => {
+	passport.authenticate("local", (err, user, info) => {
+		if (err) {
+			return next(err);
+		}
+		if (!user) {
+			return res.send({
+				...info
+			});
+		}
+		req.logIn(user, function(err) {
+			if (err) {
+				return next(err);
+			}
+			return res.send({
+				...info,
+				user: {
+					email: user.email,
+					name: user.name
+				}
+			});
+		});
+	})(req, res, next);
 });
 
 module.exports = router;

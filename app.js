@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 // Routes Imports
 const auth = require("./server/routes/auth");
@@ -31,6 +32,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// Passport Serialize or Deserialize ========
+app.use(passport.initialize());
+app.use(passport.session());
+
 /*
     1) React proxy will not work with only root url, which just have '/'.
     2) Make sure you add specific domain to work with react proxy i.e., '/user/login' or '/user/signup'.
@@ -48,3 +53,4 @@ app.get("/", (req, res) => {
 
 // routes registration
 app.use("/auth", auth);
+require("./server/config/passport")(passport);
