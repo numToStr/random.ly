@@ -23,6 +23,7 @@ router.post("/signup", (req, res) => {
 	}
 	if (err.length) {
 		res.send({
+			status: 0,
 			err: err
 		});
 	}
@@ -30,6 +31,7 @@ router.post("/signup", (req, res) => {
 		if (user) {
 			err.push("Email already registered");
 			res.send({
+				status: 0,
 				err: err
 			});
 		} else {
@@ -42,6 +44,7 @@ router.post("/signup", (req, res) => {
 						.save()
 						.then(user => {
 							res.send({
+								status: 1,
 								msg: "Successfully registered",
 								user: {
 									name: user.name,
@@ -65,6 +68,7 @@ router.post("/login", (req, res, next) => {
 		}
 		if (!user) {
 			return res.send({
+				status: 0,
 				...info
 			});
 		}
@@ -73,6 +77,7 @@ router.post("/login", (req, res, next) => {
 				return next(err);
 			}
 			return res.send({
+				status: 1,
 				...info,
 				user: {
 					email: user.email,
