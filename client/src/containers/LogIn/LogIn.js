@@ -6,9 +6,14 @@ import LogInForm from "../../components/Forms/LogIn/LogIn";
 
 class LogIn extends Component {
 	onLogIn = values => {
+		const { history } = this.props;
 		axios
 			.post("/auth/login", values)
-			.then(d => console.log(d.data))
+			.then(d => {
+				history.push({
+					pathname: `/user/dashboard`
+				});
+			})
 			.catch(e => {
 				throw e;
 			});
