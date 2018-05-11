@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import Home from "../Home/Home";
-import SignUp from "../SignUp/SignUp";
-import LogIn from "../LogIn/LogIn";
+import Home from "../../containers/Home/Home";
+import SignUp from "../../containers/SignUp/SignUp";
+import LogIn from "../../containers/LogIn/LogIn";
 
 const Routes = () => {
 	return (
