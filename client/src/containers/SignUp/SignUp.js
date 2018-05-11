@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Grid } from "material-ui";
 import axios from "axios";
 
-import SignUpForm from "../../containers/Forms/SignUp/SignUp";
+import SignUpForm from "../../components/Forms/SignUp/SignUp";
 
 class SignUp extends Component {
 	onSignUp = (values, err) => {

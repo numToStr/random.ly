@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Grid } from "material-ui";
 import axios from "axios";
 
-import LogInForm from "../../containers/Forms/LogIn/LogIn";
+import LogInForm from "../../components/Forms/LogIn/LogIn";
 
 class LogIn extends Component {
 	onLogIn = values => {

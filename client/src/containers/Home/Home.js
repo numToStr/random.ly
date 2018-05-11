@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Grid, Typography } from "material-ui";
 
-import Header from "../Header/Header";
+import Header from "../../components/Header/Header";
 
 class Home extends Component {
 	render() {
