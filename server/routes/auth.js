@@ -10,6 +10,7 @@ const User = mongoose.model("user");
 
 router.post("/signup", (req, res) => {
 	const newUser = req.body;
+
 	const err = [];
 	switch (true) {
 		case !isEmail(newUser.email):
@@ -43,17 +44,10 @@ router.post("/signup", (req, res) => {
 					const USER = new User(newUser)
 					USER
 						.save()
-						.then(user => USER.authToken())
-						.then(token => {
-							res.header('x-auth', token).send({
+						.then(user => {
+							res.status(200).send({
 								status: 1,
-								msg: "Successfully registered",
-								user: {
-									id: USER._id,
-									name: USER.name,
-									email: USER.email,
-									tokens: USER.tokens
-								}
+								msg: "Successfully registered"
 							});
 						})
 						.catch(err => {
@@ -66,7 +60,7 @@ router.post("/signup", (req, res) => {
 });
 
 router.post("/login", (req, res, next) => {
-	passport.authenticate("local", (err, user, info) => {
+	passport.authenticate("local", { session: false }, (err, user, info) => {
 		if (err) {
 			return next(err);
 		}
@@ -80,7 +74,7 @@ router.post("/login", (req, res, next) => {
 			if (err) {
 				return next(err);
 			}
-			return res.send({
+			return res.status(200).send({
 				status: 1,
 				...info,
 				user: {
