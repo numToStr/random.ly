@@ -11,7 +11,7 @@ const local = passport => {
 			(email, password, done) => {
 				User.findOne({ email: email }).then(user => {
 					if (!user) {
-						return done(null, null, { message: "No user found" });
+						return done(null, null, { message: "Incorrect email or password." });
 					}
 
 					bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -22,21 +22,21 @@ const local = passport => {
 							});
 						} else {
 							return done(null, null, {
-								message: "Email or Password Incorrect"
+								message: "Incorrect email or password."
 							});
 						}
 					});
-				});
+				}).catch(e => done(e));
 			}
 		)
 	);
 
-	passport.serializeUser(function(user, done) {
+	passport.serializeUser(function (user, done) {
 		done(null, user.id);
 	});
 
-	passport.deserializeUser(function(id, done) {
-		User.findById(id, function(err, user) {
+	passport.deserializeUser(function (id, done) {
+		User.findById(id, function (err, user) {
 			done(err, user);
 		});
 	});

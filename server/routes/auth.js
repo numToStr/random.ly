@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const { isEmail, isEmpty } = require("validator");
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 require("../models/user");
 const User = mongoose.model("user");
@@ -74,13 +75,18 @@ router.post("/login", (req, res, next) => {
 			if (err) {
 				return next(err);
 			}
+
+			const token = jwt.sign({ _id: user.id, email: user.email }, '#pyaarEkDhokaHai');
+
 			return res.status(200).send({
 				status: 1,
 				...info,
 				user: {
+					id: user.id,
 					email: user.email,
 					name: user.name
-				}
+				},
+				token
 			});
 		});
 	})(req, res, next);
