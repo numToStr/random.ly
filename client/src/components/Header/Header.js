@@ -18,6 +18,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 
+import { authLogout } from '../../Store/actions/index';
+
 const styles = {
 	flex: {
 		flex: 1
@@ -39,7 +41,7 @@ class Header extends Component {
 	};
 
 	render() {
-		const { title, classes, isMobile } = this.props;
+		const { title, classes, isMobile, isAuth, logout } = this.props;
 
 		let barBtn = (
 			<Fragment>
@@ -62,6 +64,49 @@ class Header extends Component {
 				</Button>
 			</Fragment>
 		);
+
+		let drawerBtn = (
+			<Fragment>
+				<ListItem button component={NavLink} to="/user/signup">
+					<ListItemIcon>
+						<Favourite color="primary" />
+					</ListItemIcon>
+					<ListItemText primary="Signup" />
+				</ListItem>
+				<ListItem button component={NavLink} to="/user/login">
+					<ListItemIcon>
+						<Lock color="primary" />
+					</ListItemIcon>
+					<ListItemText primary="Login" />
+				</ListItem>
+			</Fragment>
+		)
+
+		if (isAuth) {
+			drawerBtn = (
+				<Fragment>
+					<ListItem button onClick={logout}>
+						<ListItemIcon>
+							<Lock color="primary" />
+						</ListItemIcon>
+						<ListItemText primary="Logout" />
+					</ListItem>
+				</Fragment>
+			)
+
+			barBtn = (
+				<Fragment>
+					<Button
+						className={classes.marginLeft}
+						variant="flat"
+						onClick={logout}
+					>
+						Logout
+					</Button>
+				</Fragment>
+			)
+		}
+
 		if (isMobile) {
 			barBtn = (
 				<Fragment>
@@ -97,18 +142,7 @@ class Header extends Component {
 					transitionDuration={250}
 				>
 					<List component="nav">
-						<ListItem button component={NavLink} to="/user/signup">
-							<ListItemIcon>
-								<Favourite color="primary" />
-							</ListItemIcon>
-							<ListItemText primary="Signup" />
-						</ListItem>
-						<ListItem button component={NavLink} to="/user/login">
-							<ListItemIcon>
-								<Lock color="primary" />
-							</ListItemIcon>
-							<ListItemText primary="Login" />
-						</ListItem>
+						{drawerBtn}
 					</List>
 				</Drawer>
 			</Fragment>
@@ -118,8 +152,15 @@ class Header extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isMobile: state.common.isMobile
+		isMobile: state.common.isMobile,
+		isAuth: state.auth.token ? true : false
 	};
 };
 
-export default withStyles(styles)(connect(mapStateToProps)(Header));
+const mapDispatchToProps = dispatch => {
+	return {
+		logout: () => dispatch(authLogout())
+	}
+}
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Header));
