@@ -22,7 +22,7 @@ export const authFail = error => {
     };
 };
 
-export const auth = (data) => {
+export const signup = (data, callback) => {
     return dispatch => {
         dispatch(authStart());
         axios
@@ -30,9 +30,30 @@ export const auth = (data) => {
             .then(d => {
                 const D = d.data;
                 if (D.status) {
-                    dispatch(authSuccess(d.data.user))
+                    dispatch(authSuccess(D.user));
+                    callback(D);
                 } else {
                     dispatch(authFail(D.err));
+                }
+            })
+            .catch(e => {
+                dispatch(authFail(e));
+                throw e;
+            });
+    };
+};
+export const login = (data, callback) => {
+    return dispatch => {
+        dispatch(authStart());
+        axios
+            .post("/auth/login", data)
+            .then(d => {
+                const D = d.data;
+                if (D.status && D.user) {
+                    dispatch(authSuccess(D));
+                    callback(D);
+                } else {
+                    dispatch(authFail(D.message));
                 }
             })
             .catch(e => {

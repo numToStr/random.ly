@@ -6,7 +6,7 @@ const initState = {
         name: null,
         email: null,
     },
-    tokens: null,
+    token: null,
     loading: false,
     error: null
 };
@@ -14,6 +14,7 @@ const initState = {
 const authStart = (state, action) => {
     return {
         ...state,
+        token: null,
         error: null,
         loading: true
     };
@@ -23,11 +24,11 @@ const authSuccess = (state, { data }) => {
     return {
         ...state,
         user: {
-            id: data.id,
-            name: data.name,
-            email: data.email,
+            id: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
         },
-        tokens: data.tokens,
+        token: data.token,
         loading: false,
         error: null
     };
@@ -36,7 +37,7 @@ const authSuccess = (state, { data }) => {
 const authFail = (state, action) => {
     return {
         ...state,
-        tokens: null,
+        token: null,
         loading: false,
         error: action.error
     };

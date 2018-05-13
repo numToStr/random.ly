@@ -1,25 +1,20 @@
 import React, { Component, Fragment } from "react";
 import { Grid } from "material-ui";
-import axios from "axios";
+import { connect } from 'react-redux';
 
+import { login } from '../../Store/actions/index';
 import LogInForm from "../../components/Forms/LogIn/LogIn";
 
 class LogIn extends Component {
 	onLogIn = values => {
-		const { history } = this.props;
-		axios
-			.post("/auth/login", values)
-			.then(d => {
-				var data = d.data;
-				if (data.status && data.user) {
-					history.push({
-						pathname: `/user/dashboard`
-					});
-				}
+		const { history, handleLogin } = this.props;
+		if (values) {
+			handleLogin(values, data => {
+				history.push({
+					pathname: '/user/dashboard'
+				})
 			})
-			.catch(e => {
-				throw e;
-			});
+		}
 	};
 
 	render() {
@@ -35,4 +30,10 @@ class LogIn extends Component {
 	}
 }
 
-export default LogIn;
+const mapDispatchToProps = dispatch => {
+	return {
+		handleLogin: (data, cb) => dispatch(login(data, cb))
+	}
+}
+
+export default connect(null, mapDispatchToProps)(LogIn);
