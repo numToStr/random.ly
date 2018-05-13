@@ -1,7 +1,12 @@
 import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL } from "../actions/actionTypes";
 
 const initState = {
-    token: null,
+    user: {
+        id: null,
+        name: null,
+        email: null,
+    },
+    tokens: null,
     loading: false,
     error: null
 };
@@ -14,10 +19,15 @@ const authStart = (state, action) => {
     };
 };
 
-const authSuccess = (state, action) => {
+const authSuccess = (state, { data }) => {
     return {
         ...state,
-        token: action.data.token,
+        user: {
+            id: data.id,
+            name: data.name,
+            email: data.email,
+        },
+        tokens: data.tokens,
         loading: false,
         error: null
     };
@@ -26,7 +36,7 @@ const authSuccess = (state, action) => {
 const authFail = (state, action) => {
     return {
         ...state,
-        token: null,
+        tokens: null,
         loading: false,
         error: action.error
     };

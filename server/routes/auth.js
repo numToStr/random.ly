@@ -52,7 +52,7 @@ router.post("/signup", (req, res) => {
 									id: USER._id,
 									name: USER.name,
 									email: USER.email,
-									token: USER.tokens
+									tokens: USER.tokens
 								}
 							});
 						})

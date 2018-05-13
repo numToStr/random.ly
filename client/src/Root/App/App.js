@@ -4,6 +4,7 @@ import { CssBaseline } from "material-ui";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
+import thunk from 'redux-thunk';
 
 import blue from "material-ui/colors/blue";
 import grey from "material-ui/colors/grey";
@@ -19,7 +20,7 @@ const REDUCER = combineReducers(reducer);
 
 const STORE = createStore(
 	REDUCER,
-	composeEnhancers(applyMiddleware(/*Add Middleware*/))
+	composeEnhancers(applyMiddleware(thunk/*Add Middleware*/))
 );
 
 const THEME = createMuiTheme({

@@ -1,18 +1,14 @@
 import React, { Component, Fragment } from "react";
+import { connect } from 'react-redux';
 import { Grid } from "material-ui";
-import axios from "axios";
 
+import { auth } from '../../Store/actions/index';
 import SignUpForm from "../../components/Forms/SignUp/SignUp";
 
 class SignUp extends Component {
 	onSignUp = (values, err) => {
 		if (values) {
-			axios
-				.post("/auth/signup", values)
-				.then(d => console.log(d.data))
-				.catch(e => {
-					throw e;
-				});
+			this.props.signUp(values);
 		}
 	};
 
@@ -29,4 +25,10 @@ class SignUp extends Component {
 	}
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+	return {
+		signUp: data => dispatch(auth(data))
+	}
+}
+
+export default connect(null, mapDispatchToProps)(SignUp);
