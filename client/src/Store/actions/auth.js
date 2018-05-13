@@ -22,6 +22,13 @@ export const authFail = error => {
     };
 };
 
+export const authLogout = () => {
+    localStorage.removeItem('TOKEN');
+    return {
+        type: actionTypes.AUTH_LOGOUT,
+    };
+};
+
 export const signup = (data, callback) => {
     return dispatch => {
         dispatch(authStart());
@@ -42,6 +49,7 @@ export const signup = (data, callback) => {
             });
     };
 };
+
 export const login = (data, callback) => {
     return dispatch => {
         dispatch(authStart());
@@ -50,6 +58,7 @@ export const login = (data, callback) => {
             .then(d => {
                 const D = d.data;
                 if (D.status && D.user) {
+                    localStorage.setItem('TOKEN', D.token);
                     dispatch(authSuccess(D));
                     callback(D);
                 } else {
@@ -62,3 +71,30 @@ export const login = (data, callback) => {
             });
     };
 };
+
+export const authAutoSignIn = (callback) => {
+    return dispatch => {
+        const token = localStorage.getItem('TOKEN');
+        if (!token) {
+            dispatch(authLogout());
+        } else {
+            dispatch(authStart());
+            axios.post('/auth/authenticate', {
+                token: token
+            }).then(d => {
+                const D = d.data;
+                if (D.status) {
+                    dispatch(authSuccess({
+                        user: D.user,
+                        token: token
+                    }))
+                    callback(D);
+                } else {
+                    dispatch(authFail(D.message))
+                }
+            }).catch(error => {
+                dispatch(authFail(error));
+            })
+        }
+    }
+}

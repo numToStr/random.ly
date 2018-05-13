@@ -92,4 +92,36 @@ router.post("/login", (req, res, next) => {
 	})(req, res, next);
 });
 
+router.post('/authenticate', (req, res, next) => {
+	const token = req.body.token;
+
+	try {
+		const u = jwt.verify(token, '#pyaarEkDhokaHai');
+		User.findById(u._id).then(user => {
+			if (user) {
+				res.send({
+					status: 1,
+					user: {
+						id: user.id,
+						name: user.name,
+						email: user.email
+					},
+					message: "Authentication Successful"
+				})
+			} else {
+				res.send({
+					status: 0,
+					message: 'Unauthorized Access! Please signup.'
+				})
+			}
+		});
+	} catch (error) {
+		res.send({
+			status: 0,
+			message: 'Unauthorized Access! Please signup.'
+		})
+	}
+
+});
+
 module.exports = router;
