@@ -10,9 +10,12 @@ class LogIn extends Component {
 		axios
 			.post("/auth/login", values)
 			.then(d => {
-				history.push({
-					pathname: `/user/dashboard`
-				});
+				var data = d.data;
+				if (data.status && data.user) {
+					history.push({
+						pathname: `/user/dashboard`
+					});
+				}
 			})
 			.catch(e => {
 				throw e;

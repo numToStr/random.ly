@@ -40,15 +40,19 @@ router.post("/signup", (req, res) => {
 					if (err) throw err;
 
 					newUser.password = hash;
-					new User(newUser)
+					const USER = new User(newUser)
+					USER
 						.save()
-						.then(user => {
-							res.send({
+						.then(user => USER.authToken())
+						.then(token => {
+							res.header('x-auth', token).send({
 								status: 1,
 								msg: "Successfully registered",
 								user: {
-									name: user.name,
-									email: user.email
+									id: USER._id,
+									name: USER.name,
+									email: USER.email,
+									token: USER.tokens
 								}
 							});
 						})
@@ -72,7 +76,7 @@ router.post("/login", (req, res, next) => {
 				...info
 			});
 		}
-		req.logIn(user, function(err) {
+		req.logIn(user, function (err) {
 			if (err) {
 				return next(err);
 			}
