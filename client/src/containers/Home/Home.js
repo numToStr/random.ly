@@ -1,21 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Grid, Typography } from "material-ui";
-import { connect } from 'react-redux';
 
 import Header from "../../components/Header/Header";
 
-import { authAutoSignIn } from '../../Store/actions/index';
-
 class Home extends Component {
-
-	componentDidMount() {
-		const { history } = this.props;
-		this.props.onAutoSignIn(() => {
-			history.replace({
-				pathname: '/user/dashboard'
-			})
-		})
-	}
 
 	render() {
 		return (
@@ -38,10 +26,4 @@ class Home extends Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		onAutoSignIn: cb => dispatch(authAutoSignIn(cb))
-	}
-}
-
-export default connect(null, mapDispatchToProps)(Home);
+export default Home;
