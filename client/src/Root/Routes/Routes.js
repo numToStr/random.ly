@@ -24,12 +24,18 @@ class Routes extends Component {
 	render() {
 		const { isAuth } = this.props;
 
+		const authRoutes = C => (isAuth ? <C /> : <Redirect to="/" />);
+
 		return (
 			<Switch>
-				{isAuth && <Route path="/user/profile" component={Profile} />}
-				{isAuth && (
-					<Route path="/user/dashboard" component={Dashboard} />
-				)}
+				<Route
+					path="/user/profile"
+					render={() => authRoutes(Profile)}
+				/>
+				<Route
+					path="/user/dashboard"
+					render={() => authRoutes(Dashboard)}
+				/>
 				<Route path="/user/login" component={LogIn} />
 				<Route path="/user/signup" component={SignUp} />
 				<Route path="/" exact component={Home} />
