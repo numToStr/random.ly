@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Typography } from "material-ui";
+import { Typography } from "@material-ui/core";
 
 import Header from "../../components/Header/Header";
 

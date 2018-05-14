@@ -13,12 +13,12 @@ import {
 	ListItem,
 	ListItemText,
 	ListItemIcon
-} from "material-ui";
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 
-import { authLogout } from '../../Store/actions/index';
+import { authLogout } from "../../Store/actions/index";
 
 const styles = {
 	flex: {
@@ -80,7 +80,7 @@ class Header extends Component {
 					<ListItemText primary="Login" />
 				</ListItem>
 			</Fragment>
-		)
+		);
 
 		if (isAuth) {
 			drawerBtn = (
@@ -92,7 +92,7 @@ class Header extends Component {
 						<ListItemText primary="Logout" />
 					</ListItem>
 				</Fragment>
-			)
+			);
 
 			barBtn = (
 				<Fragment>
@@ -104,7 +104,7 @@ class Header extends Component {
 						Logout
 					</Button>
 				</Fragment>
-			)
+			);
 		}
 
 		if (isMobile) {
@@ -141,9 +141,7 @@ class Header extends Component {
 					onClose={this.toggleDrawer("right", false)}
 					transitionDuration={250}
 				>
-					<List component="nav">
-						{drawerBtn}
-					</List>
+					<List component="nav">{drawerBtn}</List>
 				</Drawer>
 			</Fragment>
 		);
@@ -160,7 +158,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		logout: () => dispatch(authLogout())
-	}
-}
+	};
+};
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default withStyles(styles)(
+	connect(mapStateToProps, mapDispatchToProps)(Header)
+);

@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { Grid } from "material-ui";
-import { connect } from 'react-redux';
+import { Grid } from "@material-ui/core";
+import { connect } from "react-redux";
 
-import { signup } from '../../Store/actions/index';
+import { signup } from "../../Store/actions/index";
 import SignUpForm from "../../components/Forms/SignUp/SignUp";
 
 class SignUp extends Component {
@@ -11,9 +11,9 @@ class SignUp extends Component {
 		if (values) {
 			handleSignup(values, data => {
 				history.push({
-					pathname: '/user/login'
-				})
-			})
+					pathname: "/user/login"
+				});
+			});
 		}
 	};
 
@@ -33,7 +33,7 @@ class SignUp extends Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		handleSignup: (data, cb) => dispatch(signup(data, cb))
-	}
-}
+	};
+};
 
 export default connect(null, mapDispatchToProps)(SignUp);

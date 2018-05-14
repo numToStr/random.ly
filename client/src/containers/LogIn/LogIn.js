@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { Grid } from "material-ui";
-import { connect } from 'react-redux';
+import { Grid } from "@material-ui/core";
+import { connect } from "react-redux";
 
-import { login } from '../../Store/actions/index';
+import { login } from "../../Store/actions/index";
 import LogInForm from "../../components/Forms/LogIn/LogIn";
 
 class LogIn extends Component {
@@ -11,9 +11,9 @@ class LogIn extends Component {
 		if (values) {
 			handleLogin(values, data => {
 				history.push({
-					pathname: '/user/dashboard'
-				})
-			})
+					pathname: "/user/dashboard"
+				});
+			});
 		}
 	};
 
@@ -33,7 +33,7 @@ class LogIn extends Component {
 const mapDispatchToProps = dispatch => {
 	return {
 		handleLogin: (data, cb) => dispatch(login(data, cb))
-	}
-}
+	};
+};
 
 export default connect(null, mapDispatchToProps)(LogIn);

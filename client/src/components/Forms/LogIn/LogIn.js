@@ -3,7 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import validate from "../config/validate";
 // import submit from '../config/asyncValidate'; // for async validations
 
-import { TextField, Button, FormControl } from "material-ui";
+import { TextField, Button, FormControl } from "@material-ui/core";
 
 class SignUp extends Component {
 	state = {
