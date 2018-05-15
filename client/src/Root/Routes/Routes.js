@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { authAutoSignIn } from "../../Store/actions/index";
+import PrivateRoute from "./config/PrivateRoute";
+import PublicRoute from "./config/PublicRoute";
 
 import Home from "../../containers/Home/Home";
 import SignUp from "../../containers/SignUp/SignUp";
@@ -12,33 +14,35 @@ import Profile from "../../containers/Profile/Profile";
 
 class Routes extends Component {
 	componentDidMount() {
-		const { onAutoSignIn, history } = this.props;
-
-		onAutoSignIn(() => {
-			history.replace({
-				pathname: "/user/dashboard"
-			});
-		});
+		const { onAutoSignIn } = this.props;
+		onAutoSignIn();
 	}
 
 	render() {
 		const { isAuth } = this.props;
-
-		const authRoutes = C => (isAuth ? <C /> : <Redirect to="/" />);
-
 		return (
 			<Switch>
-				<Route
+				<PrivateRoute
+					isAuth={isAuth}
 					path="/user/profile"
-					render={() => authRoutes(Profile)}
+					component={Profile}
 				/>
-				<Route
+				<PrivateRoute
+					isAuth={isAuth}
 					path="/user/dashboard"
-					render={() => authRoutes(Dashboard)}
+					component={Dashboard}
 				/>
-				<Route path="/user/login" component={LogIn} />
-				<Route path="/user/signup" component={SignUp} />
-				<Route path="/" exact component={Home} />
+				<PublicRoute
+					isAuth={isAuth}
+					path="/user/login"
+					component={LogIn}
+				/>
+				<PublicRoute
+					isAuth={isAuth}
+					path="/user/signup"
+					component={SignUp}
+				/>
+				<PublicRoute isAuth={isAuth} path="/" exact component={Home} />
 				<Redirect to="/" />
 			</Switch>
 		);
