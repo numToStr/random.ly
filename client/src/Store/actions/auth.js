@@ -59,7 +59,9 @@ export const login = (data, callback) => {
 				if (D.status && D.user) {
 					localStorage.setItem("TOKEN", D.token);
 					dispatch(authSuccess(D));
-					callback(D);
+					if (callback) {
+						callback(D);
+					}
 				} else {
 					dispatch(authFail(D.message));
 				}
@@ -91,7 +93,9 @@ export const authAutoSignIn = callback => {
 								token: token
 							})
 						);
-						callback(D);
+						if (callback) {
+							callback(D);
+						}
 					} else {
 						dispatch(authFail(D.message));
 					}
