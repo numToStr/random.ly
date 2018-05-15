@@ -4,16 +4,15 @@ import { Route, Redirect } from "react-router-dom";
 class PublicRoute extends Component {
 	render() {
 		const { isAuth, component: Component, ...rest } = this.props;
+		const { from } = this.props.location.state || {
+			from: { pathname: "/user/dashboard" }
+		};
 
 		return (
 			<Route
 				{...rest}
 				render={props =>
-					isAuth ? (
-						<Redirect to="/user/dashboard" />
-					) : (
-						<Component {...props} />
-					)
+					isAuth ? <Redirect to={from} /> : <Component {...props} />
 				}
 			/>
 		);

@@ -7,7 +7,7 @@ import LogInForm from "../../components/Forms/LogIn/LogIn";
 
 class LogIn extends Component {
 	onLogIn = values => {
-		const { history, handleLogin } = this.props;
+		const { handleLogin, history } = this.props;
 		if (values) {
 			handleLogin(values, data => {
 				history.push({

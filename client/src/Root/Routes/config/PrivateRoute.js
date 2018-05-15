@@ -4,17 +4,23 @@ import { Route, Redirect } from "react-router-dom";
 class PrivateRoute extends Component {
 	render() {
 		const { isAuth, component: Component, ...rest } = this.props;
-
 		return (
 			<Route
 				{...rest}
-				render={props =>
-					isAuth ? (
+				render={props => {
+					return isAuth ? (
 						<Component {...props} />
 					) : (
-						<Redirect to="/user/login" />
-					)
-				}
+						<Redirect
+							to={{
+								pathname: "/user/login",
+								state: {
+									from: props.location
+								}
+							}}
+						/>
+					);
+				}}
 			/>
 		);
 	}
