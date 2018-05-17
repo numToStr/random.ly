@@ -1,6 +1,18 @@
 /* @import "node_modules/bootstrap/scss/utilities/sizing"; // use when required
  @import "node_modules/bootstrap/scss/utilities/spacing";*/
 
+html,
 body {
+	position: relative;
+	height: 100%;
 	background: #fff !important;
+	overflow: hidden;
+}
+
+#root {
+	height: 100%;
+}
+
+.h-100 {
+	height: 100%;
 }
