@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { login } from "../../Store/actions/index";
 import LogInForm from "../../components/Forms/LogIn/LogIn";
+import Logo from "../../components/Logo/RandomLyFull";
 
 class LogIn extends Component {
 	onLogIn = values => {
@@ -20,8 +21,11 @@ class LogIn extends Component {
 	render() {
 		return (
 			<Fragment>
-				<Grid container justify="center">
+				<Grid container justify="center" className="pt-5 mt-4">
 					<Grid item xs={9} sm={5} md={3}>
+						<div className="text-center mb-3">
+							<Logo width="13rem" />
+						</div>
 						<LogInForm onSubmit={this.onLogIn} />
 					</Grid>
 				</Grid>

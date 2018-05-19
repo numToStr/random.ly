@@ -1,65 +1,38 @@
-import React, { Fragment } from "react";
+import React from "react";
 
-const RandomLy = props => {
-  return (
-    <Fragment>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 522 435"
-        width={props.width}
-      >
-        <defs>
-          <linearGradient
-            id="linear-gradient"
-            x1="389.81"
-            y1="60.79"
-            x2="53.81"
-            y2="354.79"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0" stopColor="#00b7b2" />
-            <stop offset="1" stopColor="aqua" />
-          </linearGradient>
-          <linearGradient
-            id="linear-gradient-2"
-            x1="90.57"
-            y1="16.85"
-            x2="390.57"
-            y2="252.85"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset="0" stopColor="#00dd8d" />
-            <stop offset="1" stopColor="#0fa" />
-          </linearGradient>
-        </defs>
-        <g id="Layer_2" data-name="Layer 2">
-          <g id="Layer_1-2" data-name="Layer 1">
-            <rect
-              y="24"
-              width="490"
-              height="327"
-              style={{fill:"url('#linear-gradient')"}}
-            />
-            <polygon points="0 351 101 351 0 435 0 351" style={{fill:"aqua"}} />
-            <rect
-              x="32"
-              width="490"
-              height="327"
-              style={{fill:"url('#linear-gradient-2')"}}
-            />
-            <polygon
-              points="522 327 421 327 522 411 522 327"
-              style={{fill:"#0fa"}}
-            />
-            <rect x="124" y="78" width="312" height="29" style={{fill:"#fff"}} />
-            <rect x="124" y="149" width="312" height="29" style={{fill:"#fff"}} />
-            <rect x="124" y="220" width="312" height="29" style={{fill:"#fff"}} />
-          </g>
-        </g>
-      </svg>
-    </Fragment>
-  );
-};
+const randomLy = props => (
+	<svg
+		style={{ isolation: "isolate" }}
+		viewBox="136 197 727.6 603.566"
+		{...props}
+	>
+		<linearGradient
+			id="a"
+			x1="-.36%"
+			y1="98.238%"
+			x2="70.268%"
+			y2="28.606%"
+		>
+			<stop offset="1.739%" stopColor="#464646" />
+			<stop offset="100%" stopColor="#d1d1d1" />
+		</linearGradient>
+		<path d="M276 685h543V229H136v572l140-116z" fill="url(#a)" />
+		<linearGradient
+			id="b"
+			x1="21.626%"
+			y1="24.356%"
+			x2="98.919%"
+			y2="96.344%"
+		>
+			<stop offset="3.043%" stopColor="#464646" />
+			<stop offset="100%" />
+		</linearGradient>
+		<path d="M864 653V197H181v456h543l140 116V653z" fill="url(#b)" />
+		<path
+			fill="#FFF"
+			d="M309.145 305.662h434.648v40.4H309.145zm0 98.91h434.648v40.4H309.145zm0 98.911h434.648v40.4H309.145z"
+		/>
+	</svg>
+);
 
-export default RandomLy;
+export default randomLy;

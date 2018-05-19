@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { signup } from "../../Store/actions/index";
 import SignUpForm from "../../components/Forms/SignUp/SignUp";
+import Logo from "../../components/Logo/RandomLyFull";
 
 class SignUp extends Component {
 	onSignUp = values => {
@@ -20,8 +21,11 @@ class SignUp extends Component {
 	render() {
 		return (
 			<Fragment>
-				<Grid container justify="center">
+				<Grid container justify="center" className="pt-5 mt-4">
 					<Grid item xs={9} sm={5} md={3}>
+						<div className="text-center mb-3">
+							<Logo width="13rem" />
+						</div>
 						<SignUpForm onSubmit={this.onSignUp} />
 					</Grid>
 				</Grid>
