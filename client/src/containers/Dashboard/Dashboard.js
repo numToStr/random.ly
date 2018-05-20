@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { Grid, Typography } from "@material-ui/core";
-import { NavLink } from "react-router-dom";
 
 import Header from "../../components/Header/Header";
 import Aside from "../../components/AsideNav/AsideNav";
@@ -20,9 +19,6 @@ class Dashboard extends Component {
 							</Grid>
 							<Grid item xs={12} md={9}>
 								<Typography>Dashboard</Typography>
-								<NavLink to="/user/profile">
-									Go to Profile
-								</NavLink>
 							</Grid>
 						</Grid>
 					</Grid>

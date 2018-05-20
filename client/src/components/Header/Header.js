@@ -12,11 +12,15 @@ import {
 	List,
 	ListItem,
 	ListItemText,
-	ListItemIcon
+	ListItemIcon,
+	Menu,
+	MenuItem
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import AccountBox from "@material-ui/icons/AccountBox";
 
 import { authLogout } from "../../Store/actions/index";
 
@@ -31,8 +35,17 @@ const styles = {
 
 class Header extends Component {
 	state = {
-		right: false
+		right: false,
+		menuAnchor: null
 	};
+
+	openMenu = e => {
+		this.setState({ menuAnchor: e.currentTarget });
+	}
+
+	closeMenu = () => {
+		this.setState({ menuAnchor: null });
+	}
 
 	toggleDrawer = (side, open) => () => {
 		this.setState({
@@ -42,6 +55,7 @@ class Header extends Component {
 
 	render() {
 		const { title, classes, isMobile, isAuth, logout } = this.props;
+		const { menuAnchor } = this.state;
 
 		let barBtn = (
 			<Fragment>
@@ -96,13 +110,27 @@ class Header extends Component {
 
 			barBtn = (
 				<Fragment>
-					<Button
-						className={classes.marginLeft}
-						variant="flat"
-						onClick={logout}
+					<IconButton
+						onClick={this.openMenu}
+						color="inherit"
+						aria-label="Menu"
 					>
-						Logout
-					</Button>
+						<AccountCircle color="primary" />
+					</IconButton>
+					<Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={this.closeMenu}>
+						<MenuItem component={NavLink} to="/user/profile">
+							<ListItemIcon>
+								<AccountBox color="primary" />
+							</ListItemIcon>
+							<ListItemText primary="Profile" />
+						</MenuItem>
+						<MenuItem onClick={logout}>
+							<ListItemIcon>
+								<Lock color="primary" />
+							</ListItemIcon>
+							<ListItemText primary="Logout" />
+						</MenuItem>
+					</Menu>
 				</Fragment>
 			);
 		}

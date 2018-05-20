@@ -24,19 +24,19 @@ const STORE = createStore(
 );
 
 const THEME = createMuiTheme({
-	shadows: Array(25),
-	// overrides: {
-	// 	MuiButton: {
-	// 		raised: {
-	// 			boxShadow: "none"
-	// 		}
-	// 	},
-	// 	MuiAppBar: {
-	// 		root: {
-	// 			boxShadow: "none"
-	// 		}
-	// 	}
-	// },
+	// shadows: Array(25),
+	overrides: {
+		MuiButton: {
+			raised: {
+				boxShadow: "none"
+			}
+		},
+		MuiAppBar: {
+			root: {
+				boxShadow: "none"
+			}
+		}
+	},
 	palette: {
 		primary: {
 			main: grey[900]
