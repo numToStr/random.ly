@@ -66,46 +66,97 @@ class Header extends Component {
 		const { classes, isAuth, logout, userName } = this.props;
 		const { menuAnchor } = this.state;
 
-		let barBtn = (
-			<Fragment>
-				<Button
-					className="ml-1"
-					variant="flat"
-					component={NavLink}
-					to="/user/login"
-				>
-					Login
-				</Button>
-				<Button
-					className="ml-1"
-					variant="raised"
-					component={NavLink}
-					to="/user/signup"
-					color="primary"
-				>
-					Signup
-				</Button>
-			</Fragment>
-		);
+		let mobileMenuIcon = null;
+		let barBtn = null;
+		let drawerBtn = null;
 
-		let drawerBtn = (
-			<Fragment>
-				<ListItem button component={NavLink} to="/user/signup">
-					<ListItemIcon>
-						<Favourite color="primary" />
-					</ListItemIcon>
-					<ListItemText primary="Signup" />
-				</ListItem>
-				<ListItem button component={NavLink} to="/user/login">
-					<ListItemIcon>
-						<Lock color="primary" />
-					</ListItemIcon>
-					<ListItemText primary="Login" />
-				</ListItem>
-			</Fragment>
-		);
+		if (isMobile) {
+			mobileMenuIcon = (
+				<Fragment>
+					<IconButton
+						onClick={this.toggleDrawer("left", true)}
+						color="inherit"
+						aria-label="Menu"
+					>
+						<MenuIcon />
+					</IconButton>
+				</Fragment>
+			);
+		} else {
+			drawerBtn = (
+				<Fragment>
+					<ListItem button component={NavLink} to="/user/signup">
+						<ListItemIcon>
+							<Favourite color="primary" />
+						</ListItemIcon>
+						<ListItemText primary="Signup" />
+					</ListItem>
+					<ListItem button component={NavLink} to="/user/login">
+						<ListItemIcon>
+							<Lock color="primary" />
+						</ListItemIcon>
+						<ListItemText primary="Login" />
+					</ListItem>
+				</Fragment>
+			);
+			barBtn = (
+				<Fragment>
+					<Button
+						className="ml-1"
+						variant="flat"
+						component={NavLink}
+						to="/user/login"
+					>
+						Login
+					</Button>
+					<Button
+						className="ml-1"
+						variant="raised"
+						component={NavLink}
+						to="/user/signup"
+						color="primary"
+					>
+						Signup
+					</Button>
+				</Fragment>
+			);
+		}
 
 		if (isAuth) {
+			let userIcon = null;
+			if (isMobile) {
+				/* userIcon = (
+					<IconButton
+						onClick={this.openMenu}
+						color="inherit"
+						aria-label="Menu"
+					>
+						<AccountCircle />
+					</IconButton>
+				); */
+			} else {
+				userIcon = (
+					<Chip
+						avatar={
+							<Avatar className="bg-transparent">
+								<AccountCircle
+									color="primary"
+									style={{
+										height: "1em",
+										width: "1em"
+									}}
+								/>
+							</Avatar>
+						}
+						label={userName}
+						classes={{
+							label: "pl-1"
+						}}
+						onClick={this.openMenu}
+					/>
+				);
+			}
+
 			drawerBtn = (
 				<Fragment>
 					<ListItem button onClick={logout}>
@@ -119,34 +170,7 @@ class Header extends Component {
 
 			barBtn = (
 				<Fragment>
-					{isMobile ? (
-						<IconButton
-							onClick={this.openMenu}
-							color="inherit"
-							aria-label="Menu"
-						>
-							<AccountCircle />
-						</IconButton>
-					) : (
-						<Chip
-							avatar={
-								<Avatar className="bg-transparent">
-									<AccountCircle
-										color="primary"
-										style={{
-											height: "1em",
-											width: "1em"
-										}}
-									/>
-								</Avatar>
-							}
-							label={userName}
-							classes={{
-								label: "pl-1"
-							}}
-							onClick={this.openMenu}
-						/>
-					)}
+					{userIcon}
 					<Menu
 						anchorEl={menuAnchor}
 						open={Boolean(menuAnchor)}
@@ -167,22 +191,6 @@ class Header extends Component {
 					</Menu>
 				</Fragment>
 			);
-		}
-
-		let mobileMenuIcon = null;
-		if (isMobile) {
-			mobileMenuIcon = (
-				<Fragment>
-					<IconButton
-						onClick={this.toggleDrawer("left", true)}
-						color="inherit"
-						aria-label="Menu"
-					>
-						<MenuIcon />
-					</IconButton>
-				</Fragment>
-			);
-			barBtn = null;
 		}
 
 		return (
