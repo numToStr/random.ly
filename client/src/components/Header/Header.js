@@ -9,20 +9,11 @@ import {
 	Button,
 	withStyles,
 	Drawer,
-	List,
-	ListItem,
-	ListItemText,
-	ListItemIcon,
-	Menu,
-	MenuItem,
-	Chip,
-	Avatar
+	List
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import Favourite from "@material-ui/icons/Favorite";
-import Lock from "@material-ui/icons/Lock";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 
+import NavList from "../NavList/NavList";
 import { isMobile } from "../../Store/helper/helper";
 import { authLogout } from "../../Store/actions/index";
 import Logo from "../Logo/RandomLyFull";
@@ -31,7 +22,8 @@ const styles = {
 	flexDesktop: {
 		flex: 1,
 		display: "flex",
-		alignItems: "center"
+		alignItems: "center",
+		justifyContent: "center"
 	},
 	flexMobile: {
 		flex: 1,
@@ -68,7 +60,6 @@ class Header extends Component {
 
 		let mobileMenuIcon = null;
 		let barBtn = null;
-		let drawerBtn = null;
 
 		if (isMobile) {
 			mobileMenuIcon = (
@@ -83,22 +74,6 @@ class Header extends Component {
 				</Fragment>
 			);
 		} else {
-			drawerBtn = (
-				<Fragment>
-					<ListItem button component={NavLink} to="/user/signup">
-						<ListItemIcon>
-							<Favourite color="primary" />
-						</ListItemIcon>
-						<ListItemText primary="Signup" />
-					</ListItem>
-					<ListItem button component={NavLink} to="/user/login">
-						<ListItemIcon>
-							<Lock color="primary" />
-						</ListItemIcon>
-						<ListItemText primary="Login" />
-					</ListItem>
-				</Fragment>
-			);
 			barBtn = (
 				<Fragment>
 					<Button
@@ -123,74 +98,7 @@ class Header extends Component {
 		}
 
 		if (isAuth) {
-			let userIcon = null;
-			if (isMobile) {
-				/* userIcon = (
-					<IconButton
-						onClick={this.openMenu}
-						color="inherit"
-						aria-label="Menu"
-					>
-						<AccountCircle />
-					</IconButton>
-				); */
-			} else {
-				userIcon = (
-					<Chip
-						avatar={
-							<Avatar className="bg-transparent">
-								<AccountCircle
-									color="primary"
-									style={{
-										height: "1em",
-										width: "1em"
-									}}
-								/>
-							</Avatar>
-						}
-						label={userName}
-						classes={{
-							label: "pl-1"
-						}}
-						onClick={this.openMenu}
-					/>
-				);
-			}
-
-			drawerBtn = (
-				<Fragment>
-					<ListItem button onClick={logout}>
-						<ListItemIcon>
-							<Lock color="primary" />
-						</ListItemIcon>
-						<ListItemText primary="Logout" />
-					</ListItem>
-				</Fragment>
-			);
-
-			barBtn = (
-				<Fragment>
-					{userIcon}
-					<Menu
-						anchorEl={menuAnchor}
-						open={Boolean(menuAnchor)}
-						onClose={this.closeMenu}
-					>
-						<MenuItem component={NavLink} to="/user/profile">
-							<ListItemIcon>
-								<AccountCircle color="primary" />
-							</ListItemIcon>
-							<ListItemText primary="Profile" />
-						</MenuItem>
-						<MenuItem onClick={logout}>
-							<ListItemIcon>
-								<Lock color="primary" />
-							</ListItemIcon>
-							<ListItemText primary="Logout" />
-						</MenuItem>
-					</Menu>
-				</Fragment>
-			);
+			barBtn = null;
 		}
 
 		return (
@@ -231,7 +139,17 @@ class Header extends Component {
 					onClose={this.toggleDrawer("left", false)}
 					transitionDuration={250}
 				>
-					<List component="nav">{drawerBtn}</List>
+					<List component="nav">
+						<NavList
+							isMobile={isMobile}
+							isAuth={isAuth}
+							logout={logout}
+							userName={userName}
+							openMenu={this.openMenu}
+							closeMenu={this.closeMenu}
+							menuAnchor={menuAnchor}
+						/>
+					</List>
 				</Drawer>
 			</Fragment>
 		);
