@@ -23,6 +23,7 @@ import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
+import { isMobile } from "../../Store/helper/helper";
 import { authLogout } from "../../Store/actions/index";
 import Logo from "../Logo/RandomLyFull";
 
@@ -62,7 +63,7 @@ class Header extends Component {
 	};
 
 	render() {
-		const { classes, isMobile, isAuth, logout, userName } = this.props;
+		const { classes, isAuth, logout, userName } = this.props;
 		const { menuAnchor } = this.state;
 
 		let barBtn = (
@@ -231,7 +232,6 @@ class Header extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isMobile: state.common.isMobile,
 		isAuth: state.auth.token ? true : false,
 		userName: state.auth.user.name
 	};
