@@ -1,11 +1,9 @@
 import React, { Component, Fragment } from "react";
-import { NavLink } from 'react-router-dom';
-import { TextField, Button, FormControl, Typography } from "@material-ui/core";
+import { TextField, Button, FormControl } from "@material-ui/core";
 import { Field, reduxForm } from "redux-form";
 
 import validate from "../config/validate";
 // import submit from '../config/asyncValidate'; // for async validations
-
 
 class SignUp extends Component {
 	state = {
@@ -65,9 +63,6 @@ class SignUp extends Component {
 						</Button>
 					</FormControl>
 				</form>
-				<FormControl margin="dense" fullWidth>
-					<Typography align="center" color="textSecondary" variant="caption">Need an account? <NavLink to="/user/signup">Signup</NavLink> </Typography>
-				</FormControl>
 			</Fragment>
 		);
 	}

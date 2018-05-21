@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Grid } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
+import { Grid, FormControl, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { signup } from "../../Store/actions/index";
@@ -23,10 +24,22 @@ class SignUp extends Component {
 			<Fragment>
 				<Grid container justify="center" className="pt-5 mt-4">
 					<Grid item xs={9} sm={5} md={3}>
-						<div className="text-center mb-3">
-							<Logo width="13rem" />
-						</div>
+						<Typography className="text-center mb-3">
+							<NavLink to="/">
+								<Logo width="13rem" />
+							</NavLink>
+						</Typography>
 						<SignUpForm onSubmit={this.onSignUp} />
+						<FormControl margin="dense" fullWidth>
+							<Typography
+								align="center"
+								color="textSecondary"
+								variant="caption"
+							>
+								Already have an account?
+								<NavLink to="/user/login"> Login</NavLink>
+							</Typography>
+						</FormControl>
 					</Grid>
 				</Grid>
 			</Fragment>
