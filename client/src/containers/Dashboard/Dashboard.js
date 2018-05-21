@@ -10,7 +10,7 @@ class Dashboard extends Component {
 			<Fragment>
 				<Grid container className="h-100">
 					<Grid item xs={12}>
-						<Header title="randomly" />
+						<Header />
 					</Grid>
 					<Grid item xs={12}>
 						<Grid container>

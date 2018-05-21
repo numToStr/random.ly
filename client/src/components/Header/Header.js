@@ -14,38 +14,46 @@ import {
 	ListItemText,
 	ListItemIcon,
 	Menu,
-	MenuItem
+	MenuItem,
+	Chip,
+	Avatar
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import AccountBox from "@material-ui/icons/AccountBox";
 
 import { authLogout } from "../../Store/actions/index";
+import Logo from "../Logo/RandomLyFull";
 
 const styles = {
-	flex: {
-		flex: 1
+	flexDesktop: {
+		flex: 1,
+		display: "flex",
+		alignItems: "center"
 	},
-	marginLeft: {
-		marginLeft: ".2rem"
+	flexMobile: {
+		flex: 1,
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		paddingRight: "2.5rem"
 	}
 };
 
 class Header extends Component {
 	state = {
-		right: false,
+		left: false,
 		menuAnchor: null
 	};
 
 	openMenu = e => {
 		this.setState({ menuAnchor: e.currentTarget });
-	}
+	};
 
 	closeMenu = () => {
 		this.setState({ menuAnchor: null });
-	}
+	};
 
 	toggleDrawer = (side, open) => () => {
 		this.setState({
@@ -54,13 +62,13 @@ class Header extends Component {
 	};
 
 	render() {
-		const { title, classes, isMobile, isAuth, logout } = this.props;
+		const { classes, isMobile, isAuth, logout, userName } = this.props;
 		const { menuAnchor } = this.state;
 
 		let barBtn = (
 			<Fragment>
 				<Button
-					className={classes.marginLeft}
+					className="ml-1"
 					variant="flat"
 					component={NavLink}
 					to="/user/login"
@@ -68,7 +76,7 @@ class Header extends Component {
 					Login
 				</Button>
 				<Button
-					className={classes.marginLeft}
+					className="ml-1"
 					variant="raised"
 					component={NavLink}
 					to="/user/signup"
@@ -110,17 +118,42 @@ class Header extends Component {
 
 			barBtn = (
 				<Fragment>
-					<IconButton
-						onClick={this.openMenu}
-						color="inherit"
-						aria-label="Menu"
+					{isMobile ? (
+						<IconButton
+							onClick={this.openMenu}
+							color="inherit"
+							aria-label="Menu"
+						>
+							<AccountCircle />
+						</IconButton>
+					) : (
+						<Chip
+							avatar={
+								<Avatar className="bg-transparent">
+									<AccountCircle
+										color="primary"
+										style={{
+											height: "1em",
+											width: "1em"
+										}}
+									/>
+								</Avatar>
+							}
+							label={userName}
+							classes={{
+								label: "pl-1"
+							}}
+							onClick={this.openMenu}
+						/>
+					)}
+					<Menu
+						anchorEl={menuAnchor}
+						open={Boolean(menuAnchor)}
+						onClose={this.closeMenu}
 					>
-						<AccountCircle color="primary" />
-					</IconButton>
-					<Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={this.closeMenu}>
 						<MenuItem component={NavLink} to="/user/profile">
 							<ListItemIcon>
-								<AccountBox color="primary" />
+								<AccountCircle color="primary" />
 							</ListItemIcon>
 							<ListItemText primary="Profile" />
 						</MenuItem>
@@ -135,11 +168,12 @@ class Header extends Component {
 			);
 		}
 
+		let mobileMenuIcon = null;
 		if (isMobile) {
-			barBtn = (
+			mobileMenuIcon = (
 				<Fragment>
 					<IconButton
-						onClick={this.toggleDrawer("right", true)}
+						onClick={this.toggleDrawer("left", true)}
 						color="inherit"
 						aria-label="Menu"
 					>
@@ -147,26 +181,45 @@ class Header extends Component {
 					</IconButton>
 				</Fragment>
 			);
+			barBtn = null;
 		}
 
 		return (
 			<Fragment>
-				<AppBar position="static" color="default">
-					<Toolbar>
+				<AppBar
+					position="static"
+					color="default"
+					classes={{
+						colorDefault: "bg-white"
+					}}
+				>
+					<Toolbar disableGutters={isMobile ? true : false}>
+						{mobileMenuIcon}
 						<Typography
 							variant="title"
 							color="inherit"
-							className={classes.flex}
+							className={
+								isMobile
+									? classes.flexMobile
+									: classes.flexDesktop
+							}
 						>
-							{title}
+							<NavLink
+								to="/"
+								style={{
+									lineHeight: 0
+								}}
+							>
+								<Logo width={isMobile ? "6rem" : "7rem"} />
+							</NavLink>
 						</Typography>
 						{barBtn}
 					</Toolbar>
 				</AppBar>
 				<Drawer
-					anchor="right"
-					open={this.state.right}
-					onClose={this.toggleDrawer("right", false)}
+					anchor="left"
+					open={this.state.left}
+					onClose={this.toggleDrawer("left", false)}
 					transitionDuration={250}
 				>
 					<List component="nav">{drawerBtn}</List>
@@ -179,7 +232,8 @@ class Header extends Component {
 const mapStateToProps = state => {
 	return {
 		isMobile: state.common.isMobile,
-		isAuth: state.auth.token ? true : false
+		isAuth: state.auth.token ? true : false,
+		userName: state.auth.user.name
 	};
 };
 

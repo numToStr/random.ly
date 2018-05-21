@@ -9,7 +9,7 @@ class Home extends Component {
 			<Fragment>
 				<Grid container>
 					<Grid item xs={12}>
-						<Header title="random.ly" />
+						<Header />
 					</Grid>
 					<Grid item xs={12} md={6}>
 						<Typography variant="display3">
