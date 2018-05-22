@@ -8,8 +8,7 @@ import {
 	Typography,
 	Button,
 	withStyles,
-	Drawer,
-	List
+	Drawer
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -139,17 +138,15 @@ class Header extends Component {
 					onClose={this.toggleDrawer("left", false)}
 					transitionDuration={250}
 				>
-					<List component="nav">
-						<NavList
-							isMobile={isMobile}
-							isAuth={isAuth}
-							logout={logout}
-							userName={userName}
-							openMenu={this.openMenu}
-							closeMenu={this.closeMenu}
-							menuAnchor={menuAnchor}
-						/>
-					</List>
+					<NavList
+						isMobile={isMobile}
+						isAuth={isAuth}
+						logout={logout}
+						userName={userName}
+						openMenu={this.openMenu}
+						closeMenu={this.closeMenu}
+						menuAnchor={menuAnchor}
+					/>
 				</Drawer>
 			</Fragment>
 		);

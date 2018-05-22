@@ -7,7 +7,8 @@ import {
 	Chip,
 	Avatar,
 	Menu,
-	MenuItem
+	MenuItem,
+	List
 } from "@material-ui/core";
 
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -80,7 +81,7 @@ const NavList = props => {
 		);
 	}
 
-	return links;
+	return <List component="nav">{links}</List>;
 };
 
 export default NavList;
