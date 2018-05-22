@@ -35,7 +35,7 @@ const styles = {
 };
 
 const header = props => {
-	const { classes, isAuth, toggleDrawer, drawerAnchor, path } = props;
+	const { classes, isAuth, toggleDrawer, path } = props;
 
 	let mobileMenuIcon = null;
 	let barBtn = null;
@@ -114,14 +114,6 @@ const header = props => {
 					{barBtn}
 				</Toolbar>
 			</AppBar>
-			<Drawer
-				anchor="left"
-				open={drawerAnchor}
-				onClose={toggleDrawer("left", false)}
-				transitionDuration={250}
-			>
-				<NavList />
-			</Drawer>
 		</Fragment>
 	);
 };

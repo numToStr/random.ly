@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
 import Header from "../../components/Header/Header";
+import MobileDrawer from "../MobileDrawer/MobileDrawer";
 
 class Layout extends Component {
 	state = {
@@ -27,8 +28,11 @@ class Layout extends Component {
 						<Header
 							isAuth={isAuth}
 							toggleDrawer={toggleDrawer}
-							drawerAnchor={left}
 							path={location.pathname}
+						/>
+						<MobileDrawer
+							toggleDrawer={toggleDrawer}
+							drawerAnchor={left}
 						/>
 					</Grid>
 					<Grid item xs={12}>
