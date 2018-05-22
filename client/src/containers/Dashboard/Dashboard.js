@@ -10,7 +10,7 @@ class Dashboard extends Component {
 		let asideNav = null;
 		if (!isMobile) {
 			asideNav = (
-				<Grid item xs={12} md={3}>
+				<Grid item xs={3}>
 					<Aside />
 				</Grid>
 			);
@@ -20,7 +20,7 @@ class Dashboard extends Component {
 			<Layout>
 				<Grid container>
 					{asideNav}
-					<Grid item xs={12} md={9}>
+					<Grid item xs={isMobile ? 12 : 9}>
 						<Typography>Dashboard</Typography>
 					</Grid>
 				</Grid>
