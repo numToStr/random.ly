@@ -6,12 +6,10 @@ import {
 	Toolbar,
 	Typography,
 	Button,
-	withStyles,
-	Drawer
+	withStyles
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
-import NavList from "../NavList/NavList";
 import { isMobile } from "../../Store/helper/helper";
 import Logo from "../Logo/RandomLyFull";
 
