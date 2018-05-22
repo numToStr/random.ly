@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import {
 	AppBar,
@@ -14,10 +13,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import NavList from "../NavList/NavList";
 import { isMobile } from "../../Store/helper/helper";
-import { authLogout } from "../../Store/actions/index";
 import Logo from "../Logo/RandomLyFull";
 
 const styles = {
+	flex: {
+		flex: 1
+	},
 	flexDesktop: {
 		flex: 1,
 		display: "flex",
@@ -33,139 +34,115 @@ const styles = {
 	}
 };
 
-class Header extends Component {
-	state = {
-		left: false,
-		menuAnchor: null
-	};
+const header = props => {
+	const {
+		classes,
+		isAuth,
+		logout,
+		userName,
+		menuAnchor,
+		openMenu,
+		closeMenu,
+		toggleDrawer,
+		drawerAnchor,
+		path
+	} = props;
 
-	openMenu = e => {
-		this.setState({ menuAnchor: e.currentTarget });
-	};
+	let mobileMenuIcon = null;
+	let barBtn = null;
 
-	closeMenu = () => {
-		this.setState({ menuAnchor: null });
-	};
-
-	toggleDrawer = (side, open) => () => {
-		this.setState({
-			[side]: open
-		});
-	};
-
-	render() {
-		const { classes, isAuth, logout, userName } = this.props;
-		const { menuAnchor } = this.state;
-
-		let mobileMenuIcon = null;
-		let barBtn = null;
-
-		if (isMobile) {
-			mobileMenuIcon = (
-				<Fragment>
-					<IconButton
-						onClick={this.toggleDrawer("left", true)}
-						color="inherit"
-						aria-label="Menu"
-					>
-						<MenuIcon />
-					</IconButton>
-				</Fragment>
-			);
-		} else {
-			barBtn = (
-				<Fragment>
-					<Button
-						className="ml-1"
-						variant="flat"
-						component={NavLink}
-						to="/user/login"
-					>
-						Login
-					</Button>
-					<Button
-						className="ml-1"
-						variant="raised"
-						component={NavLink}
-						to="/user/signup"
-						color="primary"
-					>
-						Signup
-					</Button>
-				</Fragment>
-			);
-		}
-
-		if (isAuth) {
-			barBtn = null;
-		}
-
-		return (
+	if (isMobile) {
+		mobileMenuIcon = (
 			<Fragment>
-				<AppBar
-					position="static"
-					color="default"
-					classes={{
-						colorDefault: "bg-white"
-					}}
+				<IconButton
+					onClick={toggleDrawer("left", true)}
+					color="inherit"
+					aria-label="Menu"
 				>
-					<Toolbar disableGutters={isMobile ? true : false}>
-						{mobileMenuIcon}
-						<Typography
-							variant="title"
-							color="inherit"
-							className={
-								isMobile
-									? classes.flexMobile
-									: classes.flexDesktop
-							}
-						>
-							<NavLink
-								to="/"
-								style={{
-									lineHeight: 0
-								}}
-							>
-								<Logo width={isMobile ? "6rem" : "7rem"} />
-							</NavLink>
-						</Typography>
-						{barBtn}
-					</Toolbar>
-				</AppBar>
-				<Drawer
-					anchor="left"
-					open={this.state.left}
-					onClose={this.toggleDrawer("left", false)}
-					transitionDuration={250}
+					<MenuIcon />
+				</IconButton>
+			</Fragment>
+		);
+	} else {
+		barBtn = (
+			<Fragment>
+				<Button
+					className="ml-1"
+					variant="flat"
+					component={NavLink}
+					to="/user/login"
 				>
-					<NavList
-						isMobile={isMobile}
-						isAuth={isAuth}
-						logout={logout}
-						userName={userName}
-						openMenu={this.openMenu}
-						closeMenu={this.closeMenu}
-						menuAnchor={menuAnchor}
-					/>
-				</Drawer>
+					Login
+				</Button>
+				<Button
+					className="ml-1"
+					variant="raised"
+					component={NavLink}
+					to="/user/signup"
+					color="primary"
+				>
+					Signup
+				</Button>
 			</Fragment>
 		);
 	}
-}
 
-const mapStateToProps = state => {
-	return {
-		isAuth: state.auth.token ? true : false,
-		userName: state.auth.user.name
-	};
+	if (isAuth) {
+		barBtn = null;
+	}
+
+	return (
+		<Fragment>
+			<AppBar
+				position="static"
+				color="default"
+				classes={{
+					colorDefault: "bg-white"
+				}}
+			>
+				<Toolbar disableGutters={isMobile ? true : false}>
+					{mobileMenuIcon}
+					<Typography
+						variant="title"
+						color="inherit"
+						className={
+							isMobile
+								? classes.flexMobile
+								: path === "/"
+									? classes.flex
+									: classes.flexDesktop
+						}
+					>
+						<NavLink
+							to="/"
+							style={{
+								lineHeight: 0
+							}}
+						>
+							<Logo width={isMobile ? "6rem" : "7rem"} />
+						</NavLink>
+					</Typography>
+					{barBtn}
+				</Toolbar>
+			</AppBar>
+			<Drawer
+				anchor="left"
+				open={drawerAnchor}
+				onClose={toggleDrawer("left", false)}
+				transitionDuration={250}
+			>
+				<NavList
+					isMobile={isMobile}
+					isAuth={isAuth}
+					logout={logout}
+					userName={userName}
+					openMenu={openMenu}
+					closeMenu={closeMenu}
+					menuAnchor={menuAnchor}
+				/>
+			</Drawer>
+		</Fragment>
+	);
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-		logout: () => dispatch(authLogout())
-	};
-};
-
-export default withStyles(styles)(
-	connect(mapStateToProps, mapDispatchToProps)(Header)
-);
+export default withStyles(styles)(header);
