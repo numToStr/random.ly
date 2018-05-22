@@ -45,15 +45,15 @@ const NavList = props => {
 								<AccountCircle
 									color="primary"
 									style={{
-										height: "1em",
-										width: "1em"
+										height: "1.3em",
+										width: "1.3em"
 									}}
 								/>
 							</Avatar>
 						}
 						label={userName}
 						classes={{
-							label: "pl-1"
+							label: "pl-2"
 						}}
 						onClick={openMenu}
 					/>
