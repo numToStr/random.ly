@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 
-import {
-	withStyles,
-	Drawer,
-	List,
-	ListItem,
-	ListItemIcon,
-	ListItemText
-} from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/Inbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
+import { withStyles, Drawer } from "@material-ui/core";
+
+import NavList from "../NavList/NavList";
 
 const styles = theme => ({
 	drawerPaper: {
@@ -28,20 +21,7 @@ class AsideNav extends Component {
 					paper: classes.drawerPaper
 				}}
 			>
-				<List component="nav">
-					<ListItem button>
-						<ListItemIcon>
-							<InboxIcon />
-						</ListItemIcon>
-						<ListItemText primary="Inbox" />
-					</ListItem>
-					<ListItem button>
-						<ListItemIcon>
-							<DraftsIcon />
-						</ListItemIcon>
-						<ListItemText primary="Drafts" />
-					</ListItem>
-				</List>
+				<NavList />
 			</Drawer>
 		);
 	}

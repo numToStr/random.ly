@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
 	ListItem,
@@ -10,78 +11,107 @@ import {
 	MenuItem,
 	List
 } from "@material-ui/core";
-
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 
-const NavList = props => {
-	const { logout, isAuth, userName, openMenu, closeMenu, menuAnchor } = props;
+import { authLogout } from "../../Store/actions/index";
 
-	let links = (
-		<Fragment>
-			<ListItem button component={NavLink} to="/user/signup">
-				<ListItemIcon>
-					<Favourite color="primary" />
-				</ListItemIcon>
-				<ListItemText primary="Signup" />
-			</ListItem>
-			<ListItem button component={NavLink} to="/user/login">
-				<ListItemIcon>
-					<Lock color="primary" />
-				</ListItemIcon>
-				<ListItemText primary="Login" />
-			</ListItem>
-		</Fragment>
-	);
+class NavList extends Component {
+	state = {
+		menuAnchor: null
+	};
+	openMenu = e => {
+		this.setState({ menuAnchor: e.currentTarget });
+	};
 
-	if (isAuth) {
-		links = (
+	closeMenu = () => {
+		this.setState({ menuAnchor: null });
+	};
+
+	render() {
+		const { logout, isAuth, userName } = this.props;
+		const { openMenu, closeMenu } = this;
+		const { menuAnchor } = this.state;
+
+		let links = (
 			<Fragment>
-				<ListItem>
-					<Chip
-						avatar={
-							<Avatar className="bg-transparent">
-								<AccountCircle
-									color="primary"
-									style={{
-										height: "1.3em",
-										width: "1.3em"
-									}}
-								/>
-							</Avatar>
-						}
-						label={userName}
-						classes={{
-							label: "pl-2"
-						}}
-						onClick={openMenu}
-					/>
+				<ListItem button component={NavLink} to="/user/signup">
+					<ListItemIcon>
+						<Favourite color="primary" />
+					</ListItemIcon>
+					<ListItemText primary="Signup" />
 				</ListItem>
-
-				<Menu
-					anchorEl={menuAnchor}
-					open={Boolean(menuAnchor)}
-					onClose={closeMenu}
-				>
-					<MenuItem component={NavLink} to="/user/profile">
-						<ListItemIcon>
-							<AccountCircle color="primary" />
-						</ListItemIcon>
-						<ListItemText primary="Profile" />
-					</MenuItem>
-					<MenuItem onClick={logout}>
-						<ListItemIcon>
-							<Lock color="primary" />
-						</ListItemIcon>
-						<ListItemText primary="Logout" />
-					</MenuItem>
-				</Menu>
+				<ListItem button component={NavLink} to="/user/login">
+					<ListItemIcon>
+						<Lock color="primary" />
+					</ListItemIcon>
+					<ListItemText primary="Login" />
+				</ListItem>
 			</Fragment>
 		);
-	}
 
-	return <List component="nav">{links}</List>;
+		if (isAuth) {
+			links = (
+				<Fragment>
+					<ListItem>
+						<Chip
+							avatar={
+								<Avatar className="bg-transparent">
+									<AccountCircle
+										color="primary"
+										style={{
+											height: "1.3em",
+											width: "1.3em"
+										}}
+									/>
+								</Avatar>
+							}
+							label={userName}
+							classes={{
+								label: "pl-2"
+							}}
+							onClick={openMenu}
+						/>
+					</ListItem>
+
+					<Menu
+						anchorEl={menuAnchor}
+						open={Boolean(menuAnchor)}
+						onClose={closeMenu}
+					>
+						<MenuItem component={NavLink} to="/user/profile">
+							<ListItemIcon>
+								<AccountCircle color="primary" />
+							</ListItemIcon>
+							<ListItemText primary="Profile" />
+						</MenuItem>
+						<MenuItem onClick={logout}>
+							<ListItemIcon>
+								<Lock color="primary" />
+							</ListItemIcon>
+							<ListItemText primary="Logout" />
+						</MenuItem>
+					</Menu>
+				</Fragment>
+			);
+		}
+
+		return <List component="nav">{links}</List>;
+	}
+}
+
+const mapStateToProps = state => {
+	return {
+		isAuth: state.auth.token ? true : false,
+		userName: state.auth.user.name
+	};
 };
 
-export default NavList;
+const mapDispatchToProps = dispatch => {
+	return {
+		logout: () => dispatch(authLogout())
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavList);

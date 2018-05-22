@@ -4,20 +4,10 @@ import { withRouter } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
 import Header from "../../components/Header/Header";
-import { authLogout } from "../../Store/actions/index";
 
 class Layout extends Component {
 	state = {
-		left: false,
-		menuAnchor: null
-	};
-
-	openMenu = e => {
-		this.setState({ menuAnchor: e.currentTarget });
-	};
-
-	closeMenu = () => {
-		this.setState({ menuAnchor: null });
+		left: false
 	};
 
 	toggleDrawer = (side, open) => () => {
@@ -25,11 +15,10 @@ class Layout extends Component {
 			[side]: open
 		});
 	};
-
 	render() {
-		const { openMenu, closeMenu, toggleDrawer } = this;
-		const { children, isAuth, userName, logout, location } = this.props;
-		const { menuAnchor, left } = this.state;
+		const { toggleDrawer } = this;
+		const { children, isAuth, location } = this.props;
+		const { left } = this.state;
 
 		return (
 			<Fragment>
@@ -37,11 +26,6 @@ class Layout extends Component {
 					<Grid item xs={12}>
 						<Header
 							isAuth={isAuth}
-							userName={userName}
-							logout={logout}
-							menuAnchor={menuAnchor}
-							openMenu={openMenu}
-							closeMenu={closeMenu}
 							toggleDrawer={toggleDrawer}
 							drawerAnchor={left}
 							path={location.pathname}
@@ -58,15 +42,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isAuth: state.auth.token ? true : false,
-		userName: state.auth.user.name
+		isAuth: state.auth.token ? true : false
 	};
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-		logout: () => dispatch(authLogout())
-	};
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));
+export default withRouter(connect(mapStateToProps)(Layout));

@@ -35,18 +35,7 @@ const styles = {
 };
 
 const header = props => {
-	const {
-		classes,
-		isAuth,
-		logout,
-		userName,
-		menuAnchor,
-		openMenu,
-		closeMenu,
-		toggleDrawer,
-		drawerAnchor,
-		path
-	} = props;
+	const { classes, isAuth, toggleDrawer, drawerAnchor, path } = props;
 
 	let mobileMenuIcon = null;
 	let barBtn = null;
@@ -131,15 +120,7 @@ const header = props => {
 				onClose={toggleDrawer("left", false)}
 				transitionDuration={250}
 			>
-				<NavList
-					isMobile={isMobile}
-					isAuth={isAuth}
-					logout={logout}
-					userName={userName}
-					openMenu={openMenu}
-					closeMenu={closeMenu}
-					menuAnchor={menuAnchor}
-				/>
+				<NavList />
 			</Drawer>
 		</Fragment>
 	);
