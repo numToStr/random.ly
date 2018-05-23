@@ -54,7 +54,7 @@ const header = props => {
 		barBtn = (
 			<Fragment>
 				<Button
-					className="ml-1"
+					className="ml-1 capsule"
 					variant="flat"
 					component={NavLink}
 					to="/user/login"
@@ -62,7 +62,7 @@ const header = props => {
 					Login
 				</Button>
 				<Button
-					className="ml-1"
+					className="ml-1 capsule"
 					variant="raised"
 					component={NavLink}
 					to="/user/signup"

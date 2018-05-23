@@ -59,6 +59,7 @@ class SignUp extends Component {
 					/>
 					<FormControl margin="normal" fullWidth>
 						<Button
+							className="capsule"
 							variant="raised"
 							type="Submit"
 							color="primary"
