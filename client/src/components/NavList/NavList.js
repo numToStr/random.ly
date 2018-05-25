@@ -97,7 +97,11 @@ class NavList extends Component {
 			);
 		}
 
-		return <List component="nav">{links}</List>;
+		return (
+			<List component="nav" className="h-100">
+				{links}
+			</List>
+		);
 	}
 }
 

@@ -18,7 +18,7 @@ class Dashboard extends Component {
 
 		return (
 			<Layout>
-				<Grid container>
+				<Grid container className="h-100">
 					{asideNav}
 					<Grid item xs={isMobile ? 12 : 9}>
 						<Typography>Dashboard</Typography>

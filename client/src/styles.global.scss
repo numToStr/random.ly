@@ -23,7 +23,6 @@ body {
 	position: relative;
 	height: 100%;
 	background: #fff !important;
-	overflow: hidden;
 }
 
 #root {
@@ -31,4 +30,16 @@ body {
 }
 .capsule {
 	border-radius: 10rem !important;
+}
+.layout {
+	flex-direction: column;
+	height: 100%;
+	position: relative;
+}
+.layout-column {
+	flex-basis: 0 !important;
+	width: 100%;
+}
+.flex-grow {
+	flex-grow: 1 !important;
 }

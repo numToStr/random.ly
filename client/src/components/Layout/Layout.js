@@ -23,8 +23,8 @@ class Layout extends Component {
 
 		return (
 			<Fragment>
-				<Grid container>
-					<Grid item xs={12}>
+				<Grid container className="layout">
+					<Grid item xs={12} className="layout-column">
 						<Header
 							isAuth={isAuth}
 							toggleDrawer={toggleDrawer}
@@ -35,7 +35,7 @@ class Layout extends Component {
 							drawerAnchor={left}
 						/>
 					</Grid>
-					<Grid item xs={12}>
+					<Grid item xs={12} className="layout-column flex-grow">
 						{children}
 					</Grid>
 				</Grid>
