@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { TextField, Button, FormControl } from "@material-ui/core";
-import { Field, reduxForm } from "redux-form";
+import { Form, Field, reduxForm } from "redux-form";
 
 import validate from "../config/validate";
 // import submit from '../config/asyncValidate'; // for async validations
@@ -30,7 +30,7 @@ class SignUp extends Component {
 	render() {
 		return (
 			<Fragment>
-				<form
+				<Form
 					// onSubmit={this.props.handleSubmit(submit)} // for async validations
 					onSubmit={this.props.handleSubmit}
 					noValidate
@@ -70,7 +70,7 @@ class SignUp extends Component {
 							Sign up
 						</Button>
 					</FormControl>
-				</form>
+				</Form>
 			</Fragment>
 		);
 	}
