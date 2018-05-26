@@ -20,7 +20,7 @@ class LogIn extends Component {
 	};
 
 	render() {
-		const { loading } = this.props;
+		const { loading, error } = this.props;
 		return (
 			<Fragment>
 				<Grid container justify="center" className="pt-5">
@@ -30,7 +30,11 @@ class LogIn extends Component {
 								<Logo width="13rem" />
 							</NavLink>
 						</Typography>
-						<LogInForm onSubmit={this.onLogIn} loading={loading} />
+						<LogInForm
+							onSubmit={this.onLogIn}
+							loading={loading}
+							formError={error}
+						/>
 						<FormControl margin="dense" fullWidth>
 							<Typography
 								align="center"
@@ -50,7 +54,8 @@ class LogIn extends Component {
 
 const mapStateToProps = state => {
 	return {
-		loading: state.auth.loading
+		loading: state.auth.loading,
+		error: state.auth.error
 	};
 };
 

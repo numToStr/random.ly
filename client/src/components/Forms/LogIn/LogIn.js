@@ -3,12 +3,27 @@ import {
 	TextField,
 	Button,
 	FormControl,
-	CircularProgress
+	CircularProgress,
+	withStyles,
+	Typography,
+	Paper
 } from "@material-ui/core";
 import { Form, Field, reduxForm } from "redux-form";
 
 import validate from "../config/validate";
 // import submit from '../config/asyncValidate'; // for async validations
+
+const styles = theme => {
+	const {
+		palette: { error }
+	} = theme;
+	return {
+		errorPaper: {
+			background: error.main,
+			color: error.contrastText
+		}
+	};
+};
 
 class SignUp extends Component {
 	state = {
@@ -33,9 +48,34 @@ class SignUp extends Component {
 	};
 
 	render() {
-		const { loading, handleSubmit, pristine } = this.props;
+		const {
+			classes,
+			loading,
+			handleSubmit,
+			pristine,
+			formError
+		} = this.props;
+
 		return (
 			<Fragment>
+				{formError && (
+					<Paper
+						square={true}
+						className="py-2 mb-2"
+						classes={{
+							root: classes.errorPaper
+						}}
+						elevation={0}
+					>
+						<Typography
+							variant="caption"
+							color="inherit"
+							align="center"
+						>
+							{formError}
+						</Typography>
+					</Paper>
+				)}
 				<Form
 					// onSubmit={this.props.handleSubmit(submit)} // for async validations
 					onSubmit={handleSubmit}
@@ -86,4 +126,4 @@ SignUp = reduxForm({
 	validate
 })(SignUp);
 
-export default SignUp;
+export default withStyles(styles)(SignUp);
