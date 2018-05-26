@@ -34,7 +34,7 @@ class SignUp extends Component {
 						<SignUpForm
 							onSubmit={this.onSignUp}
 							loading={loading}
-							error={error}
+							formError={error}
 						/>
 						<FormControl margin="dense" fullWidth>
 							<Typography
