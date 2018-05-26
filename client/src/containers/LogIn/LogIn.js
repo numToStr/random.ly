@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { login } from "../../Store/actions/index";
 import LogInForm from "../../components/Forms/LogIn/LogIn";
-import Logo from "../../components/Logo/RandomLyFull";
+import Logo from "../../components/Images/Logo/RandomLyFull";
 
 class LogIn extends Component {
 	onLogIn = values => {

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import { signup } from "../../Store/actions/index";
 import SignUpForm from "../../components/Forms/SignUp/SignUp";
-import Logo from "../../components/Logo/RandomLyFull";
+import Logo from "../../components/Images/Logo/RandomLyFull";
 
 class SignUp extends Component {
 	onSignUp = values => {

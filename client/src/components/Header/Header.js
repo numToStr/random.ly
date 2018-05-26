@@ -11,7 +11,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { isMobile } from "../../Store/helper/helper";
-import Logo from "../Logo/RandomLyFull";
+import Logo from "../Images/Logo/RandomLyFull";
 
 const styles = {
 	flex: {

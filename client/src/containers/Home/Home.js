@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Grid, Typography, Button, withStyles } from "@material-ui/core";
 
 import Layout from "../../components/Layout/Layout";
+import ChatImage from "../../components/Images/ChatImage/ChatImage";
 import { isMobile } from "../../Store/helper/helper";
 
 const styles = theme => ({
@@ -18,8 +19,8 @@ class Home extends Component {
 		let bannerImage = null;
 		if (!isMobile) {
 			bannerImage = (
-				<Grid item xs={12} md={6}>
-					Images
+				<Grid item xs={12} md={6} className="text-center pt-5">
+					<ChatImage width="65%" className="mt-5" />
 				</Grid>
 			);
 		}
