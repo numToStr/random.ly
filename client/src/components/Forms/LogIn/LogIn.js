@@ -1,5 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { TextField, Button, FormControl } from "@material-ui/core";
+import {
+	TextField,
+	Button,
+	FormControl,
+	CircularProgress
+} from "@material-ui/core";
 import { Form, Field, reduxForm } from "redux-form";
 
 import validate from "../config/validate";
@@ -28,12 +33,12 @@ class SignUp extends Component {
 	};
 
 	render() {
-		console.log(this.props);
+		const { loading, handleSubmit, pristine } = this.props;
 		return (
 			<Fragment>
 				<Form
 					// onSubmit={this.props.handleSubmit(submit)} // for async validations
-					onSubmit={this.props.handleSubmit}
+					onSubmit={handleSubmit}
 					noValidate
 					autoComplete="off"
 				>
@@ -57,11 +62,17 @@ class SignUp extends Component {
 							variant="raised"
 							type="Submit"
 							color="primary"
-							disabled={
-								this.props.pristine || this.props.submitting
-							}
+							disabled={pristine || loading}
 						>
-							Login
+							{loading ? (
+								<CircularProgress
+									size={20}
+									thickness={4}
+									color="secondary"
+								/>
+							) : (
+								"Login"
+							)}
 						</Button>
 					</FormControl>
 				</Form>

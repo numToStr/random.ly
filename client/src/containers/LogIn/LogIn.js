@@ -20,6 +20,7 @@ class LogIn extends Component {
 	};
 
 	render() {
+		const { loading } = this.props;
 		return (
 			<Fragment>
 				<Grid container justify="center" className="pt-5">
@@ -29,7 +30,7 @@ class LogIn extends Component {
 								<Logo width="13rem" />
 							</NavLink>
 						</Typography>
-						<LogInForm onSubmit={this.onLogIn} />
+						<LogInForm onSubmit={this.onLogIn} loading={loading} />
 						<FormControl margin="dense" fullWidth>
 							<Typography
 								align="center"
@@ -47,10 +48,16 @@ class LogIn extends Component {
 	}
 }
 
+const mapStateToProps = state => {
+	return {
+		loading: state.auth.loading
+	};
+};
+
 const mapDispatchToProps = dispatch => {
 	return {
 		handleLogin: (data, cb) => dispatch(login(data, cb))
 	};
 };
 
-export default connect(null, mapDispatchToProps)(LogIn);
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
