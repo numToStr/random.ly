@@ -20,6 +20,8 @@ class SignUp extends Component {
 	};
 
 	render() {
+		const { loading, error } = this.props;
+
 		return (
 			<Fragment>
 				<Grid container justify="center" className="pt-5">
@@ -29,7 +31,11 @@ class SignUp extends Component {
 								<Logo width="13rem" />
 							</NavLink>
 						</Typography>
-						<SignUpForm onSubmit={this.onSignUp} />
+						<SignUpForm
+							onSubmit={this.onSignUp}
+							loading={loading}
+							error={error}
+						/>
 						<FormControl margin="dense" fullWidth>
 							<Typography
 								align="center"
@@ -47,10 +53,17 @@ class SignUp extends Component {
 	}
 }
 
+const mapStateToProps = state => {
+	return {
+		loading: state.auth.loading,
+		error: state.auth.error
+	};
+};
+
 const mapDispatchToProps = dispatch => {
 	return {
 		handleSignup: (data, cb) => dispatch(signup(data, cb))
 	};
 };
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

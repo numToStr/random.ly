@@ -37,6 +37,18 @@ export const signup = (data, callback) => {
 			.then(d => {
 				const D = d.data;
 				if (D.status) {
+					dispatch(
+						authSuccess({
+							user: {
+								id: null,
+								name: null,
+								email: null
+							},
+							token: null,
+							loading: false,
+							error: null
+						})
+					);
 					callback(D);
 				} else {
 					dispatch(authFail(D.err));
