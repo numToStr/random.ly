@@ -22,8 +22,8 @@ class LogIn extends Component {
 	render() {
 		return (
 			<Fragment>
-				<Grid container justify="center" className="pt-5 mt-4">
-					<Grid item xs={9} sm={5} md={3}>
+				<Grid container justify="center" className="pt-5">
+					<Grid item xs={9} sm={5} md={3} className="mt-5">
 						<Typography className="text-center mb-3">
 							<NavLink to="/">
 								<Logo width="13rem" />
