@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const { isEmail, isEmpty } = require("validator");
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 require("../models/user");
 const User = mongoose.model("user");
@@ -12,18 +12,22 @@ const User = mongoose.model("user");
 router.post("/signup", (req, res) => {
 	const newUser = req.body;
 
-	const err = [];
+	const err = null;
 	switch (true) {
 		case !isEmail(newUser.email):
-			err.push("Not a valid Email");
+			err = "Not a valid Email";
+			break;
 		case isEmpty(newUser.name):
-			err.push("Not a valid newUsername");
+			err = "Not a valid Username";
+			break;
 		case isEmpty(newUser.password):
-			err.push("Not a valid password");
+			err = "Not a valid password";
+			break;
 		case newUser.password < 6:
-			err.push("Password should be 6 character");
+			err = "Password should be 6 character";
+			break;
 	}
-	if (err.length) {
+	if (err) {
 		res.send({
 			status: 0,
 			err: err
@@ -31,10 +35,9 @@ router.post("/signup", (req, res) => {
 	}
 	User.findOne({ email: newUser.email }).then(user => {
 		if (user) {
-			err.push("Email already registered");
 			res.send({
 				status: 0,
-				err: err
+				err: "Email already registered"
 			});
 		} else {
 			bcrypt.genSalt(10, (err, salt) => {
@@ -42,13 +45,12 @@ router.post("/signup", (req, res) => {
 					if (err) throw err;
 
 					newUser.password = hash;
-					const USER = new User(newUser)
-					USER
-						.save()
+					const USER = new User(newUser);
+					USER.save()
 						.then(user => {
 							res.status(200).send({
 								status: 1,
-								msg: "Successfully registered"
+								message: "Successfully registered"
 							});
 						})
 						.catch(err => {
@@ -71,12 +73,15 @@ router.post("/login", (req, res, next) => {
 				...info
 			});
 		}
-		req.logIn(user, function (err) {
+		req.logIn(user, function(err) {
 			if (err) {
 				return next(err);
 			}
 
-			const token = jwt.sign({ _id: user.id, email: user.email }, '#pyaarEkDhokaHai');
+			const token = jwt.sign(
+				{ _id: user.id, email: user.email },
+				"#pyaarEkDhokaHai"
+			);
 
 			return res.status(200).send({
 				status: 1,
@@ -92,11 +97,11 @@ router.post("/login", (req, res, next) => {
 	})(req, res, next);
 });
 
-router.post('/authenticate', (req, res, next) => {
+router.post("/authenticate", (req, res, next) => {
 	const token = req.body.token;
 
 	try {
-		const u = jwt.verify(token, '#pyaarEkDhokaHai');
+		const u = jwt.verify(token, "#pyaarEkDhokaHai");
 		User.findById(u._id).then(user => {
 			if (user) {
 				res.send({
@@ -107,21 +112,20 @@ router.post('/authenticate', (req, res, next) => {
 						email: user.email
 					},
 					message: "Authentication Successful"
-				})
+				});
 			} else {
 				res.send({
 					status: 0,
-					message: 'Unauthorized Access! Please signup.'
-				})
+					message: "Unauthorized Access! Please signup."
+				});
 			}
 		});
 	} catch (error) {
 		res.send({
 			status: 0,
-			message: 'Unauthorized Access! Please signup.'
-		})
+			message: "Unauthorized Access! Please signup."
+		});
 	}
-
 });
 
 module.exports = router;
