@@ -75,7 +75,7 @@ export const login = (data, callback) => {
 						callback(D);
 					}
 				} else {
-					dispatch(authFail(D.message));
+					dispatch(authFail(D.err));
 				}
 			})
 			.catch(e => {
