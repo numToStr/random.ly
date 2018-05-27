@@ -7,10 +7,7 @@ import PrivateRoute from "./config/PrivateRoute";
 import PublicRoute from "./config/PublicRoute";
 
 import Home from "../../containers/Home/Home";
-import SignUp from "../../containers/SignUp/SignUp";
-import LogIn from "../../containers/LogIn/LogIn";
-import Dashboard from "../../containers/Dashboard/Dashboard";
-import Profile from "../../containers/Profile/Profile";
+import { SignUp, LogIn, Dashboard, Profile } from './config/AsyncRoutes';
 
 class Routes extends Component {
 	componentDidMount() {
