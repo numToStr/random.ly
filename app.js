@@ -1,11 +1,18 @@
+const http = require('http');
 const express = require("express");
-const app = express();
+const socketIO = require('socket.io');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
+// Express and Socket Server =============
+const app = express();
+const server = http.Server(app)
+const io = socketIO(server);
+
 // Routes Imports
 const auth = require("./server/routes/auth");
+require('./server/routes/chat')(io);
 
 // "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --port 27017 --dbpath C:\mongodb\data\db
 mongoose
