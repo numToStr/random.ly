@@ -109,11 +109,11 @@ export const authAutoSignIn = callback => {
 							callback(D);
 						}
 					} else {
-						dispatch(authFail(D.message));
+						dispatch(authFail({ loginError: D.err }));
 					}
 				})
 				.catch(error => {
-					dispatch(authFail(error));
+					dispatch(authFail({ loginError: error }));
 				});
 		}
 	};
