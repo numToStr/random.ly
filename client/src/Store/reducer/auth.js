@@ -13,14 +13,16 @@ const initState = {
 	},
 	token: null,
 	loading: false,
-	error: null
+	loginError: null,
+	signupError: null
 };
 
 const authStart = (state, action) => {
 	return {
 		...state,
 		token: null,
-		error: null,
+		loginError: null,
+		signupError: null,
 		loading: true
 	};
 };
@@ -35,16 +37,18 @@ const authSuccess = (state, { data }) => {
 		},
 		token: data.token,
 		loading: false,
-		error: null
+		loginError: null,
+		signupError: null
 	};
 };
 
-const authFail = (state, action) => {
+const authFail = (state, { loginError, signupError }) => {
 	return {
 		...state,
 		token: null,
 		loading: false,
-		error: action.error
+		loginError,
+		signupError
 	};
 };
 
@@ -54,7 +58,8 @@ const authLogout = (state, action) => {
 		user: {},
 		token: null,
 		loading: false,
-		error: null
+		loginError: null,
+		signupError: null
 	};
 };
 

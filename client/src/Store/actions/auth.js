@@ -18,7 +18,7 @@ export const authSuccess = data => {
 export const authFail = error => {
 	return {
 		type: actionTypes.AUTH_FAIL,
-		error
+		...error
 	};
 };
 
@@ -46,12 +46,12 @@ export const signup = (data, callback) => {
 							},
 							token: null,
 							loading: false,
-							error: null
+							signUpError: null,
 						})
 					);
 					callback(D);
 				} else {
-					dispatch(authFail(D.err));
+					dispatch(authFail({ signupError: D.err }));
 				}
 			})
 			.catch(e => {
@@ -75,7 +75,7 @@ export const login = (data, callback) => {
 						callback(D);
 					}
 				} else {
-					dispatch(authFail(D.err));
+					dispatch(authFail({ loginError: D.err }));
 				}
 			})
 			.catch(e => {
