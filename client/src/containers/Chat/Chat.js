@@ -21,7 +21,7 @@ class Dashboard extends Component {
 				<Grid container className="h-100">
 					{asideNav}
 					<Grid item xs={isMobile ? 12 : 9}>
-						<Typography>Dashboard</Typography>
+						<Typography align="center" variant="display3">Chat</Typography>
 					</Grid>
 				</Grid>
 			</Layout>

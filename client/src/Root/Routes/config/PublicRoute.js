@@ -5,7 +5,7 @@ class PublicRoute extends Component {
 	render() {
 		const { isAuth, component: Component, ...rest } = this.props;
 		const { from } = this.props.location.state || {
-			from: { pathname: "/user/dashboard" }
+			from: { pathname: "/chat" }
 		};
 
 		return (

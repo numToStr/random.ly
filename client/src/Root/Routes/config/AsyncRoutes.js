@@ -6,8 +6,8 @@ export const SignUp = asyncComponent({
 export const LogIn = asyncComponent({
     resolve: () => import("../../../containers/LogIn/LogIn")
 });
-export const Dashboard = asyncComponent({
-    resolve: () => import("../../../containers/Dashboard/Dashboard")
+export const Chat = asyncComponent({
+    resolve: () => import("../../../containers/Chat/Chat")
 });
 export const Profile = asyncComponent({
     resolve: () => import("../../../containers/Profile/Profile")
