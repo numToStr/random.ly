@@ -9,7 +9,7 @@ import Logo from "../../components/Images/Logo/RandomLyFull";
 
 class LogIn extends Component {
 	onLogIn = values => {
-		const { handleLogin, history } = this.props;
+		const { handleLogin } = this.props;
 		if (values) {
 			handleLogin(values);
 		}

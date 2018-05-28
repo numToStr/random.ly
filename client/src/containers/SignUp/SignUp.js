@@ -13,7 +13,7 @@ class SignUp extends Component {
 	};
 
 	onSignUp = values => {
-		const { history, handleSignup } = this.props;
+		const { handleSignup } = this.props;
 		if (values) {
 			handleSignup(values, data => {
 				this.setState({ sendToLogin: true });
