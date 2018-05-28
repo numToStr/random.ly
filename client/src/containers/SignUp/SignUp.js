@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { Grid, FormControl, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 
@@ -8,22 +8,31 @@ import SignUpForm from "../../components/Forms/SignUp/SignUp";
 import Logo from "../../components/Images/Logo/RandomLyFull";
 
 class SignUp extends Component {
+	state = {
+		sendToLogin: false
+	};
+
 	onSignUp = values => {
 		const { history, handleSignup } = this.props;
 		if (values) {
 			handleSignup(values, data => {
-				history.push({
-					pathname: "/user/login"
-				});
+				this.setState({ sendToLogin: true });
 			});
 		}
 	};
 
 	render() {
 		const { loading, error } = this.props;
+		const { sendToLogin } = this.state;
+
+		let redirect = null;
+		if (sendToLogin) {
+			redirect = <Redirect to="/user/login" />;
+		}
 
 		return (
 			<Fragment>
+				{redirect}
 				<Grid container justify="center" className="pt-5">
 					<Grid item xs={9} sm={5} md={3} className="mt-5">
 						<Typography className="text-center mb-3">
