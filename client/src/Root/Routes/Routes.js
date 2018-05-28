@@ -6,8 +6,7 @@ import { authAutoSignIn } from "../../Store/actions/index";
 import PrivateRoute from "./config/PrivateRoute";
 import PublicRoute from "./config/PublicRoute";
 
-import Home from "../../containers/Home/Home";
-import { SignUp, LogIn, Chat, Profile } from './config/AsyncRoutes';
+import { Home, SignUp, LogIn, Chat, Profile } from "./config/AsyncRoutes";
 
 class Routes extends Component {
 	componentDidMount() {
@@ -24,11 +23,7 @@ class Routes extends Component {
 					path="/user/profile"
 					component={Profile}
 				/>
-				<PrivateRoute
-					isAuth={isAuth}
-					path="/chat"
-					component={Chat}
-				/>
+				<PrivateRoute isAuth={isAuth} path="/chat" component={Chat} />
 				<PublicRoute
 					isAuth={isAuth}
 					path="/user/login"
