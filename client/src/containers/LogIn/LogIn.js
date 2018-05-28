@@ -11,11 +11,7 @@ class LogIn extends Component {
 	onLogIn = values => {
 		const { handleLogin, history } = this.props;
 		if (values) {
-			handleLogin(values, data => {
-				history.push({
-					pathname: "/user/dashboard"
-				});
-			});
+			handleLogin(values);
 		}
 	};
 
