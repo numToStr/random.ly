@@ -13,7 +13,9 @@ const server = http.Server(app);
 const io = socketIO(server);
 
 if (process.env.NODE_ENV == "production") {
-	app.use(express.static(path.join(__dirname, "client/build")));
+	app
+		.use(express.static(path.join(__dirname, "client/build")))
+		.get("/", (req, res) => res.render("client/build/index.html"));
 }
 
 // express middlewares
