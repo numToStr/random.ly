@@ -12,6 +12,10 @@ const app = express();
 const server = http.Server(app);
 const io = socketIO(server);
 
+if (process.env.NODE_ENV == "production") {
+	app.use(express.static(path.join(__dirname, "client/build")));
+}
+
 // express middlewares
 // == body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,7 +23,6 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT || 5000;
 const users = new Users();
-
 server.listen(port, () => {
 	console.log(`Server is up on port ${port}`);
 });
