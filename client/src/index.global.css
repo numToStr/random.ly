@@ -1,43 +1,47 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
+html,
+body {
+	position: relative;
+	height: 100%;
+}
+
 .flex-grow {
-  flex-grow: 1;
+	flex-grow: 1;
 }
-.vh-100 {
-  height: 100vh;
-}
+
 .overflow-auto {
-  overflow: auto;
+	overflow: auto;
 }
 
 .box-shadow {
-  /* box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25); */
-  filter: drop-shadow(0 0.2rem 0.2rem rgba(0, 0, 0, 0.25));
+	/* box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25); */
+	filter: drop-shadow(0 0.2rem 0.2rem rgba(0, 0, 0, 0.25));
 }
 
 ::-webkit-scrollbar {
-  width: 0.3rem;
+	width: 0.3rem;
 }
 
 ::-webkit-scrollbar-track {
-  background: #fff;
+	background: #fff;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 3em;
-  background: #aaa;
+	border-radius: 3em;
+	background: #aaa;
 }
 
 .btn-primary-randomly {
-  color: #fff;
-  background: #0fa;
+	color: #fff;
+	background: #0fa;
 }
 .btn-primary-randomly:hover {
-  color: #fff;
-  background: #00dd8d;
+	color: #fff;
+	background: #00dd8d;
 }
 .btn-primary-randomly:focus {
-  box-shadow: 0 0 0 0.2rem rgba(0, 255, 170, 0.5);
+	box-shadow: 0 0 0 0.2rem rgba(0, 255, 170, 0.5);
 }
 
 /* .form-control:focus {
