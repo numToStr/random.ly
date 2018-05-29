@@ -2,6 +2,7 @@ const http = require("http");
 const express = require("express");
 const bodyParser = require("body-parser");
 const socketIO = require("socket.io");
+const path = require("path");
 
 const { generateMsg } = require("./server/utils/message");
 const { isRealString } = require("./server/utils/validation");
@@ -13,9 +14,10 @@ const server = http.Server(app);
 const io = socketIO(server);
 
 if (process.env.NODE_ENV == "production") {
-	app
-		.use(express.static(path.join(__dirname, "client/build")))
-		.get("/", (req, res) => res.render("client/build/index.html"));
+	app.use(express.static(path.resolve(__dirname, "client/build")));
+	app.get("*", (req, res) =>
+		res.sendfile(path.resolve(__dirname, "client/build", "index.html"))
+	);
 }
 
 // express middlewares
