@@ -2,7 +2,7 @@ import React from "react";
 
 import { withStyles, Drawer } from "@material-ui/core";
 
-import NavList from "../NavList/NavList";
+import UserList from "../NavList/UserList";
 
 const styles = theme => ({
 	drawerPaper: {
@@ -22,7 +22,7 @@ const asideNav = props => {
 				paper: classes.drawerPaper
 			}}
 		>
-			<NavList />
+			<UserList />
 		</Drawer>
 	);
 };

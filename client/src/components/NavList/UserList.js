@@ -17,7 +17,7 @@ import Lock from "@material-ui/icons/Lock";
 
 import { authLogout } from "../../Store/actions/index";
 
-class NavList extends Component {
+class UserList extends Component {
 	state = {
 		menuAnchor: null
 	};
@@ -118,4 +118,4 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);

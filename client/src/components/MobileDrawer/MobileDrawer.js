@@ -1,6 +1,6 @@
 import React from "react";
 import { Drawer } from "@material-ui/core";
-import NavList from "../NavList/NavList";
+import UserList from "../NavList/UserList";
 
 const MobileDrawer = props => {
 	const { drawerAnchor, toggleDrawer } = props;
@@ -11,7 +11,7 @@ const MobileDrawer = props => {
 			onClose={toggleDrawer("left", false)}
 			transitionDuration={250}
 		>
-			<NavList />
+			<UserList />
 		</Drawer>
 	);
 };
