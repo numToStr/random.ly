@@ -72,6 +72,7 @@ class UserList extends Component {
 								label: "pl-2"
 							}}
 							onClick={openMenu}
+							className="mx-auto"
 						/>
 					</ListItem>
 
