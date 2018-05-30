@@ -7,7 +7,8 @@ import UserList from "../NavList/UserList";
 const styles = theme => ({
 	drawerPaper: {
 		position: "relative",
-		height: "100% !important"
+		height: "100% !important",
+		width: "100%"
 	}
 });
 
