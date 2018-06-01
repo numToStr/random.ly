@@ -1,18 +1,18 @@
-const http = require('http');
+const http = require("http");
 const express = require("express");
-const socketIO = require('socket.io');
+const socketIO = require("socket.io");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
 // Express and Socket Server =============
 const app = express();
-const server = http.Server(app)
-const io = socketIO(server);
+// const server = http.Server(app);
+// const io = socketIO(server);
 
 // Routes Imports
 const auth = require("./server/routes/auth");
-require('./server/routes/chat')(io);
+// require("./server/routes/chat")(io);
 
 // "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --port 27017 --dbpath C:\mongodb\data\db
 mongoose
@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 
 /* EXPRESS MIDDLEWARES */
 // Request headers ==========
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header(
 		"Access-Control-Allow-Headers",
