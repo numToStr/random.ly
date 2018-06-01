@@ -7,12 +7,12 @@ const passport = require("passport");
 
 // Express and Socket Server =============
 const app = express();
-// const server = http.Server(app);
-// const io = socketIO(server);
+const server = http.createServer(app);
+const io = socketIO(server);
 
 // Routes Imports
 const auth = require("./server/routes/auth");
-// require("./server/routes/chat")(io);
+require("./server/routes/chat")(io);
 
 // "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --port 27017 --dbpath C:\mongodb\data\db
 mongoose
@@ -48,7 +48,7 @@ app.use(passport.session());
     2) Make sure you add specific domain to work with react proxy i.e., '/user/login' or '/user/signup'.
 */
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
 	console.log(`Server is up on port: ${PORT}`);
 });
 
