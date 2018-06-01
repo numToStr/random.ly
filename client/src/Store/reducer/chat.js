@@ -18,24 +18,24 @@ const ioStart = (state, action) => {
 		...state,
 		loading: true,
 		error: null,
-		message: []
+		messages: []
 	};
 };
 
 export const ioConnected = (state, action) => {
 	return {
 		...state,
-		state: "User Connected",
+		status: "User Connected",
 		loading: false,
 		error: null,
-		message: []
+		messages: []
 	};
 };
 
-export const ioMessage = (state, { message }) => {
+export const ioMessage = (state, { messages }) => {
 	return {
 		...state,
-		message
+		messages
 	};
 };
 
@@ -49,10 +49,10 @@ export const ioFail = (state, { error }) => {
 export const ioDisconnected = (state, action) => {
 	return {
 		...state,
-		state: "User Disconnected",
+		status: "User Disconnected",
 		loading: false,
 		error: null,
-		message: []
+		messages: []
 	};
 };
 

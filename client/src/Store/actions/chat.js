@@ -42,23 +42,16 @@ export const ioDisconnected = () => {
 };
 
 export const onConnect = user => {
-	console.log(user);
 	return dispatch => {
+		dispatch(ioStart());
 		io.on("connect", () => {
-			console.log("connected");
-			// onJoin(user);
-		});
-	};
-};
-
-export const onJoin = user => {
-	return dispatch => {
-		io.emit("join", user, (error, data) => {
-			if (error) {
-				dispatch(ioFail(error));
-			} else {
-				dispatch(ioConnected());
-			}
+			io.emit("join", user, (error, data) => {
+				if (error) {
+					dispatch(ioFail(error));
+				} else {
+					dispatch(ioConnected());
+				}
+			});
 		});
 	};
 };

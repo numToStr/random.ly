@@ -5,7 +5,10 @@ const chat = io => {
 };
 
 const onJoin = client => {
-	console.log("New User Connected.");
+	client.on("join", (user, callback) => {
+		console.log(`User Connected: ${user.name}`);
+		callback();
+	});
 };
 
 module.exports = chat;
