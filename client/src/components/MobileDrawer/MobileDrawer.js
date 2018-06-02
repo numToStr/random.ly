@@ -1,6 +1,6 @@
 import React from "react";
 import { Drawer } from "@material-ui/core";
-import UserList from "../NavList/UserList";
+import UserList from "../NavList/UserList/UserList";
 
 const MobileDrawer = props => {
 	const { drawerAnchor, toggleDrawer } = props;

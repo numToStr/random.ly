@@ -2,7 +2,7 @@ import React from "react";
 
 import { withStyles, Drawer } from "@material-ui/core";
 
-import UserList from "../NavList/UserList";
+import UserList from "../NavList/UserList/UserList";
 
 const styles = theme => ({
 	drawerPaper: {
