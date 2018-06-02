@@ -26,7 +26,7 @@ class TextBox extends Component {
 			<Grid item xs={12} className="layout-column">
 				<Form
 					onSubmit={handleSubmit}
-					className="py-3 px-4"
+					className="py-3 px-4 d-flex align-items-center"
 					noValidate
 					autoComplete="off"
 				>
@@ -35,12 +35,13 @@ class TextBox extends Component {
 						placeholder="Type your message..."
 						type="text"
 						component={this.inputField}
+						className="flex-grow"
 					/>
 					<Button
 						variant="fab"
 						type="submit"
 						mini
-						color="secondary"
+						color="primary"
 						aria-label="add"
 						disabled={pristine}
 					>
