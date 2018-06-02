@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Grid, Typography } from "@material-ui/core";
 
-import { onConnect } from "../../Store/actions/chat";
-import UserNav from "../../components/AsideNav/UserNav";
 import Layout from "../../components/Layout/Layout";
 import { isMobile } from "../../Store/helper/helper";
+import AsideNav from "../../components/AsideNav/AsideNav";
+import UserList from "../../components/NavList/UserList/UserList";
+
+import { onConnect } from "../../Store/actions/chat";
 
 class Dashboard extends Component {
 	componentDidMount() {
@@ -14,18 +16,20 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		let asideNav = null;
+		let userNav = null;
 		if (!isMobile) {
-			asideNav = (
+			userNav = (
 				<Grid item xs={2}>
-					<UserNav />
+					<AsideNav side="left">
+						<UserList />
+					</AsideNav>
 				</Grid>
 			);
 		}
 
 		return (
 			<Grid container className="h-100">
-				{asideNav}
+				{userNav}
 				<Grid item xs={isMobile ? 12 : 10}>
 					<Layout>
 						<Typography align="center" variant="display3">

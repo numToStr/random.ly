@@ -1,8 +1,5 @@
 import React from "react";
-
 import { withStyles, Drawer } from "@material-ui/core";
-
-import UserList from "../NavList/UserList/UserList";
 
 const styles = theme => ({
 	drawerPaper: {
@@ -13,17 +10,17 @@ const styles = theme => ({
 });
 
 const asideNav = props => {
-	const { classes } = props;
+	const { classes, side, children } = props;
 	return (
 		<Drawer
 			variant="permanent"
-			anchor="left"
+			anchor={side}
 			className="h-100"
 			classes={{
 				paper: classes.drawerPaper
 			}}
 		>
-			<UserList />
+			{children}
 		</Drawer>
 	);
 };

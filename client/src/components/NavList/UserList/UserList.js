@@ -15,7 +15,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 
-import { authLogout } from "../../Store/actions/index";
+import { authLogout } from "../../../Store/actions/index";
 
 class UserList extends Component {
 	state = {
