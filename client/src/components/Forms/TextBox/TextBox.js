@@ -21,7 +21,7 @@ class TextBox extends Component {
 	};
 
 	render() {
-		const { handleSubmit } = this.props;
+		const { handleSubmit, pristine } = this.props;
 		return (
 			<Grid item xs={12} className="layout-column">
 				<Form
@@ -42,6 +42,7 @@ class TextBox extends Component {
 						mini
 						color="secondary"
 						aria-label="add"
+						disabled={pristine}
 					>
 						<Send
 							className="ml-1"
