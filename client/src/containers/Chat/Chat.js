@@ -8,6 +8,7 @@ import AsideNav from "../../components/AsideNav/AsideNav";
 import UserList from "../../components/NavList/UserList/UserList";
 
 import { onConnect } from "../../Store/actions/chat";
+import TextBox from "../../components/Forms/TextBox/TextBox";
 
 class Dashboard extends Component {
 	componentDidMount() {
@@ -15,7 +16,15 @@ class Dashboard extends Component {
 		ioConnect(user);
 	}
 
+	sendMessage = values => {
+		if (values.message) {
+			console.log(values);
+		}
+	};
+
 	render() {
+		const { sendMessage } = this;
+
 		let userNav = null;
 		if (!isMobile) {
 			userNav = (
@@ -32,9 +41,18 @@ class Dashboard extends Component {
 				{userNav}
 				<Grid item xs={isMobile ? 12 : 10}>
 					<Layout>
-						<Typography align="center" variant="display3">
-							Chat
-						</Typography>
+						<Grid container className="layout">
+							<Grid
+								item
+								xs={12}
+								className="layout-column flex-grow"
+							>
+								<Typography align="center" variant="display3">
+									Chat
+								</Typography>
+							</Grid>
+							<TextBox onSubmit={sendMessage} />
+						</Grid>
 					</Layout>
 				</Grid>
 			</Grid>
