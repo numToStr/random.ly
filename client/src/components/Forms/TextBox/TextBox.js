@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Field, reduxForm } from "redux-form";
+import { Form, Field, reduxForm, reset } from "redux-form";
 import { Grid, TextField, Button } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
 
@@ -58,7 +58,10 @@ class TextBox extends Component {
 }
 
 TextBox = reduxForm({
-	form: "textbox"
+	form: "textbox",
+	onSubmitSuccess: (result, dispatch) => {
+		dispatch(reset("textbox"));
+	}
 })(TextBox);
 
 export default TextBox;
