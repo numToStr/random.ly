@@ -21,10 +21,10 @@ export const ioConnected = () => {
 	};
 };
 
-export const ioMessage = message => {
+export const ioMessage = messages => {
 	return {
 		type: IO_MESSAGE,
-		message
+		messages
 	};
 };
 
@@ -56,15 +56,16 @@ export const onConnect = user => {
 	};
 };
 
-export const onCreateMessage = msg => {
+export const onCreateMessage = message => {
 	io.emit("createMessage", {
-		text: msg
+		message
 	});
-	onNewMessage();
 };
 
 export const onNewMessage = () => {
 	return dispatch => {
-		io.on("newMessage", msg => dispatch(ioMessage(msg)));
+		io.on("newMessage", msg => {
+			return dispatch(ioMessage(msg));
+		});
 	};
 };

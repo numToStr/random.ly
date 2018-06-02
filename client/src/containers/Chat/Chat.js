@@ -7,18 +7,23 @@ import { isMobile } from "../../Store/helper/helper";
 import AsideNav from "../../components/AsideNav/AsideNav";
 import UserList from "../../components/NavList/UserList/UserList";
 
-import { onConnect } from "../../Store/actions/chat";
+import {
+	onConnect,
+	onCreateMessage,
+	onNewMessage
+} from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 
 class Dashboard extends Component {
 	componentDidMount() {
-		const { user, ioConnect } = this.props;
+		const { user, ioConnect, ioNewMessage } = this.props;
 		ioConnect(user);
+		ioNewMessage();
 	}
 
 	sendMessage = values => {
 		if (values.message) {
-			console.log(values);
+			onCreateMessage(values.message);
 		}
 	};
 
@@ -68,7 +73,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		ioConnect: u => dispatch(onConnect(u))
+		ioConnect: u => dispatch(onConnect(u)),
+		ioNewMessage: () => dispatch(onNewMessage())
 	};
 };
 
