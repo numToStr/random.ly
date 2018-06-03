@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
+const { mongoURI } = require("./server/config/keys/index");
+
 // Express and Socket Server =============
 const app = express();
 const server = http.createServer(app);
@@ -16,21 +18,21 @@ require("./server/routes/chat")(io);
 
 // "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --port 27017 --dbpath C:\mongodb\data\db
 mongoose
-	.connect("mongodb://localhost:27017/randomLy")
-	.then(() => console.log("MongoDB successfully connected!"))
-	.catch(e => console.log(e));
+    .connect(mongoURI)
+    .then(() => console.log("MongoDB successfully connected!"))
+    .catch(e => console.log(e));
 
 const PORT = process.env.PORT || 5000;
 
 /* EXPRESS MIDDLEWARES */
 // Request headers ==========
 app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header(
-		"Access-Control-Allow-Headers",
-		"Origin, X-Requested-With, Content-Type, Accept"
-	);
-	next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
 });
 
 // Body Parser ===========
@@ -49,13 +51,13 @@ app.use(passport.session());
 */
 
 server.listen(PORT, () => {
-	console.log(`Server is up on port: ${PORT}`);
+    console.log(`Server is up on port: ${PORT}`);
 });
 
 app.get("/", (req, res) => {
-	res.send({
-		welcome: "home"
-	});
+    res.send({
+        welcome: "home"
+    });
 });
 
 // routes registration
