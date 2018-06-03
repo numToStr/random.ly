@@ -26,22 +26,23 @@ mongoose
 const PORT = process.env.PORT || 5000;
 
 /* EXPRESS MIDDLEWARES */
-// Request headers ==========
+// Using build after deployment ==========
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve(__dirname, "client/build")));
     app.get("*", (req, res) =>
         res.sendfile(path.resolve(__dirname, "client/build", "index.html"))
     );
-} else {
-    app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, X-Requested-With, Content-Type, Accept"
-        );
-        next();
-    });
 }
+
+// Enabling CORS ============
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+});
 
 // Body Parser ===========
 // parse application/x-www-form-urlencoded
