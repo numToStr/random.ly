@@ -4,6 +4,7 @@ const socketIO = require("socket.io");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const path = require("path");
 
 const { mongoURI } = require("./server/config/keys/index");
 
@@ -26,14 +27,21 @@ const PORT = process.env.PORT || 5000;
 
 /* EXPRESS MIDDLEWARES */
 // Request headers ==========
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.resolve(__dirname, "client/build")));
+    app.get("*", (req, res) =>
+        res.sendfile(path.resolve(__dirname, "client/build", "index.html"))
     );
-    next();
-});
+} else {
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept"
+        );
+        next();
+    });
+}
 
 // Body Parser ===========
 // parse application/x-www-form-urlencoded
