@@ -6,6 +6,7 @@ import Layout from "../../components/Layout/Layout";
 import { isMobile } from "../../Store/helper/helper";
 import AsideNav from "../../components/AsideNav/AsideNav";
 import UserList from "../../components/NavList/UserList/UserList";
+import RoomList from "../../components/NavList/RoomList/RoomList";
 
 import {
 	onConnect,
@@ -31,6 +32,7 @@ class Dashboard extends Component {
 		const { sendMessage } = this;
 
 		let userNav = null;
+		let roomNav = null;
 		if (!isMobile) {
 			userNav = (
 				<Grid item xs={2}>
@@ -39,12 +41,19 @@ class Dashboard extends Component {
 					</AsideNav>
 				</Grid>
 			);
+			roomNav = (
+				<Grid item xs={2}>
+					<AsideNav side="right">
+						<RoomList />
+					</AsideNav>
+				</Grid>
+			);
 		}
 
 		return (
 			<Grid container className="h-100">
 				{userNav}
-				<Grid item xs={isMobile ? 12 : 10}>
+				<Grid item xs={isMobile ? 12 : 8}>
 					<Layout>
 						<Grid container className="layout">
 							<Grid
@@ -60,6 +69,7 @@ class Dashboard extends Component {
 						</Grid>
 					</Layout>
 				</Grid>
+				{roomNav}
 			</Grid>
 		);
 	}
