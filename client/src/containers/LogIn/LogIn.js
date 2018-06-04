@@ -37,8 +37,8 @@ class LogIn extends Component {
 								color="textSecondary"
 								variant="caption"
 							>
-								Need an account?
-								<NavLink to="/user/signup"> Signup</NavLink>
+								Need an account?{" "}
+								<NavLink to="/user/signup">Signup</NavLink>
 							</Typography>
 						</FormControl>
 					</Grid>

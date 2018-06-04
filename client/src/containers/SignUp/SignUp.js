@@ -51,8 +51,8 @@ class SignUp extends Component {
 								color="textSecondary"
 								variant="caption"
 							>
-								Already have an account?
-								<NavLink to="/user/login"> Login</NavLink>
+								Already have an account?{" "}
+								<NavLink to="/user/login">Login</NavLink>
 							</Typography>
 						</FormControl>
 					</Grid>
