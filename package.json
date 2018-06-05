@@ -2,10 +2,10 @@
 	"name": "random.ly",
 	"version": "2.0.0-dev",
 	"description": "Real time chat app build with React and Socket.io",
-	"main": "app.js",
+	"main": "server.js",
 	"scripts": {
-		"start": "node app.js",
-		"server": "nodemon app.js",
+		"start": "node server.js",
+		"server": "nodemon server.js",
 		"client": "npm start --prefix client",
 		"dev": "concurrently --kill-others \"npm run server\" \"npm run client\"",
 		"test": "echo \"Error: no test specified\" && exit 1"
