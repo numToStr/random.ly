@@ -36,6 +36,7 @@ const onNewMessage = (client, io) => {
 
 const onDisconnect = client => {
 	client.on("disconnect", () => {
+		client.disconnect(true);
 		console.log("User Disconnected");
 	});
 };

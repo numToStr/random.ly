@@ -71,10 +71,8 @@ export const onNewMessage = () => {
 };
 
 export const onDisconnect = () => {
-	// io.on("disconnect", reason => {
-	// 	console.log(reason);
-	// });
 	return dispatch => {
+		io.disconnect();
 		dispatch(ioDisconnected());
 	};
 };
