@@ -15,7 +15,7 @@ import {
 } from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 
-class Dashboard extends Component {
+class Chat extends Component {
 	state = {
 		roomQuery: null
 	};
@@ -109,4 +109,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Dashboard);
+)(Chat);
