@@ -24,7 +24,7 @@ class RoomCreate extends Component {
 				onClose={handleClose}
 				aria-labelledby="form-dialog-title"
 			>
-				<DialogTitle id="form-dialog-title">
+				<DialogTitle id="form-dialog-title" classes={{ root: "pb-0" }}>
 					Create Chat Room
 				</DialogTitle>
 				<Form onSubmit={handleSubmit} noValidate autoComplete="off">
