@@ -11,7 +11,8 @@ import RoomList from "../../components/NavList/RoomList/RoomList";
 import {
 	onConnect,
 	onCreateMessage,
-	onNewMessage
+	onNewMessage,
+	onDisconnect
 } from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 
@@ -24,6 +25,11 @@ class Chat extends Component {
 		const { user, ioConnect, ioNewMessage } = this.props;
 		ioConnect(user);
 		ioNewMessage();
+	}
+
+	componentWillUnmount() {
+		const { ioDisconnect } = this.props;
+		ioDisconnect();
 	}
 
 	sendMessage = values => {
@@ -102,7 +108,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		ioConnect: u => dispatch(onConnect(u)),
-		ioNewMessage: () => dispatch(onNewMessage())
+		ioNewMessage: () => dispatch(onNewMessage()),
+		ioDisconnect: () => dispatch(onDisconnect())
 	};
 };
 

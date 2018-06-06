@@ -2,6 +2,7 @@ const chat = io => {
 	io.on("connection", client => {
 		onJoin(client);
 		onNewMessage(client, io);
+		onDisconnect(client);
 	});
 };
 
@@ -30,6 +31,12 @@ const onNewMessage = (client, io) => {
 		// 		.in(user.room)
 		// 		.emit("newMessage", generateMsg(user.name, msg.text));
 		// }
+	});
+};
+
+const onDisconnect = client => {
+	client.on("disconnect", () => {
+		console.log("User Disconnected");
 	});
 };
 
