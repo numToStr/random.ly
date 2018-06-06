@@ -26,6 +26,9 @@ const THEME = createMuiTheme({
 	// shadows: Array(25),
 	overrides: {
 		MuiButton: {
+			root: {
+				borderRadius: "10rem"
+			},
 			raised: {
 				boxShadow: "none"
 			}
