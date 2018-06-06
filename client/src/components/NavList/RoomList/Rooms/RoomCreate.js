@@ -47,7 +47,6 @@ class RoomCreate extends Component {
 					</DialogContent>
 					<DialogActions>
 						<Button
-							className="capsule"
 							onClick={handleClose}
 							color="primary"
 							type="reset"
@@ -57,7 +56,6 @@ class RoomCreate extends Component {
 						<Button
 							variant="raised"
 							onClick={handleClose}
-							className="capsule"
 							color="primary"
 							type="submit"
 							disabled={pristine}

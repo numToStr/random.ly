@@ -51,7 +51,7 @@ class Home extends Component {
 								architecto nesciunt exercitate.
 							</Typography>
 							<Button
-								className="mt-3 mt-md-4 capsule"
+								className="mt-3 mt-md-4"
 								variant="raised"
 								component={NavLink}
 								to="/user/signup"

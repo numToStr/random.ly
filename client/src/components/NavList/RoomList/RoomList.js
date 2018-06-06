@@ -27,7 +27,7 @@ class RoomList extends Component {
 				<List component="nav" className="h-100">
 					<ListItem>
 						<Button
-							className="capsule mx-auto px-3"
+							className="mx-auto px-3"
 							size="small"
 							color="primary"
 							variant="raised"
