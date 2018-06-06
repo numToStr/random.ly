@@ -16,6 +16,10 @@ import {
 import TextBox from "../../components/Forms/TextBox/TextBox";
 
 class Dashboard extends Component {
+	state = {
+		roomQuery: null
+	};
+
 	componentDidMount() {
 		const { user, ioConnect, ioNewMessage } = this.props;
 		ioConnect(user);
@@ -28,8 +32,19 @@ class Dashboard extends Component {
 		}
 	};
 
+	onSearchRoom = event => {
+		const v = event.target.value;
+		this.setState({ roomQuery: v });
+	};
+
+	onCreateRooom = values => {
+		if (values.room) {
+			console.log(values);
+		}
+	};
+
 	render() {
-		const { sendMessage } = this;
+		const { sendMessage, onSearchRoom, onCreateRooom } = this;
 
 		let userNav = null;
 		let roomNav = null;
@@ -44,7 +59,10 @@ class Dashboard extends Component {
 			roomNav = (
 				<Grid item xs={2}>
 					<AsideNav side="right">
-						<RoomList />
+						<RoomList
+							onSearchRoom={onSearchRoom}
+							onCreateRooom={onCreateRooom}
+						/>
 					</AsideNav>
 				</Grid>
 			);
@@ -88,4 +106,7 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Dashboard);

@@ -6,13 +6,7 @@ import RoomCreateDialog from "./Rooms/RoomCreate";
 
 class RoomList extends Component {
 	state = {
-		roomQuery: null,
 		open: false
-	};
-
-	onSearchRoom = event => {
-		const v = event.target.value;
-		this.setState({ roomQuery: v });
 	};
 
 	handleClickOpen = () => {
@@ -23,18 +17,10 @@ class RoomList extends Component {
 		this.setState({ open: false });
 	};
 
-	onCreateRooom = values => {
-		console.log(values);
-	};
-
 	render() {
 		const { open } = this.state;
-		const {
-			onSearchRoom,
-			handleClose,
-			handleClickOpen,
-			onCreateRooom
-		} = this;
+		const { handleClose, handleClickOpen } = this;
+		const { onSearchRoom, onCreateRooom } = this.props;
 
 		return (
 			<Fragment>
