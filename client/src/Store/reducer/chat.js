@@ -10,7 +10,8 @@ const initState = {
 	status: null,
 	loading: false,
 	error: null,
-	messages: []
+	messages: [],
+	users: []
 };
 
 const ioStart = (state, action) => {

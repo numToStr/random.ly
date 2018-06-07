@@ -1,3 +1,7 @@
+const { Users } = require("../utils/users");
+
+const USERS = new Users();
+
 const chat = io => {
 	io.on("connection", client => {
 		onJoin(client);
@@ -9,6 +13,7 @@ const chat = io => {
 const onJoin = client => {
 	client.on("join", (user, callback) => {
 		console.log(`User Connected: ${user.name}`);
+		USERS.addUser(user);
 		callback();
 	});
 };
