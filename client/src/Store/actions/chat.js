@@ -58,7 +58,7 @@ export const onConnect = user => {
 
 export const onCreateMessage = message => {
 	io.emit("createMessage", {
-		message
+		...message
 	});
 };
 

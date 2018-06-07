@@ -33,9 +33,12 @@ class Chat extends Component {
 		ioDisconnect();
 	}
 
-	sendMessage = values => {
-		if (values.message) {
-			onCreateMessage(values.message);
+	sendMessage = ({ message }) => {
+		if (message) {
+			const {
+				user: { name }
+			} = this.props;
+			onCreateMessage({ message, user: name });
 		}
 	};
 
