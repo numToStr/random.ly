@@ -26,7 +26,7 @@ class TextBox extends Component {
 			<Grid item xs={12} className="layout-column">
 				<Form
 					onSubmit={handleSubmit}
-					className="py-3 px-4 d-flex align-items-center"
+					className="pb-3 pt-2 px-4 d-flex align-items-center"
 					noValidate
 					autoComplete="off"
 				>

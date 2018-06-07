@@ -40,7 +40,7 @@ const Message = props => {
 			<Typography
 				classes={{ root: [classes.message, msgColor].join(" ") }}
 				variant="subheading"
-				className="py-2 px-3"
+				className="py-1 px-3"
 			>
 				{message}
 			</Typography>
