@@ -16,12 +16,12 @@ const MessageList = props => {
 	);
 	if (all) {
 		list = all.map((msg, i) => {
-			let side = "left";
+			let currentUser = false;
 			if (msg.user === name) {
-				side = "right";
+				currentUser = true;
 			}
 
-			return <Message key={i} msg={msg} side={side} />;
+			return <Message key={i} msg={msg} currentUser={currentUser} />;
 		});
 	}
 

@@ -4,9 +4,14 @@ import { Paper, Typography, withStyles } from "@material-ui/core";
 const styles = theme => {
 	return {
 		message: {
-			background: theme.palette.primary.main,
 			color: theme.palette.primary.contrastText,
 			display: "inline-block"
+		},
+		currentMsgColor: {
+			background: theme.palette.primary.main
+		},
+		otherMsgColor: {
+			background: theme.palette.secondary.main
 		}
 	};
 };
@@ -15,19 +20,25 @@ const Message = props => {
 	const {
 		msg: { message },
 		classes,
-		side
+		currentUser
 	} = props;
+
+	let msgColor = classes.otherMsgColor;
+	if (currentUser) {
+		msgColor = classes.currentMsgColor;
+	}
+
 	return (
 		<Paper
 			square
 			className="mb-3"
 			elevation={0}
 			style={{
-				textAlign: side
+				textAlign: currentUser ? "right" : "left"
 			}}
 		>
 			<Typography
-				classes={{ root: classes.message }}
+				classes={{ root: [classes.message, msgColor].join(" ") }}
 				variant="subheading"
 				className="py-2 px-3"
 			>
