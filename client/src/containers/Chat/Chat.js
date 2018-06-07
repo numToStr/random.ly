@@ -89,6 +89,9 @@ class Chat extends Component {
 								item
 								xs={12}
 								className="layout-column flex-grow px-3 pt-2"
+								style={{
+									overflow: "auto"
+								}}
 							>
 								<MessageList
 									messages={messages}
