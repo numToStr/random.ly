@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 import Layout from "../../components/Layout/Layout";
 import { isMobile } from "../../Store/helper/helper";
@@ -15,6 +15,7 @@ import {
 	onDisconnect
 } from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
+import MessageList from "../../components/NavList/MessageList/MessageList";
 
 class Chat extends Component {
 	state = {
@@ -51,6 +52,7 @@ class Chat extends Component {
 
 	render() {
 		const { sendMessage, onSearchRoom, onCreateRooom } = this;
+		const { messages, user } = this.props;
 
 		let userNav = null;
 		let roomNav = null;
@@ -83,11 +85,12 @@ class Chat extends Component {
 							<Grid
 								item
 								xs={12}
-								className="layout-column flex-grow"
+								className="layout-column flex-grow px-3 pt-2"
 							>
-								<Typography align="center" variant="display3">
-									Chat
-								</Typography>
+								<MessageList
+									messages={messages}
+									currentUser={user}
+								/>
 							</Grid>
 							<TextBox onSubmit={sendMessage} />
 						</Grid>
@@ -101,7 +104,8 @@ class Chat extends Component {
 
 const mapStateToProps = state => {
 	return {
-		user: state.auth.user
+		user: state.auth.user,
+		messages: state.io.messages
 	};
 };
 
