@@ -1,10 +1,12 @@
+const { format } = require("date-fns");
+
 class Users {
 	constructor() {
 		this.users = [];
 	}
 
 	addUser(user) {
-		const u = { ...user, joinedAt: new Date() };
+		const u = { ...user, joinedAt: format(new Date(), "hh:mm a") };
 		this.users.push(u);
 		return u;
 	}
