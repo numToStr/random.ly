@@ -12,7 +12,8 @@ import {
 	onConnect,
 	onCreateMessage,
 	onNewMessage,
-	onDisconnect
+	onDisconnect,
+	onUpdatedUsers
 } from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import MessageList from "../../components/NavList/MessageList/MessageList";
@@ -26,11 +27,13 @@ class Chat extends Component {
 		const {
 			user: { name, email },
 			ioConnect,
-			ioNewMessage
+			ioNewMessage,
+			ioUpdatedUsers
 		} = this.props;
 
 		ioConnect({ name, email });
 		ioNewMessage();
+		ioUpdatedUsers();
 	}
 
 	componentWillUnmount() {
@@ -124,7 +127,8 @@ const mapDispatchToProps = dispatch => {
 	return {
 		ioConnect: u => dispatch(onConnect(u)),
 		ioNewMessage: () => dispatch(onNewMessage()),
-		ioDisconnect: () => dispatch(onDisconnect())
+		ioDisconnect: () => dispatch(onDisconnect()),
+		ioUpdatedUsers: () => dispatch(onUpdatedUsers())
 	};
 };
 

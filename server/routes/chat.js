@@ -6,16 +6,17 @@ const MESSAGES = new Messages();
 
 const chat = io => {
 	io.on("connection", client => {
-		onJoin(client);
+		onJoin(client, io);
 		onNewMessage(client, io);
-		onDisconnect(client);
+		onDisconnect(client, io);
 	});
 };
 
-const onJoin = client => {
+const onJoin = (client, io) => {
 	client.on("join", (user, callback) => {
 		console.log(`User Connected: ${user.name}`);
 		USERS.addUser({ user, id: client.id });
+		updatedUsers(io);
 		callback(null, USERS.users);
 	});
 };
@@ -35,11 +36,19 @@ const onNewMessage = (client, io) => {
 	});
 };
 
-const onDisconnect = client => {
+const onDisconnect = (client, io) => {
 	client.on("disconnect", () => {
+		const u = USERS.removeUser(client.id);
+		if (u) {
+			updatedUsers(io);
+		}
 		client.disconnect(true);
 		console.log("User Disconnected");
 	});
+};
+
+const updatedUsers = io => {
+	io.emit("updatedUsers", USERS.users);
 };
 
 module.exports = chat;

@@ -4,7 +4,8 @@ import {
 	IO_CONNECTED,
 	IO_MESSAGE,
 	IO_FAIL,
-	IO_DISCONNECTED
+	IO_DISCONNECTED,
+	IO_UPDATED_USERS
 } from "./actionTypes";
 
 const io = socketIO();
@@ -15,10 +16,9 @@ export const ioStart = () => {
 	};
 };
 
-export const ioConnected = users => {
+export const ioConnected = () => {
 	return {
-		type: IO_CONNECTED,
-		users
+		type: IO_CONNECTED
 	};
 };
 
@@ -26,6 +26,13 @@ export const ioMessage = messages => {
 	return {
 		type: IO_MESSAGE,
 		messages
+	};
+};
+
+export const ioUpdatedUsers = users => {
+	return {
+		type: IO_UPDATED_USERS,
+		users
 	};
 };
 
@@ -50,7 +57,7 @@ export const onConnect = user => {
 				if (error) {
 					dispatch(ioFail(error));
 				} else {
-					dispatch(ioConnected(users));
+					dispatch(ioConnected());
 				}
 			});
 		});
@@ -67,6 +74,14 @@ export const onNewMessage = () => {
 	return dispatch => {
 		io.on("newMessage", msg => {
 			return dispatch(ioMessage(msg));
+		});
+	};
+};
+
+export const onUpdatedUsers = () => {
+	return dispatch => {
+		io.on("updatedUsers", users => {
+			return dispatch(ioUpdatedUsers(users));
 		});
 	};
 };

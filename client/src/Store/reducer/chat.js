@@ -3,7 +3,8 @@ import {
 	IO_CONNECTED,
 	IO_MESSAGE,
 	IO_FAIL,
-	IO_DISCONNECTED
+	IO_DISCONNECTED,
+	IO_UPDATED_USERS
 } from "../actions/actionTypes";
 
 const initState = {
@@ -23,14 +24,13 @@ const ioStart = (state, action) => {
 	};
 };
 
-export const ioConnected = (state, { users }) => {
+export const ioConnected = (state, action) => {
 	return {
 		...state,
 		status: "User Connected",
 		loading: false,
 		error: null,
-		messages: [],
-		users
+		messages: []
 	};
 };
 
@@ -38,6 +38,13 @@ export const ioMessage = (state, { messages }) => {
 	return {
 		...state,
 		messages
+	};
+};
+
+export const ioUpdatedUsers = (state, { users }) => {
+	return {
+		...state,
+		users
 	};
 };
 
@@ -66,6 +73,8 @@ const reducer = (state = initState, action) => {
 			return ioConnected(state, action);
 		case IO_MESSAGE:
 			return ioMessage(state, action);
+		case IO_UPDATED_USERS:
+			return ioUpdatedUsers(state, action);
 		case IO_FAIL:
 			return ioFail(state, action);
 		case IO_DISCONNECTED:
