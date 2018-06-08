@@ -9,7 +9,8 @@ import {
 	Avatar,
 	Menu,
 	MenuItem,
-	List
+	List,
+	ListSubheader
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Favourite from "@material-ui/icons/Favorite";
@@ -51,6 +52,7 @@ class UserList extends Component {
 				</ListItem>
 			</Fragment>
 		);
+		let usersList = null;
 
 		if (isAuth) {
 			links = (
@@ -76,7 +78,6 @@ class UserList extends Component {
 							className="mx-auto"
 						/>
 					</ListItem>
-					<Users users={ioUsers} />
 
 					<Menu
 						anchorEl={menuAnchor}
@@ -98,12 +99,28 @@ class UserList extends Component {
 					</Menu>
 				</Fragment>
 			);
+
+			usersList = (
+				<List
+					component="nav"
+					subheader={
+						<ListSubheader>
+							Connected Users ({ioUsers.length})
+						</ListSubheader>
+					}
+				>
+					<Users users={ioUsers} />
+				</List>
+			);
 		}
 
 		return (
-			<List component="nav" className="h-100">
-				{links}
-			</List>
+			<Fragment>
+				<List component="nav" disablePadding>
+					{links}
+				</List>
+				{usersList}
+			</Fragment>
 		);
 	}
 }
