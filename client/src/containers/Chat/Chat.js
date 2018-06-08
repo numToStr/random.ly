@@ -43,7 +43,7 @@ class Chat extends Component {
 			const {
 				user: { name }
 			} = this.props;
-			onCreateMessage({ message, user: name });
+			onCreateMessage({ message, user: { name } });
 		}
 	};
 

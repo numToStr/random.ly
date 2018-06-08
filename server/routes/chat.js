@@ -24,8 +24,9 @@ const onNewMessage = (client, io) => {
 		all: []
 	};
 	client.on("createMessage", (msg, callback) => {
-		console.log(msg);
 		messages.current = msg.message;
+		msg.user.id = client.id;
+		msg.createdAt = new Date();
 		messages.all.push(msg);
 
 		io.emit("newMessage", messages);
