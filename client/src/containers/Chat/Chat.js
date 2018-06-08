@@ -23,8 +23,13 @@ class Chat extends Component {
 	};
 
 	componentDidMount() {
-		const { user, ioConnect, ioNewMessage } = this.props;
-		ioConnect(user);
+		const {
+			user: { name, email },
+			ioConnect,
+			ioNewMessage
+		} = this.props;
+
+		ioConnect({ name, email });
 		ioNewMessage();
 	}
 
