@@ -1,6 +1,8 @@
 const { Users } = require("../utils/users");
+const { Messages } = require("../utils/messages");
 
 const USERS = new Users();
+const MESSAGES = new Messages();
 
 const chat = io => {
 	io.on("connection", client => {
@@ -19,17 +21,10 @@ const onJoin = client => {
 };
 
 const onNewMessage = (client, io) => {
-	let messages = {
-		current: null,
-		all: []
-	};
 	client.on("createMessage", (msg, callback) => {
-		messages.current = msg.message;
-		msg.user.id = client.id;
-		msg.createdAt = new Date();
-		messages.all.push(msg);
+		MESSAGES.addMessage(msg, client.id);
+		io.emit("newMessage", MESSAGES.messages);
 
-		io.emit("newMessage", messages);
 		// const user = users.getUser(client.id);
 
 		// if (user && isRealString(msg.text)) {
