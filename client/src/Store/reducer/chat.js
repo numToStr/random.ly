@@ -23,13 +23,14 @@ const ioStart = (state, action) => {
 	};
 };
 
-export const ioConnected = (state, action) => {
+export const ioConnected = (state, { users }) => {
 	return {
 		...state,
 		status: "User Connected",
 		loading: false,
 		error: null,
-		messages: []
+		messages: [],
+		users
 	};
 };
 

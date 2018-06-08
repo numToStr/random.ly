@@ -15,9 +15,10 @@ export const ioStart = () => {
 	};
 };
 
-export const ioConnected = () => {
+export const ioConnected = users => {
 	return {
-		type: IO_CONNECTED
+		type: IO_CONNECTED,
+		users
 	};
 };
 
@@ -45,11 +46,11 @@ export const onConnect = user => {
 	return dispatch => {
 		io.on("connect", () => {
 			dispatch(ioStart());
-			io.emit("join", user, (error, data) => {
+			io.emit("join", user, (error, users) => {
 				if (error) {
 					dispatch(ioFail(error));
 				} else {
-					dispatch(ioConnected());
+					dispatch(ioConnected(users));
 				}
 			});
 		});

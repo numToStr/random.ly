@@ -16,7 +16,7 @@ const onJoin = client => {
 	client.on("join", (user, callback) => {
 		console.log(`User Connected: ${user.name}`);
 		USERS.addUser({ user, id: client.id });
-		callback();
+		callback(null, USERS.users);
 	});
 };
 
