@@ -22,7 +22,7 @@ const onJoin = client => {
 
 const onNewMessage = (client, io) => {
 	client.on("createMessage", (msg, callback) => {
-		MESSAGES.addMessage(msg, client.id);
+		MESSAGES.addMessage(msg);
 		io.emit("newMessage", MESSAGES.messages);
 
 		// const user = users.getUser(client.id);

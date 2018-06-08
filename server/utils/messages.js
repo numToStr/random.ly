@@ -1,16 +1,11 @@
 class Messages {
 	constructor() {
-		this.messages = {
-			current: null,
-			all: []
-		};
+		this.messages = [];
 	}
 
-	addMessage(msg, id) {
-		msg.user.id = id;
+	addMessage(msg) {
 		msg.createdAt = new Date();
-		this.messages.current = msg.message;
-		this.messages.all.push(msg);
+		this.messages.push(msg);
 	}
 }
 

@@ -41,9 +41,9 @@ class Chat extends Component {
 	sendMessage = ({ message }) => {
 		if (message) {
 			const {
-				user: { name }
+				user: { name, email }
 			} = this.props;
-			onCreateMessage({ message, user: { name } });
+			onCreateMessage({ message, user: { name, email } });
 		}
 	};
 

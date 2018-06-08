@@ -5,8 +5,8 @@ import Message from "./Message/Message";
 
 const MessageList = props => {
 	const {
-		messages: { all },
-		currentUser: { name }
+		messages,
+		currentUser: { email }
 	} = props;
 
 	let list = (
@@ -14,10 +14,10 @@ const MessageList = props => {
 			Let's Chat
 		</Typography>
 	);
-	if (all) {
-		list = all.map((msg, i) => {
+	if (messages.length) {
+		list = messages.map((msg, i) => {
 			let currentUser = false;
-			if (msg.user === name) {
+			if (msg.user.email === email) {
 				currentUser = true;
 			}
 
