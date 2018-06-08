@@ -18,7 +18,11 @@ const styles = theme => {
 
 const Message = props => {
 	const {
-		msg: { message },
+		msg: {
+			message,
+			createdAt,
+			user: { name }
+		},
 		classes,
 		currentUser
 	} = props;
@@ -39,10 +43,13 @@ const Message = props => {
 		>
 			<Typography
 				classes={{ root: [classes.message, msgColor].join(" ") }}
-				variant="subheading"
 				className="py-1 px-3"
+				gutterBottom
 			>
 				{message}
+			</Typography>
+			<Typography variant="caption">
+				{name} @ {createdAt}
 			</Typography>
 		</Paper>
 	);
