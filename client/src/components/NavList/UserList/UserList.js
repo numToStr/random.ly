@@ -16,6 +16,7 @@ import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 
 import { authLogout } from "../../../Store/actions/index";
+import Users from "./Users/Users";
 
 class UserList extends Component {
 	state = {
@@ -30,7 +31,7 @@ class UserList extends Component {
 	};
 
 	render() {
-		const { logout, isAuth, userName } = this.props;
+		const { logout, isAuth, userName, ioUsers } = this.props;
 		const { openMenu, closeMenu } = this;
 		const { menuAnchor } = this.state;
 
@@ -75,6 +76,7 @@ class UserList extends Component {
 							className="mx-auto"
 						/>
 					</ListItem>
+					<Users users={ioUsers} />
 
 					<Menu
 						anchorEl={menuAnchor}
@@ -109,7 +111,8 @@ class UserList extends Component {
 const mapStateToProps = state => {
 	return {
 		isAuth: state.auth.token ? true : false,
-		userName: state.auth.user.name
+		userName: state.auth.user.name,
+		ioUsers: state.io.users
 	};
 };
 
@@ -119,4 +122,7 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserList);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UserList);
