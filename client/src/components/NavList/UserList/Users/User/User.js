@@ -8,7 +8,10 @@ const User = ({ user }) => {
 			<ListItemIcon>
 				<AccountCircle />
 			</ListItemIcon>
-			<ListItemText primary={user.user.name} />
+			<ListItemText
+				primary={user.user.name}
+				secondary={`Joined: ${user.joinedAt}`}
+			/>
 		</ListItem>
 	);
 };
