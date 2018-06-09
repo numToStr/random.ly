@@ -5,16 +5,18 @@ import {
 	ListItem,
 	ListItemText,
 	ListItemIcon,
-	Chip,
-	Avatar,
 	Menu,
 	MenuItem,
 	List,
-	ListSubheader
+	ListSubheader,
+	ListItemSecondaryAction,
+	IconButton,
+	Typography
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import { authLogout } from "../../../Store/actions/index";
 import Users from "./Users/Users";
@@ -58,25 +60,27 @@ class UserList extends Component {
 			links = (
 				<Fragment>
 					<ListItem>
-						<Chip
-							avatar={
-								<Avatar className="bg-transparent">
-									<AccountCircle
-										color="primary"
-										style={{
-											height: "1.3em",
-											width: "1.3em"
-										}}
-									/>
-								</Avatar>
+						<ListItemIcon>
+							<AccountCircle />
+						</ListItemIcon>
+						<ListItemText
+							primary={
+								<Typography variant="title" color="secondary">
+									You
+								</Typography>
 							}
-							label={userName}
-							classes={{
-								label: "pl-2"
-							}}
-							onClick={openMenu}
-							className="mx-auto"
+							disableTypography
+							secondary={
+								<Typography variant="caption">
+									{userName}
+								</Typography>
+							}
 						/>
+						<ListItemSecondaryAction>
+							<IconButton onClick={openMenu}>
+								<MoreVertIcon />
+							</IconButton>
+						</ListItemSecondaryAction>
 					</ListItem>
 
 					<Menu
@@ -116,9 +120,7 @@ class UserList extends Component {
 
 		return (
 			<Fragment>
-				<List component="nav" disablePadding>
-					{links}
-				</List>
+				<List component="nav">{links}</List>
 				{usersList}
 			</Fragment>
 		);
