@@ -1,5 +1,10 @@
 import React from "react";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Typography
+} from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 
 const User = ({ user }) => {
@@ -9,8 +14,17 @@ const User = ({ user }) => {
 				<AccountCircle />
 			</ListItemIcon>
 			<ListItemText
-				primary={user.user.name}
-				secondary={`Joined: ${user.joinedAt}`}
+				disableTypography
+				primary={
+					<Typography variant="subheading">
+						{user.user.name}
+					</Typography>
+				}
+				secondary={
+					<Typography variant="caption">
+						Joined @ {user.joinedAt}
+					</Typography>
+				}
 			/>
 		</ListItem>
 	);
