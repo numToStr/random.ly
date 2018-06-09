@@ -60,7 +60,8 @@ export const ioDisconnected = (state, action) => {
 		status: "User Disconnected",
 		loading: false,
 		error: null,
-		messages: []
+		messages: [],
+		users: []
 	};
 };
 
