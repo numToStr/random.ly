@@ -79,7 +79,6 @@ class SignUp extends Component {
 					// onSubmit={this.props.handleSubmit(submit)} // for async validations
 					onSubmit={handleSubmit}
 					noValidate
-					autoComplete="off"
 				>
 					<Field
 						name="name"
