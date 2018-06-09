@@ -42,6 +42,9 @@ const onDisconnect = (client, io) => {
 		if (u) {
 			updatedUsers(io);
 		}
+		if (!USERS.users.length) {
+			MESSAGES.messages = [];
+		}
 		client.disconnect(true);
 		console.log("User Disconnected");
 	});
