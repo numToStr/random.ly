@@ -29,8 +29,7 @@ export const ioConnected = (state, action) => {
 		...state,
 		status: "User Connected",
 		loading: false,
-		error: null,
-		messages: []
+		error: null
 	};
 };
 

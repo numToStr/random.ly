@@ -17,6 +17,7 @@ const onJoin = (client, io) => {
 		console.log(`User Connected: ${user.name}`);
 		USERS.addUser({ user, id: client.id });
 		updatedUsers(io);
+		newMessage(io);
 		callback(null, USERS.users);
 	});
 };
@@ -24,8 +25,7 @@ const onJoin = (client, io) => {
 const onNewMessage = (client, io) => {
 	client.on("createMessage", (msg, callback) => {
 		MESSAGES.addMessage(msg);
-		io.emit("newMessage", MESSAGES.messages);
-
+		newMessage(io);
 		// const user = users.getUser(client.id);
 
 		// if (user && isRealString(msg.text)) {
@@ -52,6 +52,10 @@ const onDisconnect = (client, io) => {
 
 const updatedUsers = io => {
 	io.emit("updatedUsers", USERS.users);
+};
+
+const newMessage = io => {
+	io.emit("newMessage", MESSAGES.messages);
 };
 
 module.exports = chat;
