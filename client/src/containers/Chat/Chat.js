@@ -31,18 +31,19 @@ class Chat extends Component {
 			ioUpdatedUsers,
 			history: {
 				location: { search },
-				push
+				replace
 			}
 		} = this.props;
 
 		const queryURI = new URLSearchParams(search);
-		const room = queryURI.get("room");
+		let room = queryURI.get("room");
 
 		if (!room) {
-			push({
+			replace({
 				pathname: "/chat",
 				search: "?room=anonymous"
 			});
+			room = "anonymous";
 		}
 
 		ioConnect({ name, email, room });
