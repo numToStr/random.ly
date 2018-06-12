@@ -20,7 +20,8 @@ import MessageList from "../../components/NavList/MessageList/MessageList";
 
 class Chat extends Component {
 	state = {
-		roomQuery: null
+		roomQuery: null,
+		room: null
 	};
 
 	componentDidMount() {
@@ -46,6 +47,10 @@ class Chat extends Component {
 			room = "anonymous";
 		}
 
+		this.setState({
+			room
+		});
+
 		ioConnect({ name, email, room });
 		ioNewMessage();
 		ioUpdatedUsers();
@@ -58,10 +63,11 @@ class Chat extends Component {
 
 	sendMessage = ({ message }) => {
 		if (message) {
+			const { room } = this.state;
 			const {
 				user: { name, email }
 			} = this.props;
-			onCreateMessage({ message, user: { name, email } });
+			onCreateMessage({ message, user: { name, email, room } });
 		}
 	};
 

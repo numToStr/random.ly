@@ -16,7 +16,7 @@ const onJoin = (client, io) => {
 	client.on("join", (user, callback) => {
 		console.log(`User Connected: ${user.name}`);
 		joinRoom(user, client, io);
-		newMessage(io);
+		newMessage(client, io);
 		callback(null, USERS.users);
 	});
 };
@@ -24,7 +24,7 @@ const onJoin = (client, io) => {
 const onNewMessage = (client, io) => {
 	client.on("createMessage", (msg, callback) => {
 		MESSAGES.addMessage(msg);
-		newMessage(io);
+		newMessage(client, io);
 		// const user = users.getUser(client.id);
 
 		// if (user && isRealString(msg.text)) {
@@ -54,8 +54,12 @@ const updatedUsers = ({ room }, io) => {
 	io.in(room).emit("updatedUsers", U);
 };
 
-const newMessage = io => {
-	io.emit("newMessage", MESSAGES.messages);
+const newMessage = (client, io) => {
+	const {
+		user: { room }
+	} = USERS.getUser(client.id);
+
+	io.in(room).emit("newMessage", MESSAGES.messages);
 };
 
 const joinRoom = (user, client, io) => {
