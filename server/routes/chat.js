@@ -15,8 +15,7 @@ const chat = io => {
 const onJoin = (client, io) => {
 	client.on("join", (user, callback) => {
 		console.log(`User Connected: ${user.name}`);
-		USERS.addUser({ user, id: client.id });
-		updatedUsers(io);
+		joinRoom(user, client, io);
 		newMessage(io);
 		callback(null, USERS.users);
 	});
@@ -40,7 +39,7 @@ const onDisconnect = (client, io) => {
 	client.on("disconnect", () => {
 		const u = USERS.removeUser(client.id);
 		if (u) {
-			updatedUsers(io);
+			updatedUsers(u, io);
 		}
 		if (!USERS.users.length) {
 			MESSAGES.messages = [];
@@ -50,12 +49,19 @@ const onDisconnect = (client, io) => {
 	});
 };
 
-const updatedUsers = io => {
-	io.emit("updatedUsers", USERS.users);
+const updatedUsers = ({ room }, io) => {
+	const U = USERS.getUserList(room);
+	io.in(room).emit("updatedUsers", U);
 };
 
 const newMessage = io => {
 	io.emit("newMessage", MESSAGES.messages);
+};
+
+const joinRoom = (user, client, io) => {
+	client.join(user.room);
+	USERS.addUser({ user, id: client.id });
+	updatedUsers(user, io);
 };
 
 module.exports = chat;
