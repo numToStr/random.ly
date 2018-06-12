@@ -28,10 +28,24 @@ class Chat extends Component {
 			user: { name, email },
 			ioConnect,
 			ioNewMessage,
-			ioUpdatedUsers
+			ioUpdatedUsers,
+			history: {
+				location: { search },
+				push
+			}
 		} = this.props;
 
-		ioConnect({ name, email });
+		const queryURI = new URLSearchParams(search);
+		const room = queryURI.get("room");
+
+		if (!room) {
+			push({
+				pathname: "/chat",
+				search: "?room=anonymous"
+			});
+		}
+
+		ioConnect({ name, email, room });
 		ioNewMessage();
 		ioUpdatedUsers();
 	}
