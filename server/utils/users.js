@@ -2,31 +2,37 @@ const { format } = require("date-fns");
 
 class Users {
 	constructor() {
-		this.users = [];
+		this.users = {};
 	}
 
-	addUser(user) {
+	addUser(room, user) {
 		const u = { ...user, joinedAt: format(new Date(), "hh:mm a") };
-		this.users.push(u);
+		if (!this.users[room]) {
+			this.users[room] = [u];
+		} else {
+			this.users[room].push(u);
+		}
 		return u;
 	}
 
-	removeUser(id) {
-		const user = this.getUser(id);
+	removeUser(room, id) {
+		const user = this.getUser(room, id);
 		if (user) {
-			this.users = this.users.filter(u => u.id !== id);
+			this.users[room] = this.users[room].filter(u => u.id !== id);
 		}
 		return user;
 	}
 
-	getUser(id) {
-		const user = this.users.filter(u => u.id === id)[0];
+	getUser(room, id) {
+		let user = [];
+		if (this.users[room]) {
+			user = this.users[room].filter(u => u.id === id)[0];
+		}
 		return user;
 	}
 
 	getUserList(room) {
-		const users = this.users.filter(({ user }) => user.room === room);
-		return users;
+		return this.users[room];
 	}
 }
 

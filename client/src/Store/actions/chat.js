@@ -84,9 +84,9 @@ export const onUpdatedUsers = () => {
 	};
 };
 
-export const onDisconnect = () => {
+export const onDisconnect = room => {
 	return dispatch => {
-		io.disconnect();
+		io.emit("disconnectUser", room).disconnect();
 		dispatch(ioDisconnected());
 	};
 };

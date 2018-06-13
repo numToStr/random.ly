@@ -13,9 +13,9 @@ const chat = io => {
 };
 
 const onJoin = (client, io) => {
-	client.on("join", (user, callback) => {
-		console.log(`User Connected: ${user.name}`);
-		joinRoom(user, client, io);
+	client.on("join", ({ name, email, room }, callback) => {
+		console.log(`User Connected: ${name}`);
+		joinRoom(room, { name, email }, client, io);
 		newMessage(client, io);
 		callback(null, USERS.users);
 	});
@@ -36,36 +36,36 @@ const onNewMessage = (client, io) => {
 };
 
 const onDisconnect = (client, io) => {
-	client.on("disconnect", () => {
-		const u = USERS.removeUser(client.id);
-		if (u) {
-			updatedUsers(u, io);
+	client.on("disconnectUser", room => {
+		const U = USERS.removeUser(room, client.id);
+		if (U) {
+			updatedUsers(room, io);
 		}
 		if (!USERS.users.length) {
 			MESSAGES.messages = [];
 		}
+
 		client.disconnect(true);
 		console.log("User Disconnected");
 	});
 };
 
-const updatedUsers = ({ room }, io) => {
+const updatedUsers = (room, io) => {
 	const U = USERS.getUserList(room);
 	io.in(room).emit("updatedUsers", U);
 };
 
 const newMessage = (client, io) => {
-	const {
-		user: { room }
-	} = USERS.getUser(client.id);
-
-	io.in(room).emit("newMessage", MESSAGES.messages);
+	// const {
+	// 	user: { room }
+	// } = USERS.getUser(client.id);
+	// io.in(room).emit("newMessage", MESSAGES.messages);
 };
 
-const joinRoom = (user, client, io) => {
-	client.join(user.room);
-	USERS.addUser({ user, id: client.id });
-	updatedUsers(user, io);
+const joinRoom = (room, user, client, io) => {
+	client.join(room);
+	USERS.addUser(room, { user, id: client.id });
+	updatedUsers(room, io);
 };
 
 module.exports = chat;
