@@ -76,9 +76,25 @@ class Chat extends Component {
 		this.setState({ roomQuery: v });
 	};
 
-	onCreateRooom = values => {
-		if (values.room) {
-			console.log(values);
+	onCreateRooom = ({ room }) => {
+		const {
+			ioConnect,
+			ioDisconnect,
+			user: { name, email },
+			history: { replace }
+		} = this.props;
+
+		if (room) {
+			// replacing current url
+			replace({
+				pathname: "/chat",
+				search: `?room=${room}`
+			});
+
+			// first disconnecting user from current room
+			ioDisconnect();
+			// then connecting user to desired room
+			ioConnect({ name, email, room });
 		}
 	};
 
