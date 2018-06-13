@@ -19,7 +19,7 @@ const styles = theme => {
 const Message = props => {
 	const {
 		msg: {
-			message,
+			text,
 			createdAt,
 			user: { name }
 		},
@@ -46,7 +46,7 @@ const Message = props => {
 				className="py-1 px-3"
 				gutterBottom
 			>
-				{message}
+				{text}
 			</Typography>
 			<Typography variant="caption">
 				{name} @ {createdAt}

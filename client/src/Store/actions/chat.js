@@ -62,9 +62,10 @@ export const onConnect = user => {
 	};
 };
 
-export const onCreateMessage = message => {
+export const onCreateMessage = (room, data) => {
 	io.emit("createMessage", {
-		...message
+		room,
+		data
 	});
 };
 

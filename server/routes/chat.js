@@ -16,22 +16,15 @@ const onJoin = (client, io) => {
 	client.on("join", ({ name, email, room }, callback) => {
 		console.log(`User Connected: ${name}`);
 		joinRoom(room, { name, email }, client, io);
-		newMessage(client, io);
+		newMessage(room, io);
 		callback(null, USERS.users);
 	});
 };
 
 const onNewMessage = (client, io) => {
-	client.on("createMessage", (msg, callback) => {
-		MESSAGES.addMessage(msg);
-		newMessage(client, io);
-		// const user = users.getUser(client.id);
-
-		// if (user && isRealString(msg.text)) {
-		// 	io
-		// 		.in(user.room)
-		// 		.emit("newMessage", generateMsg(user.name, msg.text));
-		// }
+	client.on("createMessage", ({ room, data }, callback) => {
+		MESSAGES.addMessage(room, data);
+		newMessage(room, io);
 	});
 };
 
@@ -55,11 +48,9 @@ const updatedUsers = (room, io) => {
 	io.in(room).emit("updatedUsers", U);
 };
 
-const newMessage = (client, io) => {
-	// const {
-	// 	user: { room }
-	// } = USERS.getUser(client.id);
-	// io.in(room).emit("newMessage", MESSAGES.messages);
+const newMessage = (room, io) => {
+	const M = MESSAGES.getMessageList(room);
+	io.in(room).emit("newMessage", M);
 };
 
 const joinRoom = (room, user, client, io) => {
