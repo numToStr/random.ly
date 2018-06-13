@@ -8,7 +8,6 @@ const chat = io => {
 	io.on("connection", client => {
 		onJoin(client, io);
 		onNewMessage(client, io);
-		onDisconnect(client, io);
 	});
 };
 
@@ -18,6 +17,12 @@ const onJoin = (client, io) => {
 		joinRoom(room, { name, email }, client, io);
 		newMessage(room, io);
 		callback(null, USERS.users);
+
+		/* NOTE ======
+		* you can also call client.on('disconnection') above at client.on('connection')
+		* reason for calling here it to get reference of room name
+		*/
+		onDisconnect(room, client, io);
 	});
 };
 
@@ -28,14 +33,15 @@ const onNewMessage = (client, io) => {
 	});
 };
 
-const onDisconnect = (client, io) => {
-	client.on("disconnectUser", room => {
+const onDisconnect = (room, client, io) => {
+	client.on("disconnect", reason => {
 		const U = USERS.removeUser(room, client.id);
+
 		if (U) {
 			updatedUsers(room, io);
 		}
-		if (!USERS.users.length) {
-			MESSAGES.messages = [];
+		if (!USERS.users[room].length) {
+			delete MESSAGES.messages[room];
 		}
 
 		client.disconnect(true);

@@ -58,8 +58,7 @@ class Chat extends Component {
 
 	componentWillUnmount() {
 		const { ioDisconnect } = this.props;
-		const { room } = this.state;
-		ioDisconnect(room);
+		ioDisconnect();
 	}
 
 	sendMessage = ({ message: text }) => {
@@ -149,7 +148,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		ioConnect: u => dispatch(onConnect(u)),
 		ioNewMessage: () => dispatch(onNewMessage()),
-		ioDisconnect: r => dispatch(onDisconnect(r)),
+		ioDisconnect: () => dispatch(onDisconnect()),
 		ioUpdatedUsers: () => dispatch(onUpdatedUsers())
 	};
 };
