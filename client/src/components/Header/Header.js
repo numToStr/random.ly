@@ -106,7 +106,7 @@ const header = props => {
 								lineHeight: 0
 							}}
 						>
-							<Logo width={isMobile ? "6rem" : "7rem"} />
+							<Logo width={isMobile ? 100 : 110} />
 						</NavLink>
 					</Typography>
 					{barBtn}
