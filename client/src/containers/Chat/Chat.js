@@ -57,6 +57,7 @@ class Chat extends Component {
 		ioNewMessage();
 		ioUpdatedUsers();
 		ioUpdatedRooms();
+		this.onChangeRoom();
 	}
 
 	componentWillUnmount() {
@@ -99,6 +100,24 @@ class Chat extends Component {
 			// then connecting user to desired room
 			ioConnect({ name, email, room });
 		}
+	};
+
+	onChangeRoom = () => {
+		const {
+			ioConnect,
+			ioDisconnect,
+			user: { name, email },
+			history: { listen }
+		} = this.props;
+
+		listen(({ search }, action) => {
+			const queryURI = new URLSearchParams(search);
+			const room = queryURI.get("room");
+			// first disconnecting user from current room
+			ioDisconnect();
+			// then connecting user to desired room
+			ioConnect({ name, email, room });
+		});
 	};
 
 	render() {
