@@ -13,7 +13,8 @@ import {
 	onCreateMessage,
 	onNewMessage,
 	onDisconnect,
-	onUpdatedUsers
+	onUpdatedUsers,
+	onUpdatedRooms
 } from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import MessageList from "../../components/NavList/MessageList/MessageList";
@@ -30,6 +31,7 @@ class Chat extends Component {
 			ioConnect,
 			ioNewMessage,
 			ioUpdatedUsers,
+			ioUpdatedRooms,
 			history: {
 				location: { search },
 				replace
@@ -54,6 +56,7 @@ class Chat extends Component {
 		ioConnect({ name, email, room });
 		ioNewMessage();
 		ioUpdatedUsers();
+		ioUpdatedRooms();
 	}
 
 	componentWillUnmount() {
@@ -165,7 +168,8 @@ const mapDispatchToProps = dispatch => {
 		ioConnect: u => dispatch(onConnect(u)),
 		ioNewMessage: () => dispatch(onNewMessage()),
 		ioDisconnect: () => dispatch(onDisconnect()),
-		ioUpdatedUsers: () => dispatch(onUpdatedUsers())
+		ioUpdatedUsers: () => dispatch(onUpdatedUsers()),
+		ioUpdatedRooms: () => dispatch(onUpdatedRooms())
 	};
 };
 

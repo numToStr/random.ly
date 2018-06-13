@@ -4,7 +4,8 @@ import {
 	IO_MESSAGE,
 	IO_FAIL,
 	IO_DISCONNECTED,
-	IO_UPDATED_USERS
+	IO_UPDATED_USERS,
+	IO_UPDATED_ROOMS
 } from "../actions/actionTypes";
 
 const initState = {
@@ -12,7 +13,8 @@ const initState = {
 	loading: false,
 	error: null,
 	messages: [],
-	users: []
+	users: [],
+	rooms: []
 };
 
 const ioStart = (state, action) => {
@@ -47,6 +49,13 @@ export const ioUpdatedUsers = (state, { users }) => {
 	};
 };
 
+export const ioUpdatedRooms = (state, { rooms }) => {
+	return {
+		...state,
+		rooms
+	};
+};
+
 export const ioFail = (state, { error }) => {
 	return {
 		...state,
@@ -75,6 +84,8 @@ const reducer = (state = initState, action) => {
 			return ioMessage(state, action);
 		case IO_UPDATED_USERS:
 			return ioUpdatedUsers(state, action);
+		case IO_UPDATED_ROOMS:
+			return ioUpdatedRooms(state, action);
 		case IO_FAIL:
 			return ioFail(state, action);
 		case IO_DISCONNECTED:

@@ -1,8 +1,10 @@
 const { Users } = require("../utils/users");
 const { Messages } = require("../utils/messages");
+const { Rooms } = require("../utils/rooms");
 
 const USERS = new Users();
 const MESSAGES = new Messages();
+const ROOMS = new Rooms();
 
 const chat = io => {
 	io.on("connection", client => {
@@ -42,6 +44,8 @@ const onDisconnect = (room, client, io) => {
 		}
 		if (!USERS.users[room].length) {
 			delete MESSAGES.messages[room];
+			ROOMS.remove(room);
+			updatedRooms(io);
 		}
 
 		client.disconnect(true);
@@ -61,8 +65,13 @@ const newMessage = (room, io) => {
 
 const joinRoom = (room, user, client, io) => {
 	client.join(room);
+	ROOMS.add(room);
+	updatedRooms(io);
 	USERS.addUser(room, { user, id: client.id });
 	updatedUsers(room, io);
 };
 
+const updatedRooms = io => {
+	io.emit("updatedRooms", ROOMS.rooms);
+};
 module.exports = chat;

@@ -5,7 +5,8 @@ import {
 	IO_MESSAGE,
 	IO_FAIL,
 	IO_DISCONNECTED,
-	IO_UPDATED_USERS
+	IO_UPDATED_USERS,
+	IO_UPDATED_ROOMS
 } from "./actionTypes";
 
 const io = socketIO();
@@ -33,6 +34,13 @@ export const ioUpdatedUsers = users => {
 	return {
 		type: IO_UPDATED_USERS,
 		users
+	};
+};
+
+export const ioUpdatedRooms = rooms => {
+	return {
+		type: IO_UPDATED_ROOMS,
+		rooms
 	};
 };
 
@@ -81,6 +89,14 @@ export const onUpdatedUsers = () => {
 	return dispatch => {
 		io.on("updatedUsers", users => {
 			return dispatch(ioUpdatedUsers(users));
+		});
+	};
+};
+
+export const onUpdatedRooms = () => {
+	return dispatch => {
+		io.on("updatedRooms", rooms => {
+			return dispatch(ioUpdatedRooms(rooms));
 		});
 	};
 };

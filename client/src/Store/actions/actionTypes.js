@@ -9,3 +9,4 @@ export const IO_UPDATED_USERS = "IO_UPDATED_USERS";
 export const IO_FAIL = "IO_FAIL";
 export const IO_DISCONNECTED = "IO_DISCONNECTED";
 export const IO_MESSAGE = "IO_MESSAGE";
+export const IO_UPDATED_ROOMS = "IO_UPDATED_ROOMS";
