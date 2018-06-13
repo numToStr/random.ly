@@ -19,7 +19,7 @@ const onJoin = (client, io) => {
 		callback(null, USERS.users);
 
 		/* NOTE ======
-		* you can also call client.on('disconnection') above at client.on('connection')
+		* you can also call client.on('disconnection') above at io.on('connection')
 		* reason for calling here it to get reference of room name
 		*/
 		onDisconnect(room, client, io);
