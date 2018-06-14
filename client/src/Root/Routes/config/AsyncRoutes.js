@@ -32,3 +32,7 @@ export const Profile = asyncComponent({
 	resolve: () => import("../../../containers/Profile/Profile"),
 	LoadingComponent: () => Loader
 });
+export const Connect = asyncComponent({
+	resolve: () => import("../../../containers/Connect/Connect"),
+	LoadingComponent: () => Loader
+});

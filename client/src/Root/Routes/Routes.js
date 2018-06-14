@@ -6,7 +6,14 @@ import { authAutoSignIn } from "../../Store/actions/index";
 import PrivateRoute from "./config/PrivateRoute";
 import PublicRoute from "./config/PublicRoute";
 
-import { Home, SignUp, LogIn, Chat, Profile } from "./config/AsyncRoutes";
+import {
+	Home,
+	SignUp,
+	LogIn,
+	Chat,
+	Profile,
+	Connect
+} from "./config/AsyncRoutes";
 
 class Routes extends Component {
 	componentDidMount() {
@@ -24,6 +31,11 @@ class Routes extends Component {
 					component={Profile}
 				/>
 				<PrivateRoute isAuth={isAuth} path="/chat" component={Chat} />
+				<PrivateRoute
+					isAuth={isAuth}
+					path="/connect"
+					component={Connect}
+				/>
 				<PublicRoute
 					isAuth={isAuth}
 					path="/user/login"
@@ -53,4 +65,9 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Routes));
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(Routes)
+);
