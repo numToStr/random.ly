@@ -82,23 +82,18 @@ class Chat extends Component {
 
 	onCreateRooom = ({ room }) => {
 		const {
-			ioConnect,
-			ioDisconnect,
-			user: { name, email },
 			history: { replace }
 		} = this.props;
 
 		if (room) {
-			// replacing current url
+			/* 
+			* replacing current url
+			* after replacing... it will automatically disconnects and reconnects
+			*/
 			replace({
 				pathname: "/chat",
 				search: `?room=${room}`
 			});
-
-			// first disconnecting user from current room
-			ioDisconnect();
-			// then connecting user to desired room
-			ioConnect({ name, email, room });
 		}
 	};
 
