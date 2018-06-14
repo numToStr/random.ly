@@ -28,7 +28,7 @@ class Layout extends Component {
 						<Header
 							isAuth={isAuth}
 							toggleDrawer={toggleDrawer}
-							path={location.pathname}
+							location={location}
 						/>
 						<MobileDrawer
 							toggleDrawer={toggleDrawer}

@@ -33,7 +33,12 @@ const styles = {
 };
 
 const header = props => {
-	const { classes, isAuth, toggleDrawer, path } = props;
+	const {
+		classes,
+		isAuth,
+		toggleDrawer,
+		location: { pathname, search }
+	} = props;
 
 	let mobileMenuIcon = null;
 	let barBtn = null;
@@ -95,13 +100,16 @@ const header = props => {
 						className={
 							isMobile
 								? classes.flexMobile
-								: path === "/"
+								: pathname === "/"
 									? classes.flex
 									: classes.flexDesktop
 						}
 					>
 						<NavLink
-							to="/"
+							to={{
+								pathname,
+								search
+							}}
 							style={{
 								lineHeight: 0
 							}}
