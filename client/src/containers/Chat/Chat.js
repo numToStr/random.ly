@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid } from "@material-ui/core";
+import { Grid, CircularProgress } from "@material-ui/core";
 
 import Layout from "../../components/Layout/Layout";
 import { isMobile } from "../../Store/helper/helper";
@@ -122,7 +122,17 @@ class Chat extends Component {
 
 	render() {
 		const { sendMessage, onSearchRoom, onCreateRooom } = this;
-		const { messages, user } = this.props;
+		const { messages, user, ioLoading } = this.props;
+
+		if (ioLoading) {
+			return (
+				<Grid container>
+					<Grid item xs={12} className="text-center pt-5">
+						<CircularProgress />
+					</Grid>
+				</Grid>
+			);
+		}
 
 		let userNav = null;
 		let roomNav = null;
@@ -178,7 +188,8 @@ class Chat extends Component {
 const mapStateToProps = state => {
 	return {
 		user: state.auth.user,
-		messages: state.io.messages
+		messages: state.io.messages,
+		ioLoading: state.io.loading
 	};
 };
 
