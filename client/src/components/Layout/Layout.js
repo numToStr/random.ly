@@ -33,6 +33,7 @@ class Layout extends Component {
 						<MobileDrawer
 							toggleDrawer={toggleDrawer}
 							drawerAnchor={left}
+							isAuth={isAuth}
 						/>
 					</Grid>
 					<Grid item xs={12} className="layout-column flex-grow">

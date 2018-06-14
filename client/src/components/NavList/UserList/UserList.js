@@ -14,7 +14,6 @@ import {
 	Typography
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import StarIcon from "@material-ui/icons/Star";
@@ -35,31 +34,13 @@ class UserList extends Component {
 	};
 
 	render() {
-		const { logout, isAuth, userName, ioUsers } = this.props;
+		const { logout, userName, ioUsers } = this.props;
 		const { openMenu, closeMenu } = this;
 		const { menuAnchor } = this.state;
 
-		let links = (
+		return (
 			<Fragment>
-				<ListItem button component={NavLink} to="/user/signup">
-					<ListItemIcon>
-						<Favourite color="primary" />
-					</ListItemIcon>
-					<ListItemText primary="Signup" />
-				</ListItem>
-				<ListItem button component={NavLink} to="/user/login">
-					<ListItemIcon>
-						<Lock color="primary" />
-					</ListItemIcon>
-					<ListItemText primary="Login" />
-				</ListItem>
-			</Fragment>
-		);
-		let usersList = null;
-
-		if (isAuth) {
-			links = (
-				<Fragment>
+				<List component="nav">
 					<ListItem>
 						<ListItemIcon>
 							<StarIcon style={{ fontSize: 30 }} />
@@ -83,29 +64,7 @@ class UserList extends Component {
 							</IconButton>
 						</ListItemSecondaryAction>
 					</ListItem>
-
-					<Menu
-						anchorEl={menuAnchor}
-						open={Boolean(menuAnchor)}
-						onClose={closeMenu}
-					>
-						<MenuItem component={NavLink} to="/user/profile">
-							<ListItemIcon>
-								<AccountCircle color="primary" />
-							</ListItemIcon>
-							<ListItemText primary="Profile" />
-						</MenuItem>
-						<MenuItem onClick={logout}>
-							<ListItemIcon>
-								<Lock color="primary" />
-							</ListItemIcon>
-							<ListItemText primary="Logout" />
-						</MenuItem>
-					</Menu>
-				</Fragment>
-			);
-
-			usersList = (
+				</List>
 				<List
 					component="nav"
 					subheader={
@@ -116,13 +75,25 @@ class UserList extends Component {
 				>
 					<Users users={ioUsers} />
 				</List>
-			);
-		}
 
-		return (
-			<Fragment>
-				<List component="nav">{links}</List>
-				{usersList}
+				<Menu
+					anchorEl={menuAnchor}
+					open={Boolean(menuAnchor)}
+					onClose={closeMenu}
+				>
+					<MenuItem component={NavLink} to="/user/profile">
+						<ListItemIcon>
+							<AccountCircle color="primary" />
+						</ListItemIcon>
+						<ListItemText primary="Profile" />
+					</MenuItem>
+					<MenuItem onClick={logout}>
+						<ListItemIcon>
+							<Lock color="primary" />
+						</ListItemIcon>
+						<ListItemText primary="Logout" />
+					</MenuItem>
+				</Menu>
 			</Fragment>
 		);
 	}
@@ -130,7 +101,6 @@ class UserList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isAuth: state.auth.token ? true : false,
 		userName: state.auth.user.name,
 		ioUsers: state.io.users
 	};
