@@ -19,7 +19,7 @@ const Room = ({ room: { room, link } }) => {
 			}}
 		>
 			<ListItemIcon>
-				<Home />
+				<Home style={{ fontSize: 26 }} />
 			</ListItemIcon>
 			<ListItemText
 				disableTypography

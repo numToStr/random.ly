@@ -5,13 +5,13 @@ import {
 	ListItemText,
 	Typography
 } from "@material-ui/core";
-import { AccountCircle } from "@material-ui/icons";
+import { Face } from "@material-ui/icons";
 
 const User = ({ user }) => {
 	return (
 		<ListItem button>
 			<ListItemIcon>
-				<AccountCircle />
+				<Face style={{ fontSize: 26 }} />
 			</ListItemIcon>
 			<ListItemText
 				disableTypography

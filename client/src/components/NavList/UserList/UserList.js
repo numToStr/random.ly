@@ -17,6 +17,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Favourite from "@material-ui/icons/Favorite";
 import Lock from "@material-ui/icons/Lock";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import StarIcon from "@material-ui/icons/Star";
 
 import { authLogout } from "../../../Store/actions/index";
 import Users from "./Users/Users";
@@ -61,7 +62,7 @@ class UserList extends Component {
 				<Fragment>
 					<ListItem>
 						<ListItemIcon>
-							<AccountCircle />
+							<StarIcon style={{ fontSize: 30 }} />
 						</ListItemIcon>
 						<ListItemText
 							primary={
