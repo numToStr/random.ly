@@ -108,10 +108,13 @@ class Chat extends Component {
 		listen(({ search }, action) => {
 			const queryURI = new URLSearchParams(search);
 			const room = queryURI.get("room");
-			// first disconnecting user from current room
-			ioDisconnect();
-			// then connecting user to desired room
-			ioConnect({ name, email, room });
+
+			if (room) {
+				// first disconnecting user from current room
+				ioDisconnect();
+				// then connecting user to desired room
+				ioConnect({ name, email, room });
+			}
 		});
 	};
 
