@@ -21,9 +21,9 @@ class LogIn extends Component {
 			<Fragment>
 				<Grid container justify="center" className="pt-5">
 					<Grid item xs={9} sm={5} md={3} className="mt-5">
-						<Typography className="text-center mb-3">
+						<Typography align="center" paragraph>
 							<NavLink to="/">
-								<Logo width="13rem" />
+								<Logo width={180} />
 							</NavLink>
 						</Typography>
 						<LogInForm
@@ -61,4 +61,7 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(LogIn);
