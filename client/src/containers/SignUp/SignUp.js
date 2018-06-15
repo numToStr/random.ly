@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { NavLink, Redirect } from "react-router-dom";
-import { Grid, FormControl, Typography } from "@material-ui/core";
+import { FormControl, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { signup } from "../../Store/actions/index";
 import SignUpForm from "../../components/Forms/SignUp/SignUp";
-import Logo from "../../components/Images/Logo/RandomLyFull";
+import FormLayout from "../../components/FormLayout/FormLayout";
 
 class SignUp extends Component {
 	state = {
@@ -33,30 +33,23 @@ class SignUp extends Component {
 		return (
 			<Fragment>
 				{redirect}
-				<Grid container justify="center" className="pt-5">
-					<Grid item xs={9} sm={5} md={3} className="mt-5">
-						<Typography align="center" paragraph>
-							<NavLink to="/">
-								<Logo width={180} />
-							</NavLink>
+				<FormLayout>
+					<SignUpForm
+						onSubmit={this.onSignUp}
+						loading={loading}
+						formError={error}
+					/>
+					<FormControl margin="dense" fullWidth>
+						<Typography
+							align="center"
+							color="textSecondary"
+							variant="caption"
+						>
+							Already have an account?{" "}
+							<NavLink to="/user/login">Login</NavLink>
 						</Typography>
-						<SignUpForm
-							onSubmit={this.onSignUp}
-							loading={loading}
-							formError={error}
-						/>
-						<FormControl margin="dense" fullWidth>
-							<Typography
-								align="center"
-								color="textSecondary"
-								variant="caption"
-							>
-								Already have an account?{" "}
-								<NavLink to="/user/login">Login</NavLink>
-							</Typography>
-						</FormControl>
-					</Grid>
-				</Grid>
+					</FormControl>
+				</FormLayout>
 			</Fragment>
 		);
 	}
