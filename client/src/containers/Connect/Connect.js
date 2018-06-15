@@ -1,116 +1,54 @@
 import React, { Component, Fragment } from "react";
-import { Form, Field } from "redux-form";
-import {
-	Grid,
-	Typography,
-	TextField,
-	Button,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
-	FormHelperText
-} from "@material-ui/core";
+import { NavLink } from "react-router-dom";
+import { Grid, Typography, Button, FormControl } from "@material-ui/core";
 import Logo from "../../components/Images/Logo/RandomLyFull";
-import reduxForm from "redux-form/lib/reduxForm";
+import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 
 class Connect extends Component {
-	state = {
-		age: ""
-	};
-
-	inputField = props => (
-		<TextField
-			InputLabelProps={{
-				shrink: true
-			}}
-			margin="normal"
-			fullWidth
-			{...props}
-		/>
-	);
-
 	handleSubmit = value => {
 		console.log(value);
 	};
 
-	handleChange = event => {
-		this.setState({ age: event.target.value });
-	};
-
 	render() {
-		const { inputField, handleSubmit, handleChange } = this;
+		const { handleSubmit } = this;
 
 		return (
 			<Fragment>
-				<Grid container>
-					<Grid item xs={12} className="pt-5">
-						<Typography align="center">
-							<Logo width={200} />
+				<Grid container justify="center" className="pt-5">
+					<Grid item xs={9} sm={5} md={3} className="mt-5">
+						<Typography align="center" paragraph>
+							<Logo width={180} />
 						</Typography>
-					</Grid>
-				</Grid>
-				<Grid container justify="space-around">
-					<Grid item xs={12} md={3}>
-						<Typography
-							variant="headline"
-							color="secondary"
-							align="center"
-						>
-							Rooms
-						</Typography>
-						<Form onSubmit={handleSubmit}>
-							<FormControl margin="normal" fullWidth>
-								<InputLabel htmlFor="age-simple">
-									Active Rooms
-								</InputLabel>
-								<Select
-									value={this.state.age}
-									onChange={handleChange}
-									name="selected-room"
-								>
-									<MenuItem value="" disabled>
-										Select your room
-									</MenuItem>
-									<MenuItem value="Ten" selected>
-										Ten
-									</MenuItem>
-									<MenuItem value="Twenty">Twenty</MenuItem>
-									<MenuItem value="Thirty">Thirty</MenuItem>
-								</Select>
-								<FormHelperText>
-									Some important helper text
-								</FormHelperText>
-							</FormControl>
-							<Field
-								name="room"
-								label="Room"
-								placeholder="Enter your room name"
-								component={inputField}
-							/>
-							<FormControl margin="normal" fullWidth>
-								<Button
-									type="submit"
-									variant="raised"
-									color="secondary"
-								>
-									Create
-								</Button>
-							</FormControl>
-						</Form>
-					</Grid>
-					<Grid item xs={12} md={3}>
-						<Typography
-							variant="headline"
-							color="secondary"
-							align="center"
-						>
-							Connect
-						</Typography>
-						<Typography align="center">
-							<Button variant="raised" color="secondary">
+						<RoomConnect onSubmit={handleSubmit} />
+						<FormControl margin="normal" fullWidth>
+							<Typography
+								variant="subheading"
+								color="textSecondary"
+								align="center"
+							>
+								or
+							</Typography>
+						</FormControl>
+						<Typography align="center" paragraph>
+							<Button
+								variant="raised"
+								color="primary"
+								fullWidth
+								component={NavLink}
+								to={{
+									pathname: "/chat",
+									search: "?room=anonymous"
+								}}
+							>
 								Connect
 							</Button>
+						</Typography>
+						<Typography
+							variant="caption"
+							color="secondary"
+							align="center"
+						>
+							--- You will be connected to default room ---
 						</Typography>
 					</Grid>
 				</Grid>
@@ -118,9 +56,5 @@ class Connect extends Component {
 		);
 	}
 }
-
-Connect = reduxForm({
-	form: "signup"
-})(Connect);
 
 export default Connect;
