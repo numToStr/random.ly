@@ -34,7 +34,7 @@ class UserList extends Component {
 	};
 
 	render() {
-		const { user, ioUsers, room } = this.props;
+		const { user, ioUsers, room, ioLeave } = this.props;
 		const { openMenu, closeMenu } = this;
 		const { menuAnchor } = this.state;
 
@@ -87,7 +87,7 @@ class UserList extends Component {
 						</ListItemIcon>
 						<ListItemText primary="Profile" />
 					</MenuItem>
-					<MenuItem onClick={() => onLeave({ ...user, room })}>
+					<MenuItem onClick={() => ioLeave({ ...user, room })}>
 						<ListItemIcon>
 							<Lock color="primary" />
 						</ListItemIcon>
@@ -106,4 +106,13 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps)(UserList);
+const mapDispatchToProps = dispatch => {
+	return {
+		ioLeave: u => dispatch(onLeave(u))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(UserList);

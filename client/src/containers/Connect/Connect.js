@@ -8,7 +8,7 @@ import {
 	CircularProgress
 } from "@material-ui/core";
 
-import { onDisconnect } from "../../Store/actions/chat";
+import { authLogout } from "../../Store/actions/index";
 import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 import FormLayout from "../../components/FormLayout/FormLayout";
 
@@ -93,7 +93,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		ioDisconnect: () => dispatch(onDisconnect())
+		logout: () => dispatch(authLogout())
 	};
 };
 
