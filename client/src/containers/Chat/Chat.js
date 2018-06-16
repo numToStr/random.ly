@@ -108,14 +108,15 @@ class Chat extends Component {
 		} = this.props;
 
 		listen(({ search }, action) => {
+			const { room } = this.state;
 			const queryURI = new URLSearchParams(search);
-			const room = queryURI.get("room");
+			const newRoom = queryURI.get("room");
 
-			if (room) {
+			if (newRoom) {
 				// first disconnecting user from current room
 				ioLeave({ ...user, room });
 				// then connecting user to desired room
-				ioJoin({ ...user, room });
+				ioJoin({ ...user, room: newRoom });
 			}
 		});
 	};
