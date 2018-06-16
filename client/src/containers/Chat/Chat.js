@@ -26,8 +26,6 @@ class Chat extends Component {
 
 	componentDidMount() {
 		const {
-			user: { name, email },
-			ioJoin,
 			ioNewMessage,
 			ioUpdatedUsers,
 			ioUpdatedRooms,
@@ -52,7 +50,6 @@ class Chat extends Component {
 			room
 		});
 
-		ioJoin({ name, email, room });
 		ioNewMessage();
 		ioUpdatedUsers();
 		ioUpdatedRooms();
@@ -181,7 +178,8 @@ const mapStateToProps = state => {
 	return {
 		user: state.auth.user,
 		messages: state.io.messages,
-		ioLoading: state.io.loading
+		ioLoading: state.io.loading,
+		ioUser: state.io.user
 	};
 };
 

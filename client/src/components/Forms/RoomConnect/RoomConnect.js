@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { Form, Field, reduxForm } from "redux-form";
-import { TextField, Button, FormControl, MenuItem } from "@material-ui/core";
+import {
+	TextField,
+	Button,
+	FormControl,
+	MenuItem,
+	CircularProgress
+} from "@material-ui/core";
 
 class RoomConnect extends Component {
 	inputField = ({ input, ...left }) => (
@@ -43,7 +49,7 @@ class RoomConnect extends Component {
 	};
 	render() {
 		const { inputField, selectField } = this;
-		const { handleSubmit, pristine } = this.props;
+		const { handleSubmit, pristine, loading } = this.props;
 
 		return (
 			<Form onSubmit={handleSubmit}>
@@ -60,8 +66,20 @@ class RoomConnect extends Component {
 					component={inputField}
 				/>
 				<FormControl margin="normal" fullWidth>
-					<Button type="submit" variant="raised" disabled={pristine}>
-						Enter Room
+					<Button
+						type="submit"
+						variant="raised"
+						disabled={pristine || loading}
+					>
+						{loading ? (
+							<CircularProgress
+								size={20}
+								thickness={4}
+								color="secondary"
+							/>
+						) : (
+							"Enter Room"
+						)}
 					</Button>
 				</FormControl>
 			</Form>

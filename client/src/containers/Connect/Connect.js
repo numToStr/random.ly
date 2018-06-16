@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Typography, Button, FormControl } from "@material-ui/core";
+import {
+	Typography,
+	Button,
+	FormControl,
+	CircularProgress
+} from "@material-ui/core";
 
-import { onConnect, onDisconnect } from "../../Store/actions/chat";
+import { onConnect, onDisconnect, onJoin } from "../../Store/actions/chat";
 import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 import FormLayout from "../../components/FormLayout/FormLayout";
 
@@ -13,32 +18,37 @@ class Connect extends Component {
 		ioConnect();
 	}
 
-	handleSubmit = ({ room, selectedRoom }) => {
-		const {
-			history: { replace }
-		} = this.props;
+	joinUser = ({ room, selectedRoom }) => {
+		const { user, ioJoin } = this.props;
 
 		selectedRoom = selectedRoom === "---" ? null : selectedRoom;
 
 		let R = "anonymous";
 		if (room && selectedRoom) {
-			R = selectedRoom;
-		} else {
+			R = room;
+		} else if (room || selectedRoom) {
 			R = room || selectedRoom;
 		}
 
-		replace({
-			pathname: "/chat",
-			search: `?room=${R}`
-		});
+		ioJoin({ ...user, room: R });
 	};
 
 	render() {
-		const { handleSubmit } = this;
+		const { joinUser } = this;
+		const { ioUser, ioLoading } = this.props;
+
+		if (ioUser) {
+			return (
+				<Redirect
+					push
+					to={{ pathname: "/chat", search: `?room=${ioUser.room}` }}
+				/>
+			);
+		}
 
 		return (
 			<FormLayout>
-				<RoomConnect onSubmit={handleSubmit} />
+				<RoomConnect loading={ioLoading} onSubmit={joinUser} />
 				<FormControl margin="normal" fullWidth>
 					<Typography
 						variant="subheading"
@@ -53,14 +63,18 @@ class Connect extends Component {
 						variant="raised"
 						color="primary"
 						fullWidth
-						component={NavLink}
-						replace
-						to={{
-							pathname: "/chat",
-							search: "?room=anonymous"
-						}}
+						onClick={joinUser}
+						disabled={ioLoading}
 					>
-						Connect
+						{ioLoading ? (
+							<CircularProgress
+								size={20}
+								thickness={4}
+								color="secondary"
+							/>
+						) : (
+							"Connect"
+						)}
 					</Button>
 				</Typography>
 				<Typography variant="caption" color="secondary" align="center">
@@ -71,14 +85,23 @@ class Connect extends Component {
 	}
 }
 
+const mapStateToProps = state => {
+	return {
+		user: state.auth.user,
+		ioUser: state.io.user,
+		ioLoading: state.io.loading
+	};
+};
+
 const mapDispatchToProps = dispatch => {
 	return {
 		ioConnect: () => dispatch(onConnect()),
+		ioJoin: u => dispatch(onJoin(u)),
 		ioDisconnect: () => dispatch(onDisconnect())
 	};
 };
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(Connect);
