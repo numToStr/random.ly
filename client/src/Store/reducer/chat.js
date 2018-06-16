@@ -5,13 +5,16 @@ import {
 	IO_FAIL,
 	IO_DISCONNECTED,
 	IO_UPDATED_USERS,
-	IO_UPDATED_ROOMS
+	IO_UPDATED_ROOMS,
+	IO_JOIN,
+	IO_LEAVE
 } from "../actions/actionTypes";
 
 const initState = {
 	status: null,
 	loading: false,
 	error: null,
+	user: null,
 	messages: [],
 	users: [],
 	rooms: []
@@ -26,49 +29,71 @@ const ioStart = (state, action) => {
 	};
 };
 
-export const ioConnected = (state, action) => {
+const ioConnected = (state, action) => {
 	return {
 		...state,
-		status: "User Connected",
+		status: "connect",
 		loading: false,
-		error: null
+		error: null,
+		user: null
 	};
 };
 
-export const ioMessage = (state, { messages }) => {
+const ioJoin = (state, { user }) => {
+	return {
+		...state,
+		status: "join",
+		loading: false,
+		error: null,
+		user
+	};
+};
+
+const ioLeave = (state, action) => {
+	return {
+		...state,
+		status: "leave",
+		loading: false,
+		error: null,
+		user: null
+	};
+};
+
+const ioMessage = (state, { messages }) => {
 	return {
 		...state,
 		messages
 	};
 };
 
-export const ioUpdatedUsers = (state, { users }) => {
+const ioUpdatedUsers = (state, { users }) => {
 	return {
 		...state,
 		users
 	};
 };
 
-export const ioUpdatedRooms = (state, { rooms }) => {
+const ioUpdatedRooms = (state, { rooms }) => {
 	return {
 		...state,
 		rooms
 	};
 };
 
-export const ioFail = (state, { error }) => {
+const ioFail = (state, { error }) => {
 	return {
 		...state,
 		error
 	};
 };
 
-export const ioDisconnected = (state, action) => {
+const ioDisconnected = (state, action) => {
 	return {
 		...state,
-		status: "User Disconnected",
+		status: "disconnect",
 		loading: false,
 		error: null,
+		user: null,
 		messages: [],
 		users: []
 	};
@@ -80,6 +105,10 @@ const reducer = (state = initState, action) => {
 			return ioStart(state, action);
 		case IO_CONNECTED:
 			return ioConnected(state, action);
+		case IO_JOIN:
+			return ioJoin(state, action);
+		case IO_LEAVE:
+			return ioLeave(state, action);
 		case IO_MESSAGE:
 			return ioMessage(state, action);
 		case IO_UPDATED_USERS:

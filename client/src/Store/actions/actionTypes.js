@@ -5,6 +5,8 @@ export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
 export const IO_START = "IO_START";
 export const IO_CONNECTED = "IO_CONNECTED";
+export const IO_JOIN = "IO_JOIN";
+export const IO_LEAVE = "IO_LEAVE";
 export const IO_UPDATED_USERS = "IO_UPDATED_USERS";
 export const IO_FAIL = "IO_FAIL";
 export const IO_DISCONNECTED = "IO_DISCONNECTED";

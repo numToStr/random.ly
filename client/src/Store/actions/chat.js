@@ -6,7 +6,9 @@ import {
 	IO_FAIL,
 	IO_DISCONNECTED,
 	IO_UPDATED_USERS,
-	IO_UPDATED_ROOMS
+	IO_UPDATED_ROOMS,
+	IO_JOIN,
+	IO_LEAVE
 } from "./actionTypes";
 
 const io = socketIO();
@@ -20,6 +22,19 @@ export const ioStart = () => {
 export const ioConnected = () => {
 	return {
 		type: IO_CONNECTED
+	};
+};
+
+export const ioJoin = user => {
+	return {
+		type: IO_JOIN,
+		user
+	};
+};
+
+export const ioLeave = () => {
+	return {
+		type: IO_LEAVE
 	};
 };
 
@@ -58,7 +73,11 @@ export const ioDisconnected = () => {
 };
 
 export const onConnect = () => {
-	io.connect();
+	return dispatch => {
+		dispatch(ioStart());
+		io.connect();
+		dispatch(ioConnected());
+	};
 };
 
 export const onJoin = user => {
@@ -68,14 +87,23 @@ export const onJoin = user => {
 			if (error) {
 				dispatch(ioFail(error));
 			} else {
-				dispatch(ioConnected());
+				dispatch(ioJoin(user));
 			}
 		});
 	};
 };
 
 export const onLeave = user => {
-	io.emit("leave", user);
+	return dispatch => {
+		dispatch(ioStart());
+		io.emit("leave", user, (error, users) => {
+			if (error) {
+				dispatch(ioFail(error));
+			} else {
+				dispatch(ioLeave());
+			}
+		});
+	};
 };
 
 export const onCreateMessage = (room, data) => {
