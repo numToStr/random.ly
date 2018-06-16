@@ -8,14 +8,16 @@ import {
 	CircularProgress
 } from "@material-ui/core";
 
-import { onDisconnect, onJoin } from "../../Store/actions/chat";
+import { onDisconnect } from "../../Store/actions/chat";
 import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 import FormLayout from "../../components/FormLayout/FormLayout";
 
 class Connect extends Component {
-	joinUser = ({ room, selectedRoom }) => {
-		const { user, ioJoin } = this.props;
+	state = {
+		room: null
+	};
 
+	joinUser = ({ room, selectedRoom }) => {
 		selectedRoom = selectedRoom === "---" ? null : selectedRoom;
 
 		let R = "anonymous";
@@ -25,18 +27,21 @@ class Connect extends Component {
 			R = room || selectedRoom;
 		}
 
-		ioJoin({ ...user, room: R });
+		this.setState({
+			room: R
+		});
 	};
 
 	render() {
 		const { joinUser } = this;
-		const { ioUser, ioLoading } = this.props;
+		const { ioLoading } = this.props;
+		const { room } = this.state;
 
-		if (ioUser) {
+		if (room) {
 			return (
 				<Redirect
 					push
-					to={{ pathname: "/chat", search: `?room=${ioUser.room}` }}
+					to={{ pathname: "/chat", search: `?room=${room}` }}
 				/>
 			);
 		}
@@ -82,15 +87,12 @@ class Connect extends Component {
 
 const mapStateToProps = state => {
 	return {
-		user: state.auth.user,
-		ioUser: state.io.user,
 		ioLoading: state.io.loading
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		ioJoin: u => dispatch(onJoin(u)),
 		ioDisconnect: () => dispatch(onDisconnect())
 	};
 };

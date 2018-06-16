@@ -13,7 +13,8 @@ import {
 	onNewMessage,
 	onUpdatedUsers,
 	onUpdatedRooms,
-	onJoin
+	onJoin,
+	onLeave
 } from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import MessageList from "../../components/NavList/MessageList/MessageList";
@@ -26,6 +27,8 @@ class Chat extends Component {
 
 	componentDidMount() {
 		const {
+			user,
+			ioJoin,
 			ioNewMessage,
 			ioUpdatedUsers,
 			ioUpdatedRooms,
@@ -50,10 +53,18 @@ class Chat extends Component {
 			room
 		});
 
+		ioJoin({ ...user, room });
 		ioNewMessage();
 		ioUpdatedUsers();
 		ioUpdatedRooms();
 		this.onChangeRoom();
+	}
+
+	componentWillUnmount() {
+		const { user, ioLeave } = this.props;
+		const { room } = this.state;
+
+		ioLeave({ ...user, room });
 	}
 
 	sendMessage = ({ message: text }) => {
@@ -90,9 +101,9 @@ class Chat extends Component {
 
 	onChangeRoom = () => {
 		const {
-			ioConnect,
-			ioDisconnect,
-			user: { name, email },
+			ioJoin,
+			ioLeave,
+			user,
 			history: { listen }
 		} = this.props;
 
@@ -102,9 +113,9 @@ class Chat extends Component {
 
 			if (room) {
 				// first disconnecting user from current room
-				ioDisconnect();
+				ioLeave({ ...user, room });
 				// then connecting user to desired room
-				ioConnect({ name, email, room });
+				ioJoin({ ...user, room });
 			}
 		});
 	};
@@ -186,6 +197,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		ioJoin: u => dispatch(onJoin(u)),
+		ioLeave: u => dispatch(onLeave(u)),
 		ioNewMessage: () => dispatch(onNewMessage()),
 		ioUpdatedUsers: () => dispatch(onUpdatedUsers()),
 		ioUpdatedRooms: () => dispatch(onUpdatedRooms())
