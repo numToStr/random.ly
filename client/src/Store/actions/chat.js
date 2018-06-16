@@ -74,6 +74,10 @@ export const onJoin = user => {
 	};
 };
 
+export const onLeave = user => {
+	io.emit("leave", user);
+};
+
 export const onCreateMessage = (room, data) => {
 	io.emit("createMessage", {
 		room,

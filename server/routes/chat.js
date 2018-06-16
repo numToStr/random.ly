@@ -10,6 +10,7 @@ const chat = io => {
 	io.on("connection", client => {
 		console.log(`Client is up: ${client.id}`);
 		onJoin(client, io);
+		onLeave(client, io);
 		onNewMessage(client, io);
 	});
 };
@@ -26,6 +27,23 @@ const onJoin = (client, io) => {
 		* reason for calling here it to get reference of room name
 		*/
 		onDisconnect(room, client, io);
+	});
+};
+
+const onLeave = (client, io) => {
+	client.on("leave", ({ email, room }, callback) => {
+		const U = USERS.removeUser(room, client.id);
+
+		if (U) {
+			updatedUsers(room, io);
+		}
+		if (!USERS.users[room].length) {
+			delete MESSAGES.messages[room];
+			ROOMS.remove(room);
+			updatedRooms(io);
+		}
+		client.leave(room);
+		console.log("User Exit:", email);
 	});
 };
 

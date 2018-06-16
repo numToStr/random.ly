@@ -132,7 +132,7 @@ class Chat extends Component {
 			userNav = (
 				<Grid item xs={2}>
 					<AsideNav side="left">
-						<UserList />
+						<UserList room={this.state.room} />
 					</AsideNav>
 				</Grid>
 			);

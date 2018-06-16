@@ -18,7 +18,7 @@ import Lock from "@material-ui/icons/Lock";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import StarIcon from "@material-ui/icons/Star";
 
-import { authLogout } from "../../../Store/actions/index";
+import { onLeave } from "../../../Store/actions/chat";
 import Users from "./Users/Users";
 
 class UserList extends Component {
@@ -34,7 +34,7 @@ class UserList extends Component {
 	};
 
 	render() {
-		const { logout, userName, ioUsers } = this.props;
+		const { user, ioUsers, room } = this.props;
 		const { openMenu, closeMenu } = this;
 		const { menuAnchor } = this.state;
 
@@ -54,7 +54,7 @@ class UserList extends Component {
 							disableTypography
 							secondary={
 								<Typography variant="caption">
-									{userName}
+									{user.name}
 								</Typography>
 							}
 						/>
@@ -87,11 +87,11 @@ class UserList extends Component {
 						</ListItemIcon>
 						<ListItemText primary="Profile" />
 					</MenuItem>
-					<MenuItem onClick={logout}>
+					<MenuItem onClick={() => onLeave({ ...user, room })}>
 						<ListItemIcon>
 							<Lock color="primary" />
 						</ListItemIcon>
-						<ListItemText primary="Logout" />
+						<ListItemText primary="Exit" />
 					</MenuItem>
 				</Menu>
 			</Fragment>
@@ -101,18 +101,9 @@ class UserList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		userName: state.auth.user.name,
+		user: state.auth.user,
 		ioUsers: state.io.users
 	};
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-		logout: () => dispatch(authLogout())
-	};
-};
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(UserList);
+export default connect(mapStateToProps)(UserList);
