@@ -8,16 +8,11 @@ import {
 	CircularProgress
 } from "@material-ui/core";
 
-import { onConnect, onDisconnect, onJoin } from "../../Store/actions/chat";
+import { onDisconnect, onJoin } from "../../Store/actions/chat";
 import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 import FormLayout from "../../components/FormLayout/FormLayout";
 
 class Connect extends Component {
-	componentDidMount() {
-		const { ioConnect } = this.props;
-		ioConnect();
-	}
-
 	joinUser = ({ room, selectedRoom }) => {
 		const { user, ioJoin } = this.props;
 
@@ -95,7 +90,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		ioConnect: () => dispatch(onConnect()),
 		ioJoin: u => dispatch(onJoin(u)),
 		ioDisconnect: () => dispatch(onDisconnect())
 	};

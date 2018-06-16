@@ -3,6 +3,8 @@ import { Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { authAutoSignIn } from "../../Store/actions/index";
+import { onConnect } from "../../Store/actions/chat";
+
 import PrivateRoute from "./config/PrivateRoute";
 import PublicRoute from "./config/PublicRoute";
 
@@ -17,8 +19,9 @@ import {
 
 class Routes extends Component {
 	componentDidMount() {
-		const { onAutoSignIn } = this.props;
+		const { onAutoSignIn, ioConnect } = this.props;
 		onAutoSignIn();
+		ioConnect();
 	}
 
 	render() {
@@ -61,7 +64,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onAutoSignIn: cb => dispatch(authAutoSignIn(cb))
+		onAutoSignIn: cb => dispatch(authAutoSignIn(cb)),
+		ioConnect: () => dispatch(onConnect())
 	};
 };
 
