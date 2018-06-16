@@ -9,7 +9,8 @@ import FormLayout from "../../components/FormLayout/FormLayout";
 
 class Connect extends Component {
 	componentDidMount() {
-		onConnect();
+		const { ioConnect } = this.props;
+		ioConnect();
 	}
 
 	handleSubmit = ({ room, selectedRoom }) => {
@@ -72,6 +73,7 @@ class Connect extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		ioConnect: () => dispatch(onConnect()),
 		ioDisconnect: () => dispatch(onDisconnect())
 	};
 };
