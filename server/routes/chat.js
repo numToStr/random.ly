@@ -8,6 +8,7 @@ const ROOMS = new Rooms();
 
 const chat = io => {
 	io.on("connection", client => {
+		console.log(`Client is up: ${client.id}`);
 		onJoin(client, io);
 		onNewMessage(client, io);
 	});

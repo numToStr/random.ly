@@ -9,12 +9,11 @@ import UserList from "../../components/NavList/UserList/UserList";
 import RoomList from "../../components/NavList/RoomList/RoomList";
 
 import {
-	onConnect,
 	onCreateMessage,
 	onNewMessage,
-	onDisconnect,
 	onUpdatedUsers,
-	onUpdatedRooms
+	onUpdatedRooms,
+	onJoin
 } from "../../Store/actions/chat";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import MessageList from "../../components/NavList/MessageList/MessageList";
@@ -28,7 +27,7 @@ class Chat extends Component {
 	componentDidMount() {
 		const {
 			user: { name, email },
-			ioConnect,
+			ioJoin,
 			ioNewMessage,
 			ioUpdatedUsers,
 			ioUpdatedRooms,
@@ -53,16 +52,11 @@ class Chat extends Component {
 			room
 		});
 
-		ioConnect({ name, email, room });
+		ioJoin({ name, email, room });
 		ioNewMessage();
 		ioUpdatedUsers();
 		ioUpdatedRooms();
 		this.onChangeRoom();
-	}
-
-	componentWillUnmount() {
-		const { ioDisconnect } = this.props;
-		ioDisconnect();
 	}
 
 	sendMessage = ({ message: text }) => {
@@ -193,9 +187,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		ioConnect: u => dispatch(onConnect(u)),
+		ioJoin: u => dispatch(onJoin(u)),
 		ioNewMessage: () => dispatch(onNewMessage()),
-		ioDisconnect: () => dispatch(onDisconnect()),
 		ioUpdatedUsers: () => dispatch(onUpdatedUsers()),
 		ioUpdatedRooms: () => dispatch(onUpdatedRooms())
 	};

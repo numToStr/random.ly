@@ -57,10 +57,14 @@ export const ioDisconnected = () => {
 	};
 };
 
-export const onConnect = user => {
+export const onConnect = () => {
+	io.connect();
+};
+
+export const onJoin = user => {
 	return dispatch => {
 		dispatch(ioStart());
-		io.connect().emit("join", user, (error, users) => {
+		io.emit("join", user, (error, users) => {
 			if (error) {
 				dispatch(ioFail(error));
 			} else {

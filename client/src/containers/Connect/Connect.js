@@ -1,12 +1,35 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import { Typography, Button, FormControl } from "@material-ui/core";
+
+import { onConnect, onDisconnect } from "../../Store/actions/chat";
 import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 import FormLayout from "../../components/FormLayout/FormLayout";
 
 class Connect extends Component {
-	handleSubmit = value => {
-		console.log(value);
+	componentDidMount() {
+		onConnect();
+	}
+
+	handleSubmit = ({ room, selectedRoom }) => {
+		const {
+			history: { replace }
+		} = this.props;
+
+		selectedRoom = selectedRoom === "---" ? null : selectedRoom;
+
+		let R = "anonymous";
+		if (room && selectedRoom) {
+			R = selectedRoom;
+		} else {
+			R = room || selectedRoom;
+		}
+
+		replace({
+			pathname: "/chat",
+			search: `?room=${R}`
+		});
 	};
 
 	render() {
@@ -30,6 +53,7 @@ class Connect extends Component {
 						color="primary"
 						fullWidth
 						component={NavLink}
+						replace
 						to={{
 							pathname: "/chat",
 							search: "?room=anonymous"
@@ -46,4 +70,13 @@ class Connect extends Component {
 	}
 }
 
-export default Connect;
+const mapDispatchToProps = dispatch => {
+	return {
+		ioDisconnect: () => dispatch(onDisconnect())
+	};
+};
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(Connect);
