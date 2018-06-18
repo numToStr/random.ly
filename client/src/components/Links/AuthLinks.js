@@ -2,22 +2,34 @@ import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
 import Favourite from "@material-ui/icons/Favorite";
-import Lock from "@material-ui/icons/Lock";
-import { ListItem, ListItemText, ListItemIcon, List } from "@material-ui/core";
+import PermIdentity from "@material-ui/icons/PermIdentity";
+import {
+	ListItem,
+	ListItemText,
+	ListItemIcon,
+	List,
+	withStyles
+} from "@material-ui/core";
 
-const AuthLinks = () => {
+const styles = theme => ({
+	heart: {
+		color: theme.palette.error.main
+	}
+});
+
+const AuthLinks = ({ classes: { heart } }) => {
 	return (
 		<Fragment>
 			<List component="nav">
 				<ListItem button component={NavLink} to="/user/signup">
 					<ListItemIcon>
-						<Favourite color="primary" />
+						<Favourite className={heart} />
 					</ListItemIcon>
 					<ListItemText primary="Signup" />
 				</ListItem>
 				<ListItem button component={NavLink} to="/user/login">
 					<ListItemIcon>
-						<Lock color="primary" />
+						<PermIdentity color="primary" />
 					</ListItemIcon>
 					<ListItemText primary="Login" />
 				</ListItem>
@@ -26,4 +38,4 @@ const AuthLinks = () => {
 	);
 };
 
-export default AuthLinks;
+export default withStyles(styles)(AuthLinks);

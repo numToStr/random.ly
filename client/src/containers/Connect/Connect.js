@@ -79,7 +79,7 @@ class Connect extends Component {
 					--- You will be connected to default room ---
 				</Typography>
 				<Typography align="center">
-					<Tooltip title="Logout">
+					<Tooltip title="Logout" disableFocusListener>
 						<IconButton color="primary" onClick={logout}>
 							<PowerIcon />
 						</IconButton>
