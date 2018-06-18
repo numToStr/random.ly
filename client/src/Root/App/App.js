@@ -46,6 +46,22 @@ const THEME = createMuiTheme({
 		secondary: {
 			main: grey[700]
 		}
+	},
+	typography: {
+		fontFamily: [
+			// "Roboto Mono",
+			// "monospace",
+			"-apple-system",
+			"BlinkMacSystemFont",
+			'"Segoe UI"',
+			"Roboto",
+			'"Helvetica Neue"',
+			"Arial",
+			"sans-serif",
+			'"Apple Color Emoji"',
+			'"Segoe UI Emoji"',
+			'"Segoe UI Symbol"'
+		].join(",")
 	}
 });
 
