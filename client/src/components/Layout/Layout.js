@@ -2,9 +2,14 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Grid } from "@material-ui/core";
+import { asyncComponent } from "react-async-component";
+
+import { isMobile } from "../../Store/helper/helper";
 
 import Header from "../../components/Header/Header";
-import MobileDrawer from "../MobileDrawer/MobileDrawer";
+const MobileDrawer = asyncComponent({
+	resolve: () => import("../MobileDrawer/MobileDrawer")
+});
 
 class Layout extends Component {
 	state = {
@@ -30,13 +35,15 @@ class Layout extends Component {
 							toggleDrawer={toggleDrawer}
 							location={location}
 						/>
-						<MobileDrawer
-							toggleDrawer={toggleDrawer}
-							drawerAnchor={left}
-							isAuth={isAuth}
-							user={user}
-							ioUsers={ioUsers}
-						/>
+						{isMobile && (
+							<MobileDrawer
+								toggleDrawer={toggleDrawer}
+								drawerAnchor={left}
+								isAuth={isAuth}
+								user={user}
+								ioUsers={ioUsers}
+							/>
+						)}
 					</Grid>
 					<Grid item xs={12} className="layout-column flex-grow">
 						{children}
