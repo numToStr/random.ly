@@ -1,93 +1,108 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-    Typography,
-    Button,
-    FormControl,
-    CircularProgress
+	Typography,
+	Button,
+	FormControl,
+	CircularProgress,
+	IconButton,
+	Tooltip
 } from "@material-ui/core";
 
 import { authLogout } from "../../Store/actions/index";
 import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 import FormLayout from "../../components/FormLayout/FormLayout";
+import PowerIcon from "@material-ui/icons/PowerSettingsNew";
 
 class Connect extends Component {
-    joinUser = ({ room, selectedRoom }) => {
-        const {
-            history: { replace }
-        } = this.props;
+	joinUser = ({ room, selectedRoom }) => {
+		const {
+			history: { replace }
+		} = this.props;
 
-        selectedRoom = selectedRoom === "---" ? null : selectedRoom;
+		selectedRoom = selectedRoom === "---" ? null : selectedRoom;
 
-        let R = "anonymous";
-        if (room && selectedRoom) {
-            R = room;
-        } else if (room || selectedRoom) {
-            R = room || selectedRoom;
-        }
+		let R = "anonymous";
+		if (room && selectedRoom) {
+			R = room;
+		} else if (room || selectedRoom) {
+			R = room || selectedRoom;
+		}
 
-        replace({
-            pathname: "/chat",
-            search: `?room=${R}`
-        });
-    };
+		replace({
+			pathname: "/chat",
+			search: `?room=${R}`
+		});
+	};
 
-    render() {
-        const { joinUser } = this;
-        const { ioLoading } = this.props;
+	render() {
+		const { joinUser } = this;
+		const { ioLoading, logout } = this.props;
 
-        return (
-            <FormLayout>
-                <RoomConnect loading={ioLoading} onSubmit={joinUser} />
-                <FormControl margin="normal" fullWidth>
-                    <Typography
-                        variant="subheading"
-                        color="textSecondary"
-                        align="center"
-                    >
-                        or
-                    </Typography>
-                </FormControl>
-                <Typography align="center" paragraph>
-                    <Button
-                        variant="raised"
-                        color="primary"
-                        fullWidth
-                        onClick={joinUser}
-                        disabled={ioLoading}
-                    >
-                        {ioLoading ? (
-                            <CircularProgress
-                                size={20}
-                                thickness={4}
-                                color="secondary"
-                            />
-                        ) : (
-                            "Connect"
-                        )}
-                    </Button>
-                </Typography>
-                <Typography variant="caption" color="secondary" align="center">
-                    --- You will be connected to default room ---
-                </Typography>
-            </FormLayout>
-        );
-    }
+		return (
+			<FormLayout>
+				<RoomConnect loading={ioLoading} onSubmit={joinUser} />
+				<FormControl margin="normal" fullWidth>
+					<Typography
+						variant="subheading"
+						color="textSecondary"
+						align="center"
+					>
+						or
+					</Typography>
+				</FormControl>
+				<Typography align="center" paragraph>
+					<Button
+						variant="raised"
+						color="primary"
+						fullWidth
+						onClick={joinUser}
+						disabled={ioLoading}
+					>
+						{ioLoading ? (
+							<CircularProgress
+								size={20}
+								thickness={4}
+								color="secondary"
+							/>
+						) : (
+							"Connect"
+						)}
+					</Button>
+				</Typography>
+				<Typography
+					variant="caption"
+					color="secondary"
+					align="center"
+					paragraph
+				>
+					--- You will be connected to default room ---
+				</Typography>
+				<Typography align="center">
+					<Tooltip title="Logout">
+						<IconButton color="primary" onClick={logout}>
+							<PowerIcon />
+						</IconButton>
+					</Tooltip>
+				</Typography>
+			</FormLayout>
+		);
+	}
 }
 
 const mapStateToProps = state => {
-    return {
-        ioLoading: state.io.loading
-    };
+	return {
+		ioLoading: state.io.loading
+	};
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => dispatch(authLogout())
-    };
+	return {
+		logout: () => dispatch(authLogout())
+	};
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(Connect);
