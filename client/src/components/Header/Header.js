@@ -29,11 +29,14 @@ const styles = {
 		alignItems: "center",
 		justifyContent: "center",
 		paddingRight: "2.5rem"
+	},
+	white: {
+		background: "#fff"
 	}
 };
 
 const header = ({
-	classes,
+	classes: { white, flex, flexDesktop, flexMobile },
 	isAuth,
 	toggleDrawer,
 	location: { pathname, search }
@@ -87,7 +90,7 @@ const header = ({
 				position="static"
 				color="default"
 				classes={{
-					colorDefault: "bg-white"
+					root: white
 				}}
 			>
 				<Toolbar disableGutters={isMobile ? true : false}>
@@ -97,10 +100,10 @@ const header = ({
 						color="inherit"
 						className={
 							isMobile
-								? classes.flexMobile
+								? flexMobile
 								: pathname === "/"
-									? classes.flex
-									: classes.flexDesktop
+									? flex
+									: flexDesktop
 						}
 					>
 						<NavLink

@@ -27,7 +27,11 @@ class RoomCreateSearch extends Component {
 				<List component="nav">
 					<ListItem>
 						<Button
-							className="mx-auto px-3"
+							style={{
+								margin: "0 auto",
+								paddingLeft: "1rem",
+								paddingRight: "1rem"
+							}}
 							size="small"
 							color="primary"
 							variant="raised"

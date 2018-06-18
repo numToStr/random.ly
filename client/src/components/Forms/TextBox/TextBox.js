@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { Form, Field, reduxForm, reset } from "redux-form";
-import { Grid, TextField, Button } from "@material-ui/core";
+import { Grid, TextField, Button, withStyles } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
+
+const styles = {
+	textBoxForm: {
+		padding: ".5rem 1.4rem 1rem"
+	}
+};
 
 class TextBox extends Component {
 	inputField = field => {
@@ -21,12 +27,16 @@ class TextBox extends Component {
 	};
 
 	render() {
-		const { handleSubmit, pristine } = this.props;
+		const {
+			handleSubmit,
+			pristine,
+			classes: { textBoxForm }
+		} = this.props;
 		return (
 			<Grid item xs={12} className="layout-column">
 				<Form
 					onSubmit={handleSubmit}
-					className="pb-3 pt-2 px-4 d-flex align-items-center"
+					className={`${textBoxForm} d-flex align-items-center`}
 					noValidate
 					autoComplete="off"
 				>
@@ -42,14 +52,12 @@ class TextBox extends Component {
 						type="submit"
 						mini
 						color="primary"
-						aria-label="add"
 						disabled={pristine}
 					>
 						<Send
-							className="ml-1"
 							style={{
-								height: "1.2rem",
-								width: "1.2rem"
+								fontSize: 20,
+								marginLeft: ".25rem"
 							}}
 						/>
 					</Button>
@@ -66,4 +74,4 @@ TextBox = reduxForm({
 	}
 })(TextBox);
 
-export default TextBox;
+export default withStyles(styles)(TextBox);

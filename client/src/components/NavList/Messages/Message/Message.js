@@ -3,9 +3,10 @@ import { Paper, Typography, withStyles } from "@material-ui/core";
 
 const styles = theme => {
 	return {
-		message: {
+		messageColor: {
 			color: theme.palette.primary.contrastText,
-			display: "inline-block"
+			display: "inline-block",
+			padding: ".25rem 1rem"
 		},
 		currentMsgColor: {
 			background: theme.palette.primary.main
@@ -24,13 +25,13 @@ const Message = props => {
 			user: { name },
 			type
 		},
-		classes,
+		classes: { otherMsgColor, currentMsgColor, messageColor },
 		currentUser
 	} = props;
 
-	let msgColor = classes.otherMsgColor;
+	let msgColor = otherMsgColor;
 	if (currentUser) {
-		msgColor = classes.currentMsgColor;
+		msgColor = currentMsgColor;
 
 		if (type === "join" || type === "leave") {
 			return null;
@@ -60,8 +61,7 @@ const Message = props => {
 			}}
 		>
 			<Typography
-				classes={{ root: [classes.message, msgColor].join(" ") }}
-				className="py-1 px-3"
+				classes={{ root: [messageColor, msgColor].join(" ") }}
 				gutterBottom
 			>
 				{text}

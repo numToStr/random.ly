@@ -20,7 +20,9 @@ const styles = theme => {
 	return {
 		errorPaper: {
 			background: error.main,
-			color: error.contrastText
+			color: error.contrastText,
+			padding: ".5rem 0",
+			marginBottom: ".5rem"
 		}
 	};
 };
@@ -60,7 +62,6 @@ class SignUp extends Component {
 				{formError && (
 					<Paper
 						square={true}
-						className="py-2 mb-2"
 						classes={{
 							root: classes.errorPaper
 						}}
