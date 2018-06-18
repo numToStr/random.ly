@@ -15,7 +15,7 @@ import {
 	onLeave
 } from "../../Store/actions/index";
 import TextBox from "../../components/Forms/TextBox/TextBox";
-import MessageList from "../../components/NavList/MessageList/MessageList";
+import Messages from "../../components/NavList/Messages/Messages";
 import RoomCreateSearch from "../../components/NavList/Rooms/RoomCreateSearch";
 import Rooms from "../../components/NavList/Rooms/Rooms";
 import CurrentUser from "../../components/NavList/Users/CurrentUser";
@@ -174,7 +174,7 @@ class Chat extends Component {
 									overflow: "auto"
 								}}
 							>
-								<MessageList
+								<Messages
 									messages={messages}
 									currentUser={user}
 								/>
