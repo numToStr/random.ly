@@ -5,7 +5,6 @@ import { Grid, CircularProgress } from "@material-ui/core";
 import Layout from "../../components/Layout/Layout";
 import { isMobile } from "../../Store/helper/helper";
 import AsideNav from "../../components/AsideNav/AsideNav";
-import UserList from "../../components/NavList/UserList/UserList";
 
 import {
 	onCreateMessage,
@@ -17,8 +16,10 @@ import {
 } from "../../Store/actions/index";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import MessageList from "../../components/NavList/MessageList/MessageList";
-import RoomCreateSearch from "../../components/NavList/RoomList/Rooms/RoomCreateSearch";
-import Rooms from "../../components/NavList/RoomList/Rooms/Rooms";
+import RoomCreateSearch from "../../components/NavList/Rooms/RoomCreateSearch";
+import Rooms from "../../components/NavList/Rooms/Rooms";
+import CurrentUser from "../../components/NavList/Users/CurrentUser";
+import Users from "../../components/NavList/Users/Users";
 
 class Chat extends Component {
 	state = {
@@ -123,7 +124,7 @@ class Chat extends Component {
 
 	render() {
 		const { sendMessage, onSearchRoom, onCreateRooom } = this;
-		const { messages, user, ioLoading, ioRooms } = this.props;
+		const { messages, user, ioUsers, ioLoading, ioRooms } = this.props;
 
 		if (ioLoading) {
 			return (
@@ -141,7 +142,8 @@ class Chat extends Component {
 			userNav = (
 				<Grid item xs={2}>
 					<AsideNav side="left">
-						<UserList />
+						<CurrentUser user={user} />
+						<Users users={ioUsers} />
 					</AsideNav>
 				</Grid>
 			);
@@ -193,7 +195,7 @@ const mapStateToProps = state => {
 		user: state.auth.user,
 		messages: state.io.messages,
 		ioLoading: state.io.loading,
-		ioUser: state.io.user
+		ioUsers: state.io.users
 	};
 };
 

@@ -16,10 +16,12 @@ import KeyboardBackspace from "@material-ui/icons/KeyboardBackspace";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import StarIcon from "@material-ui/icons/Star";
 import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 class CurrentUser extends Component {
 	state = {
-		menuAnchor: null
+		menuAnchor: null,
+		leave: false
 	};
 
 	openMenu = e => {
@@ -30,13 +32,20 @@ class CurrentUser extends Component {
 		this.setState({ menuAnchor: null });
 	};
 
+	leaveRoom = () => {
+		this.setState({ leave: true });
+	};
+
 	render() {
-		const { openMenu, closeMenu } = this;
+		const { openMenu, closeMenu, leaveRoom } = this;
 		const {
-			user: { name },
-			leaveRoom
+			user: { name }
 		} = this.props;
-		const { menuAnchor } = this.state;
+		const { menuAnchor, leave } = this.state;
+
+		if (leave) {
+			return <Redirect to="/connect" />;
+		}
 
 		return (
 			<Fragment>

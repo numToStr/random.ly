@@ -18,7 +18,7 @@ class Layout extends Component {
 	};
 	render() {
 		const { toggleDrawer } = this;
-		const { children, isAuth, location } = this.props;
+		const { children, isAuth, location, user, ioUsers } = this.props;
 		const { left } = this.state;
 
 		return (
@@ -34,6 +34,8 @@ class Layout extends Component {
 							toggleDrawer={toggleDrawer}
 							drawerAnchor={left}
 							isAuth={isAuth}
+							user={user}
+							ioUsers={ioUsers}
 						/>
 					</Grid>
 					<Grid item xs={12} className="layout-column flex-grow">
@@ -47,7 +49,9 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isAuth: state.auth.token ? true : false
+		isAuth: state.auth.token ? true : false,
+		user: state.auth.user,
+		ioUsers: state.io.users
 	};
 };
 

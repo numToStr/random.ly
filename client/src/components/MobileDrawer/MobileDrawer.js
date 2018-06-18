@@ -1,10 +1,17 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Drawer } from "@material-ui/core";
-import UserList from "../NavList/UserList/UserList";
-import AuthLinks from "../Links/AuthLinks";
 
-const MobileDrawer = props => {
-	const { drawerAnchor, toggleDrawer, isAuth } = props;
+import AuthLinks from "../Links/AuthLinks";
+import CurrentUser from "../NavList/Users/CurrentUser";
+import Users from "../NavList/Users/Users";
+
+const MobileDrawer = ({
+	drawerAnchor,
+	user,
+	ioUsers,
+	toggleDrawer,
+	isAuth
+}) => {
 	return (
 		<Drawer
 			anchor="left"
@@ -12,7 +19,14 @@ const MobileDrawer = props => {
 			onClose={toggleDrawer("left", false)}
 			transitionDuration={250}
 		>
-			{isAuth ? <UserList /> : <AuthLinks />}
+			{isAuth ? (
+				<Fragment>
+					<CurrentUser user={user} />
+					<Users users={ioUsers} />
+				</Fragment>
+			) : (
+				<AuthLinks />
+			)}
 		</Drawer>
 	);
 };
