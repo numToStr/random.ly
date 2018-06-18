@@ -28,7 +28,7 @@ class RoomList extends Component {
 	render() {
 		const { open } = this.state;
 		const { handleClose, handleClickOpen } = this;
-		const { onSearchRoom, onCreateRooom, rooms } = this.props;
+		const { /* onSearchRoom, */ onCreateRooom, rooms } = this.props;
 
 		return (
 			<Fragment>
@@ -45,7 +45,7 @@ class RoomList extends Component {
 							Create Room
 						</Button>
 					</ListItem>
-					<ListItem>
+					{/* <ListItem>
 						<TextField
 							name="room"
 							placeholder="Enter room name..."
@@ -54,7 +54,7 @@ class RoomList extends Component {
 							onChange={onSearchRoom}
 							fullWidth
 						/>
-					</ListItem>
+					</ListItem> */}
 				</List>
 
 				<List
