@@ -176,9 +176,10 @@ class Chat extends Component {
 							<Grid
 								item
 								xs={12}
-								className="layout-column flex-grow px-3 pt-2"
+								className="layout-column flex-grow"
 								style={{
-									overflow: "auto"
+									overflow: "auto",
+									padding: ".5rem 1rem 0"
 								}}
 							>
 								<Messages
