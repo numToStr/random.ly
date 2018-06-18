@@ -21,7 +21,8 @@ const Message = props => {
 		msg: {
 			text,
 			createdAt,
-			user: { name }
+			user: { name },
+			type
 		},
 		classes,
 		currentUser
@@ -30,6 +31,23 @@ const Message = props => {
 	let msgColor = classes.otherMsgColor;
 	if (currentUser) {
 		msgColor = classes.currentMsgColor;
+
+		if (type === "join" || type === "leave") {
+			return null;
+		}
+	} else {
+		if (type === "join" || type === "leave") {
+			return (
+				<Typography
+					variant="caption"
+					color="secondary"
+					align="center"
+					paragraph
+				>
+					{text}
+				</Typography>
+			);
+		}
 	}
 
 	return (
