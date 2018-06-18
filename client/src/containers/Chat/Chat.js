@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid, CircularProgress } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { asyncComponent } from "react-async-component";
 
 import Layout from "../../components/Layout/Layout";
@@ -16,6 +16,7 @@ import {
 
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import Messages from "../../components/NavList/Messages/Messages";
+import Loader from "../../components/Loader/Loader";
 
 const AsideNav = asyncComponent({
 	resolve: () => import("../../components/AsideNav/AsideNav")
@@ -139,13 +140,7 @@ class Chat extends Component {
 		const { messages, user, ioUsers, ioLoading, ioRooms } = this.props;
 
 		if (ioLoading) {
-			return (
-				<Grid container>
-					<Grid item xs={12} className="text-center pt-5">
-						<CircularProgress />
-					</Grid>
-				</Grid>
-			);
+			return <Loader />;
 		}
 
 		let userNav = null;
