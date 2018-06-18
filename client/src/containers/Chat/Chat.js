@@ -6,7 +6,6 @@ import Layout from "../../components/Layout/Layout";
 import { isMobile } from "../../Store/helper/helper";
 import AsideNav from "../../components/AsideNav/AsideNav";
 import UserList from "../../components/NavList/UserList/UserList";
-import RoomList from "../../components/NavList/RoomList/RoomList";
 
 import {
 	onCreateMessage,
@@ -18,6 +17,8 @@ import {
 } from "../../Store/actions/index";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import MessageList from "../../components/NavList/MessageList/MessageList";
+import RoomCreateSearch from "../../components/NavList/RoomList/Rooms/RoomCreateSearch";
+import Rooms from "../../components/NavList/RoomList/Rooms/Rooms";
 
 class Chat extends Component {
 	state = {
@@ -122,7 +123,7 @@ class Chat extends Component {
 
 	render() {
 		const { sendMessage, onSearchRoom, onCreateRooom } = this;
-		const { messages, user, ioLoading } = this.props;
+		const { messages, user, ioLoading, ioRooms } = this.props;
 
 		if (ioLoading) {
 			return (
@@ -147,10 +148,11 @@ class Chat extends Component {
 			roomNav = (
 				<Grid item xs={2}>
 					<AsideNav side="right">
-						<RoomList
+						<RoomCreateSearch
 							onSearchRoom={onSearchRoom}
 							onCreateRooom={onCreateRooom}
 						/>
+						<Rooms rooms={ioRooms} />
 					</AsideNav>
 				</Grid>
 			);
@@ -187,6 +189,7 @@ class Chat extends Component {
 
 const mapStateToProps = state => {
 	return {
+		ioRooms: state.io.rooms,
 		user: state.auth.user,
 		messages: state.io.messages,
 		ioLoading: state.io.loading,

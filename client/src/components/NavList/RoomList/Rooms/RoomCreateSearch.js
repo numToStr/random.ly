@@ -1,18 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import {
-	List,
-	ListItem,
-	ListSubheader,
-	TextField,
-	Button
-} from "@material-ui/core";
+import { List, ListItem, Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
-import RoomCreateDialog from "./Rooms/RoomCreate";
-import Rooms from "./Rooms/Rooms";
+import RoomCreateDialog from "./Room/RoomCreateForm";
 
-class RoomList extends Component {
+class RoomCreateSearch extends Component {
 	state = {
 		open: false
 	};
@@ -26,9 +18,9 @@ class RoomList extends Component {
 	};
 
 	render() {
-		const { open } = this.state;
 		const { handleClose, handleClickOpen } = this;
-		const { /* onSearchRoom, */ onCreateRooom, rooms } = this.props;
+		const { open } = this.state;
+		const { onCreateRooom /* onSearchRoom */ } = this.props;
 
 		return (
 			<Fragment>
@@ -57,17 +49,6 @@ class RoomList extends Component {
 					</ListItem> */}
 				</List>
 
-				<List
-					component="nav"
-					subheader={
-						<ListSubheader>
-							Active Rooms ({rooms.length})
-						</ListSubheader>
-					}
-				>
-					<Rooms rooms={rooms} />
-				</List>
-
 				<RoomCreateDialog
 					open={open}
 					onSubmit={onCreateRooom}
@@ -78,10 +59,4 @@ class RoomList extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		rooms: state.io.rooms
-	};
-};
-
-export default connect(mapStateToProps)(RoomList);
+export default RoomCreateSearch;
