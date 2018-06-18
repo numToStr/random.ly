@@ -15,7 +15,7 @@ import {
 	onUpdatedRooms,
 	onJoin,
 	onLeave
-} from "../../Store/actions/chat";
+} from "../../Store/actions/index";
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import MessageList from "../../components/NavList/MessageList/MessageList";
 

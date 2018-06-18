@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { authAutoSignIn } from "../../Store/actions/index";
-import { onConnect } from "../../Store/actions/chat";
+import { authAutoSignIn, onConnect } from "../../Store/actions/index";
 
 import PrivateRoute from "./config/PrivateRoute";
 import PublicRoute from "./config/PublicRoute";
