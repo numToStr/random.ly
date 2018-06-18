@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Grid, CircularProgress } from "@material-ui/core";
+import { asyncComponent } from "react-async-component";
 
 import Layout from "../../components/Layout/Layout";
 import { isMobile } from "../../Store/helper/helper";
-import AsideNav from "../../components/AsideNav/AsideNav";
-
 import {
 	onCreateMessage,
 	onNewMessage,
@@ -14,12 +13,25 @@ import {
 	onJoin,
 	onLeave
 } from "../../Store/actions/index";
+
 import TextBox from "../../components/Forms/TextBox/TextBox";
 import Messages from "../../components/NavList/Messages/Messages";
-import RoomCreateSearch from "../../components/NavList/Rooms/RoomCreateSearch";
-import Rooms from "../../components/NavList/Rooms/Rooms";
-import CurrentUser from "../../components/NavList/Users/CurrentUser";
-import Users from "../../components/NavList/Users/Users";
+
+const AsideNav = asyncComponent({
+	resolve: () => import("../../components/AsideNav/AsideNav")
+});
+const RoomCreateSearch = asyncComponent({
+	resolve: () => import("../../components/NavList/Rooms/RoomCreateSearch")
+});
+const Rooms = asyncComponent({
+	resolve: () => import("../../components/NavList/Rooms/Rooms")
+});
+const CurrentUser = asyncComponent({
+	resolve: () => import("../../components/NavList/Users/CurrentUser")
+});
+const Users = asyncComponent({
+	resolve: () => import("../../components/NavList/Users/Users")
+});
 
 class Chat extends Component {
 	state = {
