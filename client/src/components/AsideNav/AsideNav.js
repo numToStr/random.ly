@@ -9,8 +9,7 @@ const styles = theme => ({
 	}
 });
 
-const asideNav = props => {
-	const { classes, side, children } = props;
+const asideNav = ({ classes, side, children }) => {
 	return (
 		<Drawer
 			variant="permanent"

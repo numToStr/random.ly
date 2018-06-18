@@ -32,14 +32,12 @@ const styles = {
 	}
 };
 
-const header = props => {
-	const {
-		classes,
-		isAuth,
-		toggleDrawer,
-		location: { pathname, search }
-	} = props;
-
+const header = ({
+	classes,
+	isAuth,
+	toggleDrawer,
+	location: { pathname, search }
+}) => {
 	let mobileMenuIcon = null;
 	let barBtn = null;
 
