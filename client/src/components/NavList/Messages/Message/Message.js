@@ -1,5 +1,6 @@
 import React from "react";
 import { Paper, Typography, withStyles } from "@material-ui/core";
+import { format } from "date-fns";
 
 const styles = theme => {
 	return {
@@ -66,7 +67,7 @@ const Message = props => {
 				{text}
 			</Typography>
 			<Typography variant="caption" paragraph>
-				{name} @ {createdAt}
+				{name} @ {format(new Date(createdAt).toUTCString(), "hh:mm a")}
 			</Typography>
 		</Paper>
 	);

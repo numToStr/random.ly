@@ -6,8 +6,14 @@ import {
 	Typography
 } from "@material-ui/core";
 import { Face } from "@material-ui/icons";
+import { format } from "date-fns";
 
-const User = ({ user }) => {
+const User = ({
+	user: {
+		user: { name },
+		joinedAt
+	}
+}) => {
 	return (
 		<ListItem button>
 			<ListItemIcon>
@@ -15,14 +21,11 @@ const User = ({ user }) => {
 			</ListItemIcon>
 			<ListItemText
 				disableTypography
-				primary={
-					<Typography variant="subheading">
-						{user.user.name}
-					</Typography>
-				}
+				primary={<Typography variant="subheading">{name}</Typography>}
 				secondary={
 					<Typography variant="caption">
-						Joined @ {user.joinedAt}
+						Joined @{" "}
+						{format(new Date(joinedAt).toUTCString(), "hh:mm a")}
 					</Typography>
 				}
 			/>
