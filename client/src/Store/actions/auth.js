@@ -97,7 +97,7 @@ export const authAutoSignIn = callback => {
 						})
 					);
 					if (callback) {
-						callback(D);
+						return callback(D);
 					}
 				} else {
 					dispatch(authFail({ loginError: D.err }));
@@ -106,6 +106,10 @@ export const authAutoSignIn = callback => {
 			.catch(error => {
 				dispatch(authFail({ loginError: error }));
 			});
+
+		if (callback) {
+			return callback();
+		}
 	};
 };
 
