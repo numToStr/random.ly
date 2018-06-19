@@ -57,7 +57,7 @@ class Routes extends Component {
 
 const mapStateToProps = state => {
 	return {
-		isAuth: state.auth.token ? true : false
+		isAuth: state.auth.user.id ? true : false
 	};
 };
 

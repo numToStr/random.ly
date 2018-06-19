@@ -46,7 +46,7 @@ export const signup = (data, callback) => {
 							},
 							token: null,
 							loading: false,
-							signUpError: null,
+							signUpError: null
 						})
 					);
 					callback(D);
@@ -87,34 +87,26 @@ export const login = (data, callback) => {
 
 export const authAutoSignIn = callback => {
 	return dispatch => {
-		const token = localStorage.getItem("TOKEN");
-		if (!token) {
-			dispatch(authLogout());
-		} else {
-			dispatch(authStart());
-			axios
-				.post("/auth/authenticate", {
-					token: token
-				})
-				.then(d => {
-					const D = d.data;
-					if (D.status) {
-						dispatch(
-							authSuccess({
-								user: D.user,
-								token: token
-							})
-						);
-						if (callback) {
-							callback(D);
-						}
-					} else {
-						dispatch(authFail({ loginError: D.err }));
+		dispatch(authStart());
+		axios
+			.post("/auth/authenticate")
+			.then(d => {
+				const D = d.data;
+				if (D.status) {
+					dispatch(
+						authSuccess({
+							user: D.user
+						})
+					);
+					if (callback) {
+						callback(D);
 					}
-				})
-				.catch(error => {
-					dispatch(authFail({ loginError: error }));
-				});
-		}
+				} else {
+					dispatch(authFail({ loginError: D.err }));
+				}
+			})
+			.catch(error => {
+				dispatch(authFail({ loginError: error }));
+			});
 	};
 };
