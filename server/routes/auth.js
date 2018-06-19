@@ -73,7 +73,7 @@ router.post("/login", (req, res, next) => {
 				...info
 			});
 		}
-		req.logIn(user, function (err) {
+		req.logIn(user, function(err) {
 			if (err) {
 				return next(err);
 			}
