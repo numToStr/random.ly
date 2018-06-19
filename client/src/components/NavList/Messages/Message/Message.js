@@ -54,7 +54,6 @@ const Message = props => {
 	return (
 		<Paper
 			square
-			className="mb-3"
 			elevation={0}
 			style={{
 				textAlign: currentUser ? "right" : "left"
@@ -66,7 +65,7 @@ const Message = props => {
 			>
 				{text}
 			</Typography>
-			<Typography variant="caption">
+			<Typography variant="caption" paragraph>
 				{name} @ {createdAt}
 			</Typography>
 		</Paper>
