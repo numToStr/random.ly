@@ -108,30 +108,34 @@ router.post("/authenticate", (req, res, next) => {
 	const token = req.cookies.randomly_token;
 
 	if (token) {
-		const u = jwt.verify(token, "#pyaarEkDhokaHai");
-		User.findById(u._id).then(user => {
-			if (user) {
-				return res.send({
-					status: 1,
-					user: {
-						id: user.id,
-						name: user.name,
-						email: user.email
-					},
-					message: "Authentication Successful"
-				});
-			} else {
-				return res.send({
-					status: 0,
-					err: "Unauthorized Access! Please login."
-				});
-			}
-		});
+		try {
+			const u = jwt.verify(token, "#pyaarEkDhokaHai");
+			User.findById(u._id).then(user => {
+				if (user) {
+					return res.send({
+						status: 1,
+						user: {
+							id: user.id,
+							name: user.name,
+							email: user.email
+						},
+						message: "Authentication Successful"
+					});
+				} else {
+					return res.send({
+						status: 0,
+						err: "Unauthorized Access! Please login."
+					});
+				}
+			});
+		} catch (error) {
+			return res.send({
+				status: 0,
+				err: "Unauthorized Access! Please login."
+			});
+		}
 	} else {
-		return res.send({
-			status: 0,
-			err: "Unauthorized Access! Please login."
-		});
+		return res.send();
 	}
 });
 
