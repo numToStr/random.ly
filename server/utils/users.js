@@ -1,12 +1,14 @@
-const { format } = require("date-fns");
-
 class Users {
 	constructor() {
 		this.users = {};
 	}
 
 	addUser(room, user) {
-		const u = { ...user, joinedAt: format(new Date(), "hh:mm a") };
+		const u = {
+			...user,
+			joinedAt: new Date().toUTCString()
+		};
+
 		if (!this.users[room]) {
 			this.users[room] = [u];
 		} else {

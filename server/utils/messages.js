@@ -1,12 +1,11 @@
-const { format } = require("date-fns");
-
 class Messages {
 	constructor() {
 		this.messages = {};
 	}
 
 	addMessage(room, data) {
-		data.createdAt = format(new Date(), "hh:mm a");
+		data.createdAt = new Date().toUTCString();
+
 		if (!this.messages[room]) {
 			this.messages[room] = [data];
 		} else {
