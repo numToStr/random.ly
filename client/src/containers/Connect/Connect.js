@@ -9,7 +9,7 @@ import {
 	Tooltip
 } from "@material-ui/core";
 
-import { authLogout } from "../../Store/actions/index";
+import { logout } from "../../Store/actions/index";
 import RoomConnect from "../../components/Forms/RoomConnect/RoomConnect";
 import FormLayout from "../../components/FormLayout/FormLayout";
 import PowerIcon from "@material-ui/icons/PowerSettingsNew";
@@ -37,7 +37,7 @@ class Connect extends Component {
 
 	render() {
 		const { joinUser } = this;
-		const { ioLoading, logout } = this.props;
+		const { ioLoading, authLogout } = this.props;
 
 		return (
 			<FormLayout>
@@ -80,7 +80,7 @@ class Connect extends Component {
 				</Typography>
 				<Typography align="center">
 					<Tooltip title="Logout" disableFocusListener>
-						<IconButton color="primary" onClick={logout}>
+						<IconButton color="primary" onClick={authLogout}>
 							<PowerIcon />
 						</IconButton>
 					</Tooltip>
@@ -98,7 +98,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		logout: () => dispatch(authLogout())
+		authLogout: () => dispatch(logout())
 	};
 };
 

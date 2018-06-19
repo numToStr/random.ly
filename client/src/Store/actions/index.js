@@ -1,4 +1,4 @@
-export { signup, login, authLogout, authAutoSignIn } from "./auth";
+export { signup, login, logout, authAutoSignIn } from "./auth";
 export {
 	onConnect,
 	onJoin,

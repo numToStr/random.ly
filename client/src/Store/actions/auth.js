@@ -23,7 +23,6 @@ export const authFail = error => {
 };
 
 export const authLogout = () => {
-	localStorage.removeItem("TOKEN");
 	return {
 		type: actionTypes.AUTH_LOGOUT
 	};
@@ -107,6 +106,24 @@ export const authAutoSignIn = callback => {
 			})
 			.catch(error => {
 				dispatch(authFail({ loginError: error }));
+			});
+	};
+};
+
+export const logout = callback => {
+	return dispatch => {
+		dispatch(authStart());
+		axios
+			.post("/auth/logout")
+			.then(d => {
+				const D = d.data;
+				dispatch(authLogout());
+				if (callback) {
+					callback(D);
+				}
+			})
+			.catch(error => {
+				throw error;
 			});
 	};
 };

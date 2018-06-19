@@ -139,4 +139,15 @@ router.post("/authenticate", (req, res, next) => {
 	}
 });
 
+router.post("/logout", (req, res) => {
+	return res
+		.status(200)
+		.clearCookie("randomly_token", {
+			sameSite: true,
+			httpOnly: true,
+			expires: ""
+		})
+		.send();
+});
+
 module.exports = router;
