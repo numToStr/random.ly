@@ -68,7 +68,6 @@ export const login = (data, callback) => {
 			.then(d => {
 				const D = d.data;
 				if (D.status && D.user) {
-					localStorage.setItem("TOKEN", D.token);
 					dispatch(authSuccess(D));
 					if (callback) {
 						callback(D);
