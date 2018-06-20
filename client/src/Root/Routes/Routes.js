@@ -15,16 +15,30 @@ import {
 	Profile,
 	Connect
 } from "./config/AsyncRoutes";
+import Loader from "../../components/Loader/Loader";
 
 class Routes extends Component {
+	state = {
+		goAhead: false
+	};
+
 	componentDidMount() {
 		const { onAutoSignIn, ioConnect } = this.props;
-		onAutoSignIn();
+
+		onAutoSignIn(d => {
+			this.setState({ goAhead: d });
+		});
 		ioConnect();
 	}
 
 	render() {
 		const { isAuth } = this.props;
+		const { goAhead } = this.state;
+
+		if (!goAhead) {
+			return <Loader />;
+		}
+
 		return (
 			<Switch>
 				<PrivateRoute

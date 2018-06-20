@@ -134,7 +134,9 @@ router.post("/authenticate", (req, res, next) => {
 			});
 		}
 	} else {
-		return res.send();
+		return res.send({
+			status: 0
+		});
 	}
 });
 

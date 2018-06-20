@@ -101,15 +101,17 @@ export const authAutoSignIn = callback => {
 					}
 				} else {
 					dispatch(authFail({ loginError: D.err }));
+					if (callback) {
+						return callback(D);
+					}
 				}
 			})
 			.catch(error => {
 				dispatch(authFail({ loginError: error }));
+				if (callback) {
+					return callback(error);
+				}
 			});
-
-		if (callback) {
-			return callback();
-		}
 	};
 };
 
