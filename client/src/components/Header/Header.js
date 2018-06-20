@@ -32,11 +32,14 @@ const styles = {
 	},
 	white: {
 		background: "#fff"
+	},
+	headerBtns: {
+		marginLeft: ".75rem"
 	}
 };
 
 const header = ({
-	classes: { white, flex, flexDesktop, flexMobile },
+	classes: { white, flex, flexDesktop, flexMobile, headerBtns },
 	isAuth,
 	toggleDrawer,
 	location: { pathname, search }
@@ -60,7 +63,9 @@ const header = ({
 		barBtn = (
 			<Fragment>
 				<Button
-					className="ml-1"
+					classes={{
+						root: headerBtns
+					}}
 					variant="flat"
 					component={NavLink}
 					to="/user/login"
@@ -68,7 +73,9 @@ const header = ({
 					Login
 				</Button>
 				<Button
-					className="ml-1"
+					classes={{
+						root: headerBtns
+					}}
 					variant="raised"
 					component={NavLink}
 					to="/user/signup"
