@@ -12,6 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import { isMobile } from "../../Store/helper/helper";
 import Logo from "../Images/Logo/RandomLyFull";
+import ThemeChooser from "../ThemeChooser/ThemeChooser";
 
 const styles = {
 	flex: {
@@ -62,6 +63,7 @@ const header = ({
 	} else {
 		barBtn = (
 			<Fragment>
+				<ThemeChooser />
 				<Button
 					classes={{
 						root: headerBtns
