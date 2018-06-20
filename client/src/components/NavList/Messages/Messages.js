@@ -16,12 +16,19 @@ const MessageList = props => {
 	);
 	if (messages.length) {
 		list = messages.map((msg, i) => {
-			let currentUser = false;
+			let CURRENT_USER = false;
 			if (msg.user.email === email) {
-				currentUser = true;
+				CURRENT_USER = true;
 			}
 
-			return <Message key={i} msg={msg} currentUser={currentUser} />;
+			return (
+				<Message
+					key={i}
+					msg={msg}
+					nextMsg={messages[i + 1]}
+					currentUser={CURRENT_USER}
+				/>
+			);
 		});
 	}
 

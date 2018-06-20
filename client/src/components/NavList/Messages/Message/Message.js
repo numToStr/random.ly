@@ -26,6 +26,7 @@ const Message = props => {
 			user: { name },
 			type
 		},
+		nextMsg,
 		classes: { otherMsgColor, currentMsgColor, messageColor },
 		currentUser
 	} = props;
@@ -52,6 +53,24 @@ const Message = props => {
 		}
 	}
 
+	let curTime = format(new Date(createdAt).toUTCString(), "hh:mm a");
+	let caption = (
+		<Typography variant="caption" paragraph>
+			{name} @ {curTime}
+		</Typography>
+	);
+
+	if (nextMsg) {
+		let nextTime = format(
+			new Date(nextMsg.createdAt).toUTCString(),
+			"hh:mm a"
+		);
+
+		if (curTime === nextTime && name === nextMsg.user.name) {
+			caption = null;
+		}
+	}
+
 	return (
 		<Paper
 			square
@@ -66,9 +85,7 @@ const Message = props => {
 			>
 				{text}
 			</Typography>
-			<Typography variant="caption" paragraph>
-				{name} @ {format(new Date(createdAt).toUTCString(), "hh:mm a")}
-			</Typography>
+			{caption}
 		</Paper>
 	);
 };
