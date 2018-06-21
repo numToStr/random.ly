@@ -2,18 +2,19 @@ import React from "react";
 import { Paper, Typography, withStyles } from "@material-ui/core";
 import { format } from "date-fns";
 
-const styles = theme => {
+const styles = ({ palette }) => {
 	return {
 		messageColor: {
-			color: theme.palette.primary.contrastText,
 			display: "inline-block",
-			padding: ".25rem 1rem"
+			padding: ".25rem .8rem"
 		},
 		currentMsgColor: {
-			background: theme.palette.primary.main
+			background: palette.primary.main,
+			color: palette.primary.contrastText
 		},
 		otherMsgColor: {
-			background: theme.palette.secondary.main
+			background: palette.secondary.main,
+			color: palette.secondary.contrastText
 		}
 	};
 };
