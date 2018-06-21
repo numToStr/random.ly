@@ -33,9 +33,8 @@ class RoomCreate extends Component {
 				<Form onSubmit={handleSubmit} noValidate autoComplete="off">
 					<DialogContent>
 						<DialogContentText>
-							Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Maxime numquam amet error ut nisi animi non
-							assumenda ipsum tenetur vitae?
+							# You will be disconnected from current room. <br />#
+							And automatically connected to your created room.
 						</DialogContentText>
 						<Field
 							autoFocus
