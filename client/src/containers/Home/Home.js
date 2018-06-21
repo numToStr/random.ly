@@ -12,7 +12,7 @@ const styles = ({ palette: { primary }, breakpoints }) => ({
 	},
 	heroText: {
 		background: "none",
-		padding: "2.8rem 2rem 0",
+		padding: "2rem 2rem 0",
 		[breakpoints.up("md")]: {
 			marginTop: "8.5rem",
 			padding: "2.8rem 3.5rem 0"
