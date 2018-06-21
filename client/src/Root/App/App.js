@@ -3,13 +3,12 @@ import { BrowserRouter } from "react-router-dom";
 import { CssBaseline } from "@material-ui/core";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { connect } from "react-redux";
-import grey from "@material-ui/core/colors/grey";
 
 import Routes from "../Routes/Routes";
 
 class APP extends Component {
 	render() {
-		const { themeColor } = this.props;
+		const { palette } = this.props;
 
 		const THEME = createMuiTheme({
 			// shadows: Array(25),
@@ -28,14 +27,7 @@ class APP extends Component {
 					}
 				}
 			},
-			palette: {
-				primary: {
-					main: themeColor
-				},
-				secondary: {
-					main: grey[700]
-				}
-			},
+			palette,
 			typography: {
 				fontFamily: [
 					// "Roboto Mono",
@@ -69,7 +61,7 @@ class APP extends Component {
 
 const mapStateToProps = state => {
 	return {
-		themeColor: state.theme.color
+		palette: state.theme.palette
 	};
 };
 

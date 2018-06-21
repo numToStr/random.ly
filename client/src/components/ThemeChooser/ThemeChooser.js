@@ -28,23 +28,58 @@ class ThemeChooser extends Component {
 		colorPickers: [
 			{
 				name: "Dark",
-				color: grey[900]
+				palette: {
+					primary: {
+						main: grey[900]
+					},
+					secondary: {
+						main: grey[700]
+					}
+				}
 			},
 			{
 				name: "Blue",
-				color: blue[500]
+				palette: {
+					primary: {
+						main: blue[500]
+					},
+					secondary: {
+						main: grey[700]
+					}
+				}
 			},
 			{
 				name: "Pink",
-				color: pink[500]
+				palette: {
+					primary: {
+						main: pink[500]
+					},
+					secondary: {
+						main: grey[700]
+					}
+				}
 			},
 			{
 				name: "Purple",
-				color: purple["A200"]
+				palette: {
+					primary: {
+						main: purple["A200"]
+					},
+					secondary: {
+						main: grey[700]
+					}
+				}
 			},
 			{
 				name: "Green",
-				color: green["A400"]
+				palette: {
+					primary: {
+						main: green["A400"]
+					},
+					secondary: {
+						main: grey[700]
+					}
+				}
 			}
 		]
 	};
@@ -98,14 +133,14 @@ class ThemeChooser extends Component {
 						paper: popOver
 					}}
 				>
-					{colorPickers.map(({ name, color }, i) => (
+					{colorPickers.map(({ name, palette }, i) => (
 						<IconButton
 							key={i}
 							style={{
-								color
+								color: palette.primary.main
 							}}
 							name={name}
-							onClick={() => onThemeChange(color)}
+							onClick={() => onThemeChange(palette)}
 						>
 							<Lens />
 						</IconButton>
@@ -118,7 +153,7 @@ class ThemeChooser extends Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		onThemeChange: color => dispatch(themeChange(color))
+		onThemeChange: p => dispatch(themeChange(p))
 	};
 };
 

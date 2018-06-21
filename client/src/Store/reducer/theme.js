@@ -2,13 +2,20 @@ import grey from "@material-ui/core/colors/grey";
 import { THEME_CHANGE } from "../actions/actionTypes";
 
 const initState = {
-	color: grey[900]
+	palette: {
+		primary: {
+			main: grey[900]
+		},
+		secondary: {
+			main: grey[700]
+		}
+	}
 };
 
-const themeChange = (state, { color }) => {
+const themeChange = (state, { palette }) => {
 	return {
 		...state,
-		color
+		palette
 	};
 };
 
