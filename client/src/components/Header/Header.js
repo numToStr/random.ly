@@ -6,93 +6,44 @@ import {
 	Toolbar,
 	Typography,
 	Button,
-	withStyles
+	withStyles,
+	withWidth,
+	Hidden
 } from "@material-ui/core";
+import compose from "recompose/compose";
 import MenuIcon from "@material-ui/icons/Menu";
 
-import { isMobile } from "../../Store/helper/helper";
 import Logo from "../Images/Logo/RandomLyFull";
 import ThemeChooser from "../ThemeChooser/ThemeChooser";
 
-const styles = {
-	flex: {
-		flex: 1
-	},
-	flexDesktop: {
+const styles = ({ breakpoints }) => ({
+	headerLogo: {
 		flex: 1,
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center"
-	},
-	flexMobile: {
-		flex: 1,
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
-		paddingRight: "2.5rem"
+		textAlign: "center",
+		[breakpoints.up("md")]: {
+			textAlign: "left"
+		}
 	},
 	white: {
 		background: "#fff"
 	},
 	headerBtns: {
 		marginLeft: ".75rem"
+	},
+	toolbar: {
+		padding: "0",
+		[breakpoints.up("md")]: {
+			padding: "0 24px"
+		}
 	}
-};
+});
 
 const header = ({
-	classes: { white, flex, flexDesktop, flexMobile, headerBtns },
+	classes: { white, headerLogo, headerBtns, toolbar },
 	isAuth,
 	toggleDrawer,
 	location: { pathname, search }
 }) => {
-	let mobileMenuIcon = null;
-	let barBtn = null;
-
-	if (isMobile) {
-		mobileMenuIcon = (
-			<Fragment>
-				<IconButton
-					onClick={toggleDrawer("left", true)}
-					color="inherit"
-					aria-label="Menu"
-				>
-					<MenuIcon />
-				</IconButton>
-			</Fragment>
-		);
-	} else {
-		barBtn = (
-			<Fragment>
-				<ThemeChooser />
-				<Button
-					classes={{
-						root: headerBtns
-					}}
-					variant="flat"
-					component={NavLink}
-					to="/user/login"
-				>
-					Login
-				</Button>
-				<Button
-					classes={{
-						root: headerBtns
-					}}
-					variant="raised"
-					component={NavLink}
-					to="/user/signup"
-					color="primary"
-				>
-					Signup
-				</Button>
-			</Fragment>
-		);
-	}
-
-	if (isAuth) {
-		barBtn = null;
-	}
-
 	return (
 		<Fragment>
 			<AppBar
@@ -102,18 +53,20 @@ const header = ({
 					root: white
 				}}
 			>
-				<Toolbar disableGutters={isMobile ? true : false}>
-					{mobileMenuIcon}
+				<Toolbar classes={{ gutters: toolbar }}>
+					<Hidden implementation="css" mdUp>
+						<IconButton
+							onClick={toggleDrawer("left", true)}
+							color="inherit"
+							aria-label="Menu"
+						>
+							<MenuIcon />
+						</IconButton>
+					</Hidden>
 					<Typography
 						variant="title"
 						color="inherit"
-						className={
-							isMobile
-								? flexMobile
-								: pathname === "/"
-									? flex
-									: flexDesktop
-						}
+						className={headerLogo}
 					>
 						<NavLink
 							to={{
@@ -124,14 +77,44 @@ const header = ({
 								lineHeight: 0
 							}}
 						>
-							<Logo width={isMobile ? 100 : 110} />
+							<Logo width={105} />
 						</NavLink>
 					</Typography>
-					{barBtn}
+					<ThemeChooser />
+					<Hidden implementation="css" smDown>
+						{!isAuth && (
+							<Fragment>
+								<Button
+									classes={{
+										root: headerBtns
+									}}
+									variant="flat"
+									component={NavLink}
+									to="/user/login"
+								>
+									Login
+								</Button>
+								<Button
+									classes={{
+										root: headerBtns
+									}}
+									variant="raised"
+									component={NavLink}
+									to="/user/signup"
+									color="primary"
+								>
+									Signup
+								</Button>
+							</Fragment>
+						)}
+					</Hidden>
 				</Toolbar>
 			</AppBar>
 		</Fragment>
 	);
 };
 
-export default withStyles(styles)(header);
+export default compose(
+	withStyles(styles),
+	withWidth()
+)(header);
