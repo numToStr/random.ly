@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Grid, Typography, Button, withStyles, Paper } from "@material-ui/core";
 
 import Layout from "../../components/Layout/Layout";
-import ChatImage from "../../components/Images/ChatImage/ChatImage";
+import Hero from "../../components/Images/Hero/Hero";
 import { isMobile } from "../../Store/helper/helper";
 
 const styles = ({ palette: { primary }, breakpoints }) => ({
@@ -19,11 +19,11 @@ const styles = ({ palette: { primary }, breakpoints }) => ({
 		}
 	},
 	heroImage: {
-		marginTop: "5rem",
-		width: "18rem",
+		marginTop: "1.5rem",
+		width: "16rem",
 		[breakpoints.up("md")]: {
-			marginTop: "9.5rem",
-			width: "22rem"
+			marginTop: "3rem",
+			width: "80%"
 		}
 	}
 });
@@ -33,17 +33,6 @@ class Home extends Component {
 		const {
 			classes: { gradient, heroText, heroImage }
 		} = this.props;
-
-		let bannerImage = null;
-		if (!isMobile) {
-			bannerImage = (
-				<Grid item xs={12} md={6}>
-					<Typography align="center">
-						<ChatImage className={heroImage} />
-					</Typography>
-				</Grid>
-			);
-		}
 
 		return (
 			<Fragment>
@@ -85,14 +74,18 @@ class Home extends Component {
 										to="/user/signup"
 										color="primary"
 										style={{
-											marginTop: "1rem"
+											marginTop: ".8rem"
 										}}
 									>
 										Get Started
 									</Button>
 								</Paper>
 							</Grid>
-							{bannerImage}
+							<Grid item xs={12} md={6}>
+								<Typography align="center">
+									<Hero className={heroImage} />
+								</Typography>
+							</Grid>
 						</Grid>
 					</Paper>
 				</Layout>
