@@ -6,6 +6,7 @@ import grey from "@material-ui/core/colors/grey";
 import blue from "@material-ui/core/colors/blue";
 import pink from "@material-ui/core/colors/pink";
 import purple from "@material-ui/core/colors/purple";
+import green from "@material-ui/core/colors/green";
 
 const styles = theme => {
 	return {
@@ -38,6 +39,10 @@ class ThemeChooser extends Component {
 			{
 				name: "Purple",
 				color: purple["A200"]
+			},
+			{
+				name: "Green",
+				color: green["A400"]
 			}
 		]
 	};
