@@ -8,3 +8,5 @@ export {
 	onUpdatedRooms,
 	onUpdatedUsers
 } from "./chat";
+
+export { themeChange } from "./theme";

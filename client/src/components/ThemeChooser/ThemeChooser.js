@@ -7,6 +7,8 @@ import blue from "@material-ui/core/colors/blue";
 import pink from "@material-ui/core/colors/pink";
 import purple from "@material-ui/core/colors/purple";
 import green from "@material-ui/core/colors/green";
+import { connect } from "react-redux";
+import { themeChange } from "../../Store/actions";
 
 const styles = theme => {
 	return {
@@ -59,15 +61,12 @@ class ThemeChooser extends Component {
 		});
 	};
 
-	changeTheme = color => {
-		console.log(color);
-	};
-
 	render() {
 		const {
-			classes: { headerBtns, popOver }
+			classes: { headerBtns, popOver },
+			onThemeChange
 		} = this.props;
-		const { handleOpen, handleClose, changeTheme } = this;
+		const { handleOpen, handleClose } = this;
 		const { anchorEl, colorPickers } = this.state;
 
 		return (
@@ -106,7 +105,7 @@ class ThemeChooser extends Component {
 								color
 							}}
 							name={name}
-							onClick={() => changeTheme(color)}
+							onClick={() => onThemeChange(color)}
 						>
 							<Lens />
 						</IconButton>
@@ -117,4 +116,13 @@ class ThemeChooser extends Component {
 	}
 }
 
-export default withStyles(styles)(ThemeChooser);
+const mapDispatchToProps = dispatch => {
+	return {
+		onThemeChange: color => dispatch(themeChange(color))
+	};
+};
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(withStyles(styles)(ThemeChooser));
