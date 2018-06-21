@@ -7,7 +7,7 @@ const initState = {
 			main: grey[900]
 		},
 		secondary: {
-			main: grey[700]
+			main: grey[300]
 		}
 	}
 };

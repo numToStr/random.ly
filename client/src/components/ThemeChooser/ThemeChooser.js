@@ -33,7 +33,7 @@ class ThemeChooser extends Component {
 						main: grey[900]
 					},
 					secondary: {
-						main: grey[700]
+						main: grey[300]
 					}
 				}
 			},
@@ -44,7 +44,7 @@ class ThemeChooser extends Component {
 						main: blue[500]
 					},
 					secondary: {
-						main: grey[700]
+						main: grey[300]
 					}
 				}
 			},
@@ -55,7 +55,7 @@ class ThemeChooser extends Component {
 						main: pink[500]
 					},
 					secondary: {
-						main: grey[700]
+						main: grey[300]
 					}
 				}
 			},
@@ -66,7 +66,7 @@ class ThemeChooser extends Component {
 						main: purple["A200"]
 					},
 					secondary: {
-						main: grey[700]
+						main: grey[300]
 					}
 				}
 			},
@@ -77,7 +77,7 @@ class ThemeChooser extends Component {
 						main: green["A400"]
 					},
 					secondary: {
-						main: grey[700]
+						main: grey[300]
 					}
 				}
 			}
