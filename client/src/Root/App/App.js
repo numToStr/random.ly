@@ -4,9 +4,20 @@ import { CssBaseline } from "@material-ui/core";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
+import { themeChange } from "../../Store/actions";
 import Routes from "../Routes/Routes";
 
 class APP extends Component {
+	componentDidMount() {
+		const { onThemeChange } = this.props;
+		const _P = localStorage.getItem("randomly_theme");
+
+		if (_P) {
+			const PALETTE = JSON.parse(_P);
+			onThemeChange(PALETTE);
+		}
+	}
+
 	render() {
 		const { palette } = this.props;
 
@@ -59,10 +70,19 @@ class APP extends Component {
 	}
 }
 
+const mapDispatchToProps = dispatch => {
+	return {
+		onThemeChange: p => dispatch(themeChange(p))
+	};
+};
+
 const mapStateToProps = state => {
 	return {
 		palette: state.theme.palette
 	};
 };
 
-export default connect(mapStateToProps)(APP);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(APP);

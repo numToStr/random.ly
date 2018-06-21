@@ -84,16 +84,6 @@ class ThemeChooser extends Component {
 		]
 	};
 
-	componentDidMount() {
-		const { onThemeChange } = this.props;
-		const _P = localStorage.getItem("randomly_theme");
-
-		if (_P) {
-			const PALETTE = JSON.parse(_P);
-			onThemeChange(PALETTE);
-		}
-	}
-
 	handleOpen = event => {
 		this.setState({
 			anchorEl: event.currentTarget
