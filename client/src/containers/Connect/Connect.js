@@ -60,11 +60,7 @@ class Connect extends Component {
 						disabled={ioLoading}
 					>
 						{ioLoading ? (
-							<CircularProgress
-								size={20}
-								thickness={4}
-								color="secondary"
-							/>
+							<CircularProgress size={20} thickness={4} />
 						) : (
 							"Connect"
 						)}
@@ -72,7 +68,7 @@ class Connect extends Component {
 				</Typography>
 				<Typography
 					variant="caption"
-					color="secondary"
+					color="textSecondary"
 					align="center"
 					paragraph
 				>

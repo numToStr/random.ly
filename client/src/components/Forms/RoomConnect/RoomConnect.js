@@ -72,11 +72,7 @@ class RoomConnect extends Component {
 						disabled={pristine || loading}
 					>
 						{loading ? (
-							<CircularProgress
-								size={20}
-								thickness={4}
-								color="secondary"
-							/>
+							<CircularProgress size={20} thickness={4} />
 						) : (
 							"Enter Room"
 						)}

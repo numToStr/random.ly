@@ -51,7 +51,7 @@ class Home extends Component {
 										variant={
 											isMobile ? "headline" : "display1"
 										}
-										color="secondary"
+										color="primary"
 									>
 										Chat with random People
 									</Typography>

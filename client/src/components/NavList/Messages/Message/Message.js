@@ -42,12 +42,7 @@ const Message = props => {
 	} else {
 		if (type === "join" || type === "leave") {
 			return (
-				<Typography
-					variant="caption"
-					color="secondary"
-					align="center"
-					paragraph
-				>
+				<Typography variant="caption" align="center" paragraph>
 					{text}
 				</Typography>
 			);

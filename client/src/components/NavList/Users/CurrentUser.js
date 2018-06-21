@@ -9,7 +9,8 @@ import {
 	ListItemSecondaryAction,
 	IconButton,
 	Typography,
-	Tooltip
+	Tooltip,
+	withStyles
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import KeyboardBackspace from "@material-ui/icons/KeyboardBackspace";
@@ -17,6 +18,15 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import StarIcon from "@material-ui/icons/Star";
 import { NavLink } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+
+const styles = ({ palette }) => {
+	return {
+		starIcon: {
+			color: palette.primary.main,
+			fontSize: 30
+		}
+	};
+};
 
 class CurrentUser extends Component {
 	state = {
@@ -39,7 +49,8 @@ class CurrentUser extends Component {
 	render() {
 		const { openMenu, closeMenu, leaveRoom } = this;
 		const {
-			user: { name }
+			user: { name },
+			classes: { starIcon }
 		} = this.props;
 		const { menuAnchor, leave } = this.state;
 
@@ -52,11 +63,11 @@ class CurrentUser extends Component {
 				<List component="nav">
 					<ListItem>
 						<ListItemIcon>
-							<StarIcon style={{ fontSize: 30 }} />
+							<StarIcon className={starIcon} />
 						</ListItemIcon>
 						<ListItemText
 							primary={
-								<Typography variant="title" color="secondary">
+								<Typography variant="title" color="primary">
 									You
 								</Typography>
 							}
@@ -100,4 +111,4 @@ class CurrentUser extends Component {
 	}
 }
 
-export default CurrentUser;
+export default withStyles(styles)(CurrentUser);
