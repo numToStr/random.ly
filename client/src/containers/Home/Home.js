@@ -25,13 +25,16 @@ const styles = ({ palette: { primary }, breakpoints }) => ({
 			marginTop: "3rem",
 			width: "80%"
 		}
+	},
+	svgFill: {
+		fill: primary.main
 	}
 });
 
 class Home extends Component {
 	render() {
 		const {
-			classes: { gradient, heroText, heroImage }
+			classes: { gradient, heroText, heroImage, svgFill }
 		} = this.props;
 
 		return (
@@ -83,7 +86,10 @@ class Home extends Component {
 							</Grid>
 							<Grid item xs={12} md={6}>
 								<Typography align="center">
-									<Hero className={heroImage} />
+									<Hero
+										className={heroImage}
+										primary={svgFill}
+									/>
 								</Typography>
 							</Grid>
 						</Grid>

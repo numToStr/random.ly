@@ -1,8 +1,7 @@
 import React from "react";
 
-const SvgComponent = props => (
+const SvgComponent = ({ primary, ...props }) => (
 	<svg viewBox="0 0 790.01 731" {...props}>
-		<title>Asset 4</title>
 		<g data-name="Layer 2">
 			<g data-name="Layer 1">
 				<path
@@ -89,7 +88,7 @@ const SvgComponent = props => (
 					fill="#fff"
 				/>
 				<path
-					fill="#1a1a1a"
+					className={primary}
 					d="M593.71 338.05l75.49-23.08 2.606 8.521-75.491 23.08zM599.444 356.788l101.913-31.158 2.605 8.521-101.913 31.158zM605.177 375.523l90.59-27.697 2.605 8.521-90.59 27.696z"
 				/>
 				<path
@@ -108,7 +107,7 @@ const SvgComponent = props => (
 					fill="#fff"
 				/>
 				<path
-					fill="#1a1a1a"
+					className={primary}
 					d="M606.472 589.55l.996-5.124 45.44 8.833-.997 5.124zM588.375 597.745l.996-5.124 61.342 11.923-.996 5.125zM593.005 610.34l.996-5.125 54.53 10.6-.997 5.124z"
 				/>
 				<path
@@ -127,7 +126,7 @@ const SvgComponent = props => (
 					fill="#fff"
 				/>
 				<path
-					fill="#1a1a1a"
+					className={primary}
 					d="M62.38 117.773l1.22-4.55 40.307 10.808-1.22 4.55zM45.593 123.98l1.22-4.548 54.418 14.59-1.22 4.55zM49.5 135.437l1.225-4.568 48.578 13.02-1.225 4.57z"
 				/>
 				<path
@@ -161,7 +160,7 @@ const SvgComponent = props => (
 					fill="#fff"
 				/>
 				<path
-					fill="#1a1a1a"
+					className={primary}
 					d="M133.343 338.291l1.355-6.97 61.764 12.006-1.355 6.97zM130.36 353.62l1.354-6.97 83.38 16.208-1.355 6.97zM127.376 368.954l1.354-6.97 74.113 14.407-1.355 6.97z"
 				/>
 				<path
@@ -280,7 +279,7 @@ const SvgComponent = props => (
 					d="M588.285 78.762l70.208 23.354-16.805 50.519-70.208-23.355z"
 				/>
 				<path
-					fill="#1a1a1a"
+					className={primary}
 					opacity={0.8}
 					d="M581.86 113.11l-4.36 13.13 60.63 20.17 7.68-23.09-12.32-17.63-25.63 15.06-11.08-15.59-14.92 7.95z"
 				/>
@@ -288,7 +287,7 @@ const SvgComponent = props => (
 					cx={598.76}
 					cy={94.16}
 					r={6.02}
-					fill="#1a1a1a"
+					className={primary}
 					opacity={0.8}
 				/>
 				<path
@@ -300,7 +299,7 @@ const SvgComponent = props => (
 					d="M198.69 167.314l60.53-24.1 17.337 43.545-60.529 24.1z"
 				/>
 				<path
-					fill="#1a1a1a"
+					className={primary}
 					opacity={0.8}
 					d="M213.85 194.12l4.51 11.32 52.27-20.81-7.92-19.91-18.3-4.88-8.71 24.68-16.31-4.21-5.54 13.81z"
 				/>
@@ -308,7 +307,7 @@ const SvgComponent = props => (
 					cx={214.48}
 					cy={171.77}
 					r={5.3}
-					fill="#1a1a1a"
+					className={primary}
 					opacity={0.8}
 				/>
 				<path
@@ -320,7 +319,7 @@ const SvgComponent = props => (
 					d="M73.628 572.412l73.937 46.022-33.117 53.205-73.937-46.022z"
 				/>
 				<path
-					fill="#1a1a1a"
+					className={primary}
 					opacity={0.8}
 					d="M56.79 609.95l-8.61 13.82 63.86 39.75 15.14-24.31-9.26-23.57-33.47 10.2-8.4-20.89-19.26 5z"
 				/>
@@ -328,7 +327,7 @@ const SvgComponent = props => (
 					cx={81.34}
 					cy={592.9}
 					r={7.09}
-					fill="#1a1a1a"
+					className={primary}
 					opacity={0.8}
 				/>
 				<path
