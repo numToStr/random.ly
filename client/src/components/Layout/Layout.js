@@ -1,10 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Grid } from "@material-ui/core";
+import { Grid, withStyles, Hidden } from "@material-ui/core";
 import { asyncComponent } from "react-async-component";
-
-import { isMobile } from "../../Store/helper/helper";
 
 import Header from "../../components/Header/Header";
 const MobileDrawer = asyncComponent({
@@ -35,7 +33,7 @@ class Layout extends Component {
 							toggleDrawer={toggleDrawer}
 							location={location}
 						/>
-						{isMobile && (
+						<Hidden mdUp>
 							<MobileDrawer
 								toggleDrawer={toggleDrawer}
 								drawerAnchor={left}
@@ -43,7 +41,7 @@ class Layout extends Component {
 								user={user}
 								ioUsers={ioUsers}
 							/>
-						)}
+						</Hidden>
 					</Grid>
 					<Grid item xs={12} className="layout-column flex-grow">
 						{children}
@@ -62,4 +60,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps)(Layout));
+export default withRouter(connect(mapStateToProps)(withStyles()(Layout)));
