@@ -31,7 +31,7 @@ const styles = ({ breakpoints }) => ({
 		marginLeft: ".75rem"
 	},
 	toolbar: {
-		padding: "0",
+		padding: "0 5px",
 		[breakpoints.up("md")]: {
 			padding: "0 24px"
 		}
