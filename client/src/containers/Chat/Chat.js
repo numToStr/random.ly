@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid } from "@material-ui/core";
+import { Grid, Hidden, withWidth } from "@material-ui/core";
 import { asyncComponent } from "react-async-component";
 
 import Layout from "../../components/Layout/Layout";
-import { isMobile } from "../../Store/helper/helper";
 import {
 	onCreateMessage,
 	onNewMessage,
@@ -18,9 +17,7 @@ import TextBox from "../../components/Forms/TextBox/TextBox";
 import Messages from "../../components/NavList/Messages/Messages";
 import Loader from "../../components/Loader/Loader";
 
-const AsideNav = asyncComponent({
-	resolve: () => import("../../components/AsideNav/AsideNav")
-});
+import AsideNav from "../../components/AsideNav/AsideNav";
 const RoomCreateSearch = asyncComponent({
 	resolve: () => import("../../components/NavList/Rooms/RoomCreateSearch")
 });
@@ -143,39 +140,23 @@ class Chat extends Component {
 			return <Loader />;
 		}
 
-		let userNav = null;
-		let roomNav = null;
-		if (!isMobile) {
-			userNav = (
-				<Grid item xs={2}>
-					<AsideNav side="left">
-						<CurrentUser user={user} />
-						<Users users={ioUsers} />
-					</AsideNav>
-				</Grid>
-			);
-			roomNav = (
-				<Grid item xs={2}>
-					<AsideNav side="right">
-						<RoomCreateSearch
-							onSearchRoom={onSearchRoom}
-							onCreateRooom={onCreateRooom}
-						/>
-						<Rooms rooms={ioRooms} />
-					</AsideNav>
-				</Grid>
-			);
-		}
-
 		return (
 			<Grid container className="h-100">
-				{userNav}
-				<Grid item xs={isMobile ? 12 : 8}>
+				<Hidden smDown>
+					{/* not using css implementation bcz of async loading and layout problem */}
+					<Grid item xs={2}>
+						<AsideNav side="left">
+							<CurrentUser user={user} />
+							<Users users={ioUsers} />
+						</AsideNav>
+					</Grid>
+				</Hidden>
+				<Grid item xs>
 					<Layout>
 						<Grid container className="layout">
 							<Grid
 								item
-								xs={12}
+								xs
 								className="layout-column flex-grow"
 								style={{
 									overflow: "auto",
@@ -191,7 +172,18 @@ class Chat extends Component {
 						</Grid>
 					</Layout>
 				</Grid>
-				{roomNav}
+				<Hidden smDown>
+					{/* not using css implementation bcz of async loading and layout problem */}
+					<Grid item xs={2}>
+						<AsideNav side="right">
+							<RoomCreateSearch
+								onSearchRoom={onSearchRoom}
+								onCreateRooom={onCreateRooom}
+							/>
+							<Rooms rooms={ioRooms} />
+						</AsideNav>
+					</Grid>
+				</Hidden>
 			</Grid>
 		);
 	}
@@ -220,4 +212,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Chat);
+)(withWidth()(Chat));
