@@ -156,7 +156,7 @@ class Chat extends Component {
 						<Grid container className="layout">
 							<Grid
 								item
-								xs
+								xs={12}
 								className="layout-column flex-grow"
 								style={{
 									overflow: "auto",
@@ -168,7 +168,9 @@ class Chat extends Component {
 									currentUser={user}
 								/>
 							</Grid>
-							<TextBox onSubmit={sendMessage} />
+							<Grid item xs={12} className="layout-column">
+								<TextBox onSubmit={sendMessage} />
+							</Grid>
 						</Grid>
 					</Layout>
 				</Grid>

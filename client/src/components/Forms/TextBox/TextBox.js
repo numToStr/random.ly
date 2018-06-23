@@ -33,36 +33,34 @@ class TextBox extends Component {
 			classes: { textBoxForm }
 		} = this.props;
 		return (
-			<Grid item xs={12} className="layout-column">
-				<Form
-					onSubmit={handleSubmit}
-					className={`${textBoxForm} d-flex align-items-center`}
-					noValidate
-					autoComplete="off"
+			<Form
+				onSubmit={handleSubmit}
+				className={`${textBoxForm} d-flex align-items-center`}
+				noValidate
+				autoComplete="off"
+			>
+				<Field
+					name="message"
+					placeholder="Type your message..."
+					type="text"
+					component={this.inputField}
+					className="flex-grow"
+				/>
+				<Button
+					variant="fab"
+					type="submit"
+					mini
+					color="primary"
+					disabled={pristine}
 				>
-					<Field
-						name="message"
-						placeholder="Type your message..."
-						type="text"
-						component={this.inputField}
-						className="flex-grow"
+					<Send
+						style={{
+							fontSize: 20,
+							marginLeft: ".25rem"
+						}}
 					/>
-					<Button
-						variant="fab"
-						type="submit"
-						mini
-						color="primary"
-						disabled={pristine}
-					>
-						<Send
-							style={{
-								fontSize: 20,
-								marginLeft: ".25rem"
-							}}
-						/>
-					</Button>
-				</Form>
-			</Grid>
+				</Button>
+			</Form>
 		);
 	}
 }
