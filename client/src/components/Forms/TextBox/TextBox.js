@@ -10,11 +10,10 @@ const styles = {
 };
 
 class TextBox extends Component {
-	inputField = field => {
-		const { error, touched } = field.meta;
+	inputField = ({ input, meta: { error, touched }, ...field }) => {
 		return (
 			<TextField
-				{...field.input}
+				{...input}
 				{...field}
 				margin="normal"
 				error={touched && error ? true : false}

@@ -32,11 +32,10 @@ class SignUp extends Component {
 		showPassword: false
 	};
 
-	inputField = field => {
-		const { error, touched } = field.meta;
+	inputField = ({ input, meta: { error, touched }, ...field }) => {
 		return (
 			<TextField
-				{...field.input}
+				{...input}
 				{...field}
 				margin="normal"
 				error={touched && error ? true : false}
