@@ -16,7 +16,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Logo from "../Images/Logo/RandomLyFull";
 import ThemeChooser from "../ThemeChooser/ThemeChooser";
 
-const styles = ({ breakpoints }) => ({
+const styles = ({ palette: { primary }, breakpoints }) => ({
 	headerLogo: {
 		flex: 1,
 		textAlign: "center",
@@ -35,11 +35,14 @@ const styles = ({ breakpoints }) => ({
 		[breakpoints.up("md")]: {
 			padding: "0 24px"
 		}
+	},
+	svgFill: {
+		fill: primary.main
 	}
 });
 
 const header = ({
-	classes: { white, headerLogo, headerBtns, toolbar },
+	classes: { white, headerLogo, headerBtns, toolbar, svgFill },
 	isAuth,
 	toggleDrawer,
 	location: { pathname, search }
@@ -77,7 +80,7 @@ const header = ({
 								lineHeight: 0
 							}}
 						>
-							<Logo width={105} />
+							<Logo width={105} color={svgFill} />
 						</NavLink>
 					</Typography>
 					<ThemeChooser />
