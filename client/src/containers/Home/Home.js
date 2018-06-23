@@ -4,12 +4,8 @@ import { Grid, Typography, Button, withStyles, Paper } from "@material-ui/core";
 
 import Layout from "../../components/Layout/Layout";
 import Hero from "../../components/Images/Hero/Hero";
-import { isMobile } from "../../Store/helper/helper";
 
 const styles = ({ palette: { primary }, breakpoints }) => ({
-	gradient: {
-		background: `linear-gradient(152deg, #fff 55%, ${primary.main} 55%)`
-	},
 	heroText: {
 		background: "none",
 		padding: "2rem 2rem 0",
@@ -46,73 +42,61 @@ const styles = ({ palette: { primary }, breakpoints }) => ({
 class Home extends Component {
 	render() {
 		const {
-			classes: {
-				gradient,
-				heroText,
-				heroImage,
-				svgFill,
-				headline,
-				subHeadline
-			}
+			classes: { heroText, heroImage, svgFill, headline, subHeadline }
 		} = this.props;
 
 		return (
 			<Fragment>
 				<Layout>
-					<Paper elevation={0} className={`${gradient} h-100`}>
-						<Grid container>
-							<Grid item xs={12} md={6}>
-								<Paper
-									elevation={0}
+					<Grid container>
+						<Grid item xs={12} md={6}>
+							<Paper
+								elevation={0}
+								classes={{
+									root: heroText
+								}}
+							>
+								<Typography
+									paragraph
 									classes={{
-										root: heroText
+										root: headline
+									}}
+									color="primary"
+								>
+									Chat with random People
+								</Typography>
+								<Typography
+									paragraph
+									classes={{
+										root: subHeadline
+									}}
+									color="textSecondary"
+								>
+									Lorem ipsum dolor sit, amet consectetur
+									adipisicing elit. Aspernatur blanditiis
+									eaque nobis vitae facere voluptatum!
+									Repudiandae, officia porro aliquid alias
+									quis possimus architecto nesciunt.
+								</Typography>
+								<Button
+									variant="raised"
+									component={NavLink}
+									to="/user/signup"
+									color="primary"
+									style={{
+										marginTop: ".8rem"
 									}}
 								>
-									<Typography
-										paragraph
-										classes={{
-											root: headline
-										}}
-										color="primary"
-									>
-										Chat with random People
-									</Typography>
-									<Typography
-										paragraph
-										classes={{
-											root: subHeadline
-										}}
-										color="textSecondary"
-									>
-										Lorem ipsum dolor sit, amet consectetur
-										adipisicing elit. Aspernatur blanditiis
-										eaque nobis vitae facere voluptatum!
-										Repudiandae, officia porro aliquid alias
-										quis possimus architecto nesciunt.
-									</Typography>
-									<Button
-										variant="raised"
-										component={NavLink}
-										to="/user/signup"
-										color="primary"
-										style={{
-											marginTop: ".8rem"
-										}}
-									>
-										Get Started
-									</Button>
-								</Paper>
-							</Grid>
-							<Grid item xs={12} md={6}>
-								<Typography align="center">
-									<Hero
-										className={heroImage}
-										primary={svgFill}
-									/>
-								</Typography>
-							</Grid>
+									Get Started
+								</Button>
+							</Paper>
 						</Grid>
-					</Paper>
+						<Grid item xs={12} md={6}>
+							<Typography align="center">
+								<Hero className={heroImage} primary={svgFill} />
+							</Typography>
+						</Grid>
+					</Grid>
 				</Layout>
 			</Fragment>
 		);

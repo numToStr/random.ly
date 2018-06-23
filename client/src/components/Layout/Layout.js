@@ -1,12 +1,18 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Grid, withStyles, Hidden } from "@material-ui/core";
+import { withStyles, Hidden } from "@material-ui/core";
 import { asyncComponent } from "react-async-component";
 
 import Header from "../../components/Header/Header";
 const MobileDrawer = asyncComponent({
 	resolve: () => import("../MobileDrawer/MobileDrawer")
+});
+
+const style = ({ palette: { primary } }) => ({
+	gradient: {
+		background: `linear-gradient(152deg, #fff 55%, ${primary.main} 55%)`
+	}
 });
 
 class Layout extends Component {
@@ -21,33 +27,38 @@ class Layout extends Component {
 	};
 	render() {
 		const { toggleDrawer } = this;
-		const { children, isAuth, location, user, ioUsers } = this.props;
+		const {
+			children,
+			isAuth,
+			location,
+			user,
+			ioUsers,
+			classes: { gradient }
+		} = this.props;
 		const { left } = this.state;
 
 		return (
-			<Fragment>
-				<Grid container className="layout">
-					<Grid item xs={12} className="layout-column">
-						<Header
-							isAuth={isAuth}
+			<div className="layout">
+				<div className="layout-item">
+					<Header
+						isAuth={isAuth}
+						toggleDrawer={toggleDrawer}
+						location={location}
+					/>
+					<Hidden mdUp>
+						<MobileDrawer
 							toggleDrawer={toggleDrawer}
-							location={location}
+							drawerAnchor={left}
+							isAuth={isAuth}
+							user={user}
+							ioUsers={ioUsers}
 						/>
-						<Hidden mdUp>
-							<MobileDrawer
-								toggleDrawer={toggleDrawer}
-								drawerAnchor={left}
-								isAuth={isAuth}
-								user={user}
-								ioUsers={ioUsers}
-							/>
-						</Hidden>
-					</Grid>
-					<Grid item xs={12} className="layout-column flex-grow">
-						{children}
-					</Grid>
-				</Grid>
-			</Fragment>
+					</Hidden>
+				</div>
+				<div className={`layout-item flex-grow ${gradient}`}>
+					{children}
+				</div>
+			</div>
 		);
 	}
 }
@@ -60,4 +71,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default withRouter(connect(mapStateToProps)(withStyles()(Layout)));
+export default withRouter(connect(mapStateToProps)(withStyles(style)(Layout)));

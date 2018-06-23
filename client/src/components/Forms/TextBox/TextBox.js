@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Field, reduxForm, reset } from "redux-form";
-import { Grid, TextField, Button, withStyles } from "@material-ui/core";
+import { TextField, Button, withStyles } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
 
 const styles = {

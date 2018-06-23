@@ -153,13 +153,15 @@ class Chat extends Component {
 				</Hidden>
 				<Grid item xs>
 					<Layout>
-						<Grid container className="layout">
-							<Grid
-								item
-								xs={12}
-								className="layout-column flex-grow"
+						<div
+							className="layout"
+							style={{
+								background: "#fff"
+							}}
+						>
+							<div
+								className="layout-item flex-grow"
 								style={{
-									overflow: "auto",
 									padding: ".5rem 1rem 0"
 								}}
 							>
@@ -167,11 +169,11 @@ class Chat extends Component {
 									messages={messages}
 									currentUser={user}
 								/>
-							</Grid>
-							<Grid item xs={12} className="layout-column">
+							</div>
+							<div className="layout-item">
 								<TextBox onSubmit={sendMessage} />
-							</Grid>
-						</Grid>
+							</div>
+						</div>
 					</Layout>
 				</Grid>
 				<Hidden smDown>
