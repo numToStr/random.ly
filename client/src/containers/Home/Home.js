@@ -28,13 +28,32 @@ const styles = ({ palette: { primary }, breakpoints }) => ({
 	},
 	svgFill: {
 		fill: primary.main
+	},
+	headline: {
+		fontSize: "1.5rem",
+		[breakpoints.up("md")]: {
+			fontSize: "2.125rem"
+		}
+	},
+	subHeadline: {
+		fontSize: "0.875rem",
+		[breakpoints.up("md")]: {
+			fontSize: "1rem"
+		}
 	}
 });
 
 class Home extends Component {
 	render() {
 		const {
-			classes: { gradient, heroText, heroImage, svgFill }
+			classes: {
+				gradient,
+				heroText,
+				heroImage,
+				svgFill,
+				headline,
+				subHeadline
+			}
 		} = this.props;
 
 		return (
@@ -51,18 +70,18 @@ class Home extends Component {
 								>
 									<Typography
 										paragraph
-										variant={
-											isMobile ? "headline" : "display1"
-										}
+										classes={{
+											root: headline
+										}}
 										color="primary"
 									>
 										Chat with random People
 									</Typography>
 									<Typography
-										variant={
-											isMobile ? "body1" : "subheading"
-										}
 										paragraph
+										classes={{
+											root: subHeadline
+										}}
 										color="textSecondary"
 									>
 										Lorem ipsum dolor sit, amet consectetur
