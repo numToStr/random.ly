@@ -9,6 +9,7 @@ import purple from "@material-ui/core/colors/purple";
 import green from "@material-ui/core/colors/green";
 import { connect } from "react-redux";
 import { themeChange } from "../../Store/actions";
+import { isMobile } from "../../Store/helper/helper";
 
 const styles = theme => {
 	return {
@@ -110,8 +111,13 @@ class ThemeChooser extends Component {
 				</Tooltip>
 				<Popover
 					open={Boolean(anchorEl)}
+					anchorReference={isMobile ? "anchorPosition" : "anchorEl"}
 					anchorEl={anchorEl}
 					onClose={handleClose}
+					anchorPosition={{
+						top: 50,
+						left: window.innerWidth / 2
+					}}
 					anchorOrigin={{
 						vertical: "bottom",
 						horizontal: "center"
