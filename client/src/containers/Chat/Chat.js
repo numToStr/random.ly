@@ -162,7 +162,8 @@ class Chat extends Component {
 							<div
 								className="layout-item flex-grow"
 								style={{
-									padding: ".5rem 1rem 0"
+									padding: ".5rem 1rem 0",
+									overflow: "auto"
 								}}
 							>
 								<Messages
