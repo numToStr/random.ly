@@ -12,9 +12,6 @@ import { themeChange } from "../../Store/actions";
 
 const styles = theme => {
 	return {
-		headerBtns: {
-			marginLeft: ".75rem"
-		},
 		popOver: {
 			padding: ".25rem",
 			borderRadius: "10rem"
@@ -98,7 +95,7 @@ class ThemeChooser extends Component {
 
 	render() {
 		const {
-			classes: { headerBtns, popOver },
+			classes: { popOver },
 			onThemeChange
 		} = this.props;
 		const { handleOpen, handleClose } = this;
@@ -107,13 +104,7 @@ class ThemeChooser extends Component {
 		return (
 			<Fragment>
 				<Tooltip title="Themes" disableFocusListener>
-					<IconButton
-						classes={{
-							root: headerBtns
-						}}
-						color="primary"
-						onClick={handleOpen}
-					>
+					<IconButton color="primary" onClick={handleOpen}>
 						<InvertColors />
 					</IconButton>
 				</Tooltip>
