@@ -31,6 +31,7 @@ class Layout extends Component {
 			children,
 			isAuth,
 			location,
+			history,
 			user,
 			ioUsers,
 			classes: { gradient }
@@ -44,6 +45,7 @@ class Layout extends Component {
 						isAuth={isAuth}
 						toggleDrawer={toggleDrawer}
 						location={location}
+						history={history}
 					/>
 					<Hidden mdUp>
 						<MobileDrawer
