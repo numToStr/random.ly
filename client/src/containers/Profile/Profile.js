@@ -90,7 +90,7 @@ class Profile extends Component {
 					color="textSecondary"
 					variant="title"
 					style={{
-						marginBottom: "2rem"
+						margin: "1rem 0 2rem"
 					}}
 				>
 					Your Account
