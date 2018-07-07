@@ -21,7 +21,7 @@ class Profile extends Component {
 			fields = [
 				{
 					name: "name",
-					label: "Name",
+					label: "Your name",
 					placeholder: "John Doe",
 					type: "text"
 				}
@@ -30,8 +30,8 @@ class Profile extends Component {
 			fields = [
 				{
 					name: "email",
-					label: "Email",
-					placeholder: "Enter your email",
+					label: "New email",
+					placeholder: "Enter your new email",
 					type: "email"
 				},
 				{
@@ -58,7 +58,7 @@ class Profile extends Component {
 				{
 					name: "confirm-password",
 					label: "Confirm Password",
-					placeholder: "It should be same",
+					placeholder: "It should match",
 					type: "password"
 				}
 			];
