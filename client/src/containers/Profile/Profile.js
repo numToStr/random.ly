@@ -35,9 +35,9 @@ class Profile extends Component {
 					type: "email"
 				},
 				{
-					name: "current-password",
-					label: "Current Password",
-					placeholder: "Enter you current password",
+					name: "password",
+					label: "Your Password",
+					placeholder: "Enter your current password",
 					type: "password"
 				}
 			];
@@ -50,7 +50,7 @@ class Profile extends Component {
 					type: "password"
 				},
 				{
-					name: "new-password",
+					name: "password",
 					label: "New Password",
 					placeholder: "Your new password",
 					type: "password"
