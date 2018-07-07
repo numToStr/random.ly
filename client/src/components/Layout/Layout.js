@@ -57,7 +57,10 @@ class Layout extends Component {
 						/>
 					</Hidden>
 				</div>
-				<div className={`layout-item flex-grow ${gradient}`}>
+				<div
+					className={`layout-item flex-grow ${location.pathname ===
+						"/" && gradient}`}
+				>
 					{children}
 				</div>
 			</div>
