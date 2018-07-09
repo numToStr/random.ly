@@ -2,82 +2,35 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Layout from "../../components/Layout/Layout";
 import { Grid, Typography } from "@material-ui/core";
-import ProfileForm from "../../components/Forms/Profile/Profile";
+import ChangeName from "../../components/Forms/Profile/ChangeName";
+import ChangeEmail from "../../components/Forms/Profile/ChangeEmail";
+import ChangePassword from "../../components/Forms/Profile/ChangePassword";
 
 class Profile extends Component {
 	state = {
-		openForm: false,
-		formOptions: {
-			title: null,
-			fields: []
-		}
+		changeName: false,
+		changeEmail: false,
+		changePassword: false
 	};
 
-	openProfileForm = e => {
-		const title = e.target.innerText;
-		let fields = [];
-
-		if (/name/.test(title)) {
-			fields = [
-				{
-					name: "name",
-					label: "Your name",
-					placeholder: "John Doe",
-					type: "text"
-				}
-			];
-		} else if (/email/.test(title)) {
-			fields = [
-				{
-					name: "email",
-					label: "New email",
-					placeholder: "Enter your new email",
-					type: "email"
-				},
-				{
-					name: "password",
-					label: "Your Password",
-					placeholder: "Enter your current password",
-					type: "password"
-				}
-			];
-		} else if (/password/.test(title)) {
-			fields = [
-				{
-					name: "current-password",
-					label: "Current Password",
-					placeholder: "Enter you current password",
-					type: "password"
-				},
-				{
-					name: "password",
-					label: "New Password",
-					placeholder: "Your new password",
-					type: "password"
-				},
-				{
-					name: "confirm-password",
-					label: "Confirm Password",
-					placeholder: "It should match",
-					type: "password"
-				}
-			];
-		}
-
+	openProfileForm = which => () => {
 		this.setState({
-			openForm: true,
-			formOptions: { title, fields }
+			[which]: true
 		});
 	};
 
-	closeProfileForm = () => this.setState({ openForm: false });
+	closeProfileForm = which => () => {
+		this.setState({
+			[which]: false
+		});
+	};
 
-	onProfileUpdate = values => {
-		console.log(values);
+	onProfileUpdate = which => values => {
+		console.log(which, values);
 	};
 
 	render() {
-		const { openForm, formOptions } = this.state;
+		const { changeName, changeEmail, changePassword } = this.state;
 		const {
 			user: { name, email }
 		} = this.props;
@@ -116,7 +69,7 @@ class Profile extends Component {
 							variant="caption"
 							align="center"
 							paragraph
-							onClick={openProfileForm}
+							onClick={openProfileForm("changeName")}
 							style={{
 								cursor: "pointer",
 								textDecoration: "underline"
@@ -145,7 +98,7 @@ class Profile extends Component {
 							variant="caption"
 							align="center"
 							gutterBottom
-							onClick={openProfileForm}
+							onClick={openProfileForm("changeEmail")}
 							style={{
 								cursor: "pointer",
 								textDecoration: "underline"
@@ -157,7 +110,7 @@ class Profile extends Component {
 							variant="caption"
 							align="center"
 							paragraph
-							onClick={openProfileForm}
+							onClick={openProfileForm("changePassword")}
 							style={{
 								cursor: "pointer",
 								textDecoration: "underline"
@@ -167,11 +120,20 @@ class Profile extends Component {
 						</Typography>
 					</Grid>
 				</Grid>
-				<ProfileForm
-					onSubmit={onProfileUpdate}
-					open={openForm}
-					handleClose={closeProfileForm}
-					options={formOptions}
+				<ChangeName
+					onSubmit={onProfileUpdate("changeName")}
+					open={changeName}
+					handleClose={closeProfileForm("changeName")}
+				/>
+				<ChangeEmail
+					onSubmit={onProfileUpdate("changeEmail")}
+					open={changeEmail}
+					handleClose={closeProfileForm("changeEmail")}
+				/>
+				<ChangePassword
+					onSubmit={onProfileUpdate("changePassword")}
+					open={changePassword}
+					handleClose={closeProfileForm("changePassword")}
 				/>
 			</Layout>
 		);
