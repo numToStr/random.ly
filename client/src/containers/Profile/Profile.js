@@ -6,6 +6,12 @@ import ChangeName from "../../components/Forms/Profile/ChangeName";
 import ChangeEmail from "../../components/Forms/Profile/ChangeEmail";
 import ChangePassword from "../../components/Forms/Profile/ChangePassword";
 
+import {
+	onUpdateName,
+	onUpdateEmail,
+	onUpdatePassword
+} from "../../Store/actions/user";
+
 class Profile extends Component {
 	state = {
 		changeName: false,
@@ -26,7 +32,22 @@ class Profile extends Component {
 	};
 
 	onProfileUpdate = which => values => {
-		console.log(which, values);
+		const { updateName, updateEmail, updatePassword } = this.props;
+
+		switch (which) {
+			case "changeName":
+				updateName(values);
+				break;
+			case "changeEmail":
+				updateEmail(values);
+				break;
+			case "changePassword":
+				delete values["confirm-password"];
+				updatePassword(values);
+				break;
+			default:
+				return false;
+		}
 	};
 
 	render() {
@@ -146,4 +167,15 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = dispatch => {
+	return {
+		updateName: data => dispatch(onUpdateName(data)),
+		updateEmail: data => dispatch(onUpdateEmail(data)),
+		updatePassword: data => dispatch(onUpdatePassword(data))
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Profile);
