@@ -8,8 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const isAuthenticated = require("../config/middlewares/authRoutes");
 
-require("../models/user");
-const User = mongoose.model("user");
+const User = require("../models/user");
 
 router.post("/signup", (req, res) => {
 	const newUser = req.body;
