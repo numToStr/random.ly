@@ -126,7 +126,7 @@ router.post("/authenticate", isAuthenticated, (req, res, next) => {
 	});
 });
 
-router.post("/logout", (req, res) => {
+router.post("/logout", isAuthenticated, (req, res) => {
 	return res
 		.status(200)
 		.clearCookie("randomly_token", {
