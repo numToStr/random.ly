@@ -6,6 +6,8 @@ const { isEmail, isEmpty } = require("validator");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
+const isAuthenticated = require("../config/middlewares/authRoutes");
+
 require("../models/user");
 const User = mongoose.model("user");
 
@@ -103,41 +105,26 @@ router.post("/login", (req, res, next) => {
 	})(req, res, next);
 });
 
-router.post("/authenticate", (req, res, next) => {
-	const token = req.cookies.randomly_token;
-
-	if (token) {
-		try {
-			const u = jwt.verify(token, "#pyaarEkDhokaHai");
-			User.findById(u._id).then(user => {
-				if (user) {
-					return res.send({
-						status: 1,
-						user: {
-							id: user.id,
-							name: user.name,
-							email: user.email
-						},
-						message: "Authentication Successful"
-					});
-				} else {
-					return res.send({
-						status: 0,
-						err: "Unauthorized Access! Please login."
-					});
-				}
+router.post("/authenticate", isAuthenticated, (req, res, next) => {
+	const u = req._user;
+	User.findById(u._id).then(user => {
+		if (user) {
+			return res.send({
+				status: 1,
+				user: {
+					id: user.id,
+					name: user.name,
+					email: user.email
+				},
+				message: "Authentication Successful"
 			});
-		} catch (error) {
+		} else {
 			return res.send({
 				status: 0,
 				err: "Unauthorized Access! Please login."
 			});
 		}
-	} else {
-		return res.send({
-			status: 0
-		});
-	}
+	});
 });
 
 router.post("/logout", (req, res) => {
