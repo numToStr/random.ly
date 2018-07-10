@@ -37,11 +37,16 @@ const updateFail = () => {
 export const onUpdateName = (data, callback) => {
 	return dispatch => {
 		axios.put("/user/name", data).then(({ data }) => {
+			const { user } = data;
+
 			if (data.status) {
-				const { user } = data;
 				dispatch(updateName(user));
 			} else {
 				dispatch(updateFail());
+			}
+
+			if (callback) {
+				callback(user);
 			}
 		});
 	};
@@ -50,11 +55,16 @@ export const onUpdateName = (data, callback) => {
 export const onUpdateEmail = (data, callback) => {
 	return dispatch => {
 		axios.put("/user/email", data).then(({ data }) => {
+			const { user } = data;
+
 			if (data.status) {
-				const { user } = data;
 				dispatch(updateEmail(user));
 			} else {
 				dispatch(updateFail());
+			}
+
+			if (callback) {
+				callback(user);
 			}
 		});
 	};
@@ -63,11 +73,16 @@ export const onUpdateEmail = (data, callback) => {
 export const onUpdatePassword = (data, callback) => {
 	return dispatch => {
 		axios.put("/user/password", data).then(({ data }) => {
+			const { user } = data;
+
 			if (data.status) {
-				const { user } = data;
 				dispatch(updatePassword(user));
 			} else {
 				dispatch(updateFail());
+			}
+
+			if (callback) {
+				callback(user);
 			}
 		});
 	};

@@ -33,17 +33,18 @@ class Profile extends Component {
 
 	onProfileUpdate = which => values => {
 		const { updateName, updateEmail, updatePassword } = this.props;
+		const { closeProfileForm } = this;
 
 		switch (which) {
 			case "changeName":
-				updateName(values);
+				updateName(values, u => u && closeProfileForm(which)());
 				break;
 			case "changeEmail":
-				updateEmail(values);
+				updateEmail(values, u => u && closeProfileForm(which)());
 				break;
 			case "changePassword":
 				delete values["confirm-password"];
-				updatePassword(values);
+				updatePassword(values, u => u && closeProfileForm(which)());
 				break;
 			default:
 				return false;
@@ -169,9 +170,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		updateName: data => dispatch(onUpdateName(data)),
-		updateEmail: data => dispatch(onUpdateEmail(data)),
-		updatePassword: data => dispatch(onUpdatePassword(data))
+		updateName: (data, cb) => dispatch(onUpdateName(data, cb)),
+		updateEmail: (data, cb) => dispatch(onUpdateEmail(data, cb)),
+		updatePassword: (data, cb) => dispatch(onUpdatePassword(data, cb))
 	};
 };
 
