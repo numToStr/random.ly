@@ -13,6 +13,8 @@ import {
 } from "@material-ui/core";
 import { Form, Field, reduxForm, reset } from "redux-form";
 
+import validate from "../config/validate";
+
 const styles = theme => {
 	const {
 		palette: { error }
@@ -129,6 +131,7 @@ class ChangePassword extends Component {
 
 ChangePassword = reduxForm({
 	form: "change-password",
+	validate,
 	onSubmitSuccess: (result, dispatch) => {
 		dispatch(reset("change-password"));
 	}
