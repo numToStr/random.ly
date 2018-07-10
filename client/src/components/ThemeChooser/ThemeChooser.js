@@ -9,12 +9,10 @@ import purple from "@material-ui/core/colors/purple";
 import green from "@material-ui/core/colors/green";
 import { connect } from "react-redux";
 import { themeChange } from "../../Store/actions";
+import { isMobile } from "../../Store/helper/helper";
 
 const styles = theme => {
 	return {
-		headerBtns: {
-			marginLeft: ".75rem"
-		},
 		popOver: {
 			padding: ".25rem",
 			borderRadius: "10rem"
@@ -98,7 +96,7 @@ class ThemeChooser extends Component {
 
 	render() {
 		const {
-			classes: { headerBtns, popOver },
+			classes: { popOver },
 			onThemeChange
 		} = this.props;
 		const { handleOpen, handleClose } = this;
@@ -107,20 +105,19 @@ class ThemeChooser extends Component {
 		return (
 			<Fragment>
 				<Tooltip title="Themes" disableFocusListener>
-					<IconButton
-						classes={{
-							root: headerBtns
-						}}
-						color="primary"
-						onClick={handleOpen}
-					>
+					<IconButton color="primary" onClick={handleOpen}>
 						<InvertColors />
 					</IconButton>
 				</Tooltip>
 				<Popover
 					open={Boolean(anchorEl)}
+					anchorReference={isMobile ? "anchorPosition" : "anchorEl"}
 					anchorEl={anchorEl}
 					onClose={handleClose}
+					anchorPosition={{
+						top: 50,
+						left: window.innerWidth / 2
+					}}
 					anchorOrigin={{
 						vertical: "bottom",
 						horizontal: "center"

@@ -31,6 +31,7 @@ class Layout extends Component {
 			children,
 			isAuth,
 			location,
+			history,
 			user,
 			ioUsers,
 			classes: { gradient }
@@ -44,6 +45,7 @@ class Layout extends Component {
 						isAuth={isAuth}
 						toggleDrawer={toggleDrawer}
 						location={location}
+						history={history}
 					/>
 					<Hidden mdUp>
 						<MobileDrawer
@@ -55,7 +57,10 @@ class Layout extends Component {
 						/>
 					</Hidden>
 				</div>
-				<div className={`layout-item flex-grow ${gradient}`}>
+				<div
+					className={`layout-item flex-grow ${location.pathname ===
+						"/" && gradient}`}
+				>
 					{children}
 				</div>
 			</div>

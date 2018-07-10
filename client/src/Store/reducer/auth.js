@@ -2,7 +2,11 @@ import {
 	AUTH_START,
 	AUTH_SUCCESS,
 	AUTH_FAIL,
-	AUTH_LOGOUT
+	AUTH_LOGOUT,
+	UPDATE_USER_NAME,
+	UPDATE_USER_EMAIL,
+	UPDATE_USER_FAIL,
+	UPDATE_USER_PASSWORD
 } from "../actions/actionTypes";
 
 const initState = {
@@ -14,7 +18,8 @@ const initState = {
 	token: null,
 	loading: false,
 	loginError: null,
-	signupError: null
+	signupError: null,
+	updateError: null
 };
 
 const authStart = (state, action) => {
@@ -63,6 +68,26 @@ const authLogout = (state, action) => {
 	};
 };
 
+const updateUser = (state, { user }) => {
+	return {
+		...state,
+		updateErrorName: null,
+		updateErrorEmail: null,
+		updateErrorPassword: null,
+		user
+	};
+};
+
+const updateFail = (state, { err, which }) => {
+	return {
+		...state,
+		updateErrorName: null,
+		updateErrorEmail: null,
+		updateErrorPassword: null,
+		[`updateError${which}`]: err
+	};
+};
+
 const reducer = (state = initState, action) => {
 	switch (action.type) {
 		case AUTH_START:
@@ -71,6 +96,14 @@ const reducer = (state = initState, action) => {
 			return authSuccess(state, action);
 		case AUTH_FAIL:
 			return authFail(state, action);
+		case UPDATE_USER_NAME:
+			return updateUser(state, action);
+		case UPDATE_USER_EMAIL:
+			return updateUser(state, action);
+		case UPDATE_USER_PASSWORD:
+			return updateUser(state, action);
+		case UPDATE_USER_FAIL:
+			return updateFail(state, action);
 		case AUTH_LOGOUT:
 			return authLogout(state, action);
 		default:

@@ -10,3 +10,5 @@ export {
 } from "./chat";
 
 export { themeChange } from "./theme";
+
+export { onUpdateName, onUpdateEmail, onUpdatePassword } from "./user";

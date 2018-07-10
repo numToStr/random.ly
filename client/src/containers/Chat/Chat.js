@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import { Grid, Hidden, withWidth } from "@material-ui/core";
 import { asyncComponent } from "react-async-component";
@@ -37,6 +37,8 @@ class Chat extends Component {
 		room: null
 	};
 
+	messagesContainer = createRef();
+
 	componentDidMount() {
 		const {
 			user,
@@ -66,7 +68,7 @@ class Chat extends Component {
 		});
 
 		ioJoin({ ...user, room });
-		ioNewMessage();
+		ioNewMessage(this.scrollToBottom);
 		ioUpdatedUsers();
 		ioUpdatedRooms();
 	}
@@ -132,8 +134,43 @@ class Chat extends Component {
 		}
 	};
 
+	scrollToBottom = () => {
+		const container = this.messagesContainer.current;
+		if (container) {
+			const newMessage =
+				container.children[container.children.length - 1];
+			const lastMessage = container.children[
+				container.children.length - 2
+			]
+				? container.children[container.children.length - 2]
+				: 0;
+
+			const clientHeight = container.clientHeight;
+			const scrollTop = container.scrollTop;
+			const scrollHeight = container.scrollHeight;
+
+			const newMessageHeight = newMessage.clientHeight;
+			const lastMessageHeight = lastMessage.clientHeight;
+
+			if (
+				clientHeight +
+					scrollTop +
+					newMessageHeight +
+					lastMessageHeight >=
+				scrollHeight
+			) {
+				container.scrollTop = scrollHeight;
+			}
+		}
+	};
+
 	render() {
-		const { sendMessage, onSearchRoom, onCreateRooom } = this;
+		const {
+			sendMessage,
+			onSearchRoom,
+			onCreateRooom,
+			messagesContainer
+		} = this;
 		const { messages, user, ioUsers, ioLoading, ioRooms } = this.props;
 
 		if (ioLoading) {
@@ -162,8 +199,10 @@ class Chat extends Component {
 							<div
 								className="layout-item flex-grow"
 								style={{
-									padding: ".5rem 1rem 0"
+									padding: ".5rem 1rem 0",
+									overflow: "auto"
 								}}
+								ref={messagesContainer}
 							>
 								<Messages
 									messages={messages}
@@ -207,7 +246,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		ioJoin: u => dispatch(onJoin(u)),
 		ioLeave: u => dispatch(onLeave(u)),
-		ioNewMessage: () => dispatch(onNewMessage()),
+		ioNewMessage: cb => dispatch(onNewMessage(cb)),
 		ioUpdatedUsers: () => dispatch(onUpdatedUsers()),
 		ioUpdatedRooms: () => dispatch(onUpdatedRooms())
 	};

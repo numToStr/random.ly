@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import compose from "recompose/compose";
 import MenuIcon from "@material-ui/icons/Menu";
+import ArrowBack from "@material-ui/icons/ArrowBack";
 
 import Logo from "../Images/Logo/RandomLyFull";
 import ThemeChooser from "../ThemeChooser/ThemeChooser";
@@ -45,7 +46,8 @@ const header = ({
 	classes: { white, headerLogo, headerBtns, toolbar, svgFill },
 	isAuth,
 	toggleDrawer,
-	location: { pathname, search }
+	location: { pathname, search },
+	history
 }) => {
 	return (
 		<Fragment>
@@ -58,13 +60,23 @@ const header = ({
 			>
 				<Toolbar classes={{ gutters: toolbar }}>
 					<Hidden implementation="css" mdUp>
-						<IconButton
-							onClick={toggleDrawer("left", true)}
-							color="inherit"
-							aria-label="Menu"
-						>
-							<MenuIcon />
-						</IconButton>
+						{/profile/g.test(pathname) ? (
+							<IconButton
+								onClick={history.goBack}
+								color="inherit"
+								aria-label="Menu"
+							>
+								<ArrowBack />
+							</IconButton>
+						) : (
+							<IconButton
+								onClick={toggleDrawer("left", true)}
+								color="inherit"
+								aria-label="Menu"
+							>
+								<MenuIcon />
+							</IconButton>
+						)}
 					</Hidden>
 					<Typography
 						variant="title"

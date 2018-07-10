@@ -16,6 +16,7 @@ const io = socketIO(server);
 
 // Routes Imports
 const auth = require("./server/routes/auth");
+const user = require("./server/routes/user");
 require("./server/routes/chat")(io);
 
 // "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --port 27017 --dbpath C:\mongodb\data\db
@@ -76,3 +77,4 @@ app.get("/", (req, res) => {
 // routes registration
 app.use("/auth", auth);
 require("./server/config/passport")(passport);
+app.use("/user", user);
