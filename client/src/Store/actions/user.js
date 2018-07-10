@@ -28,21 +28,23 @@ const updatePassword = user => {
 	};
 };
 
-const updateFail = () => {
+const updateFail = (err, which) => {
 	return {
-		type: UPDATE_USER_FAIL
+		type: UPDATE_USER_FAIL,
+		err,
+		which
 	};
 };
 
 export const onUpdateName = (data, callback) => {
 	return dispatch => {
 		axios.put("/user/name", data).then(({ data }) => {
-			const { user } = data;
+			const { user, err } = data;
 
 			if (data.status) {
 				dispatch(updateName(user));
 			} else {
-				dispatch(updateFail());
+				dispatch(updateFail(err, "Name"));
 			}
 
 			if (callback) {
@@ -55,12 +57,12 @@ export const onUpdateName = (data, callback) => {
 export const onUpdateEmail = (data, callback) => {
 	return dispatch => {
 		axios.put("/user/email", data).then(({ data }) => {
-			const { user } = data;
+			const { user, err } = data;
 
 			if (data.status) {
 				dispatch(updateEmail(user));
 			} else {
-				dispatch(updateFail());
+				dispatch(updateFail(err, "Email"));
 			}
 
 			if (callback) {
@@ -73,12 +75,12 @@ export const onUpdateEmail = (data, callback) => {
 export const onUpdatePassword = (data, callback) => {
 	return dispatch => {
 		axios.put("/user/password", data).then(({ data }) => {
-			const { user } = data;
+			const { user, err } = data;
 
 			if (data.status) {
 				dispatch(updatePassword(user));
 			} else {
-				dispatch(updateFail());
+				dispatch(updateFail(err, "Password"));
 			}
 
 			if (callback) {

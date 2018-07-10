@@ -18,7 +18,8 @@ const initState = {
 	token: null,
 	loading: false,
 	loginError: null,
-	signupError: null
+	signupError: null,
+	updateError: null
 };
 
 const authStart = (state, action) => {
@@ -70,13 +71,20 @@ const authLogout = (state, action) => {
 const updateUser = (state, { user }) => {
 	return {
 		...state,
+		updateErrorName: null,
+		updateErrorEmail: null,
+		updateErrorPassword: null,
 		user
 	};
 };
 
-const updateFail = (state, action) => {
+const updateFail = (state, { err, which }) => {
 	return {
-		...state
+		...state,
+		updateErrorName: null,
+		updateErrorEmail: null,
+		updateErrorPassword: null,
+		[`updateError${which}`]: err
 	};
 };
 

@@ -54,7 +54,10 @@ class Profile extends Component {
 	render() {
 		const { changeName, changeEmail, changePassword } = this.state;
 		const {
-			user: { name, email }
+			user: { name, email },
+			updateErrorName,
+			updateErrorEmail,
+			updateErrorPassword
 		} = this.props;
 		const { openProfileForm, closeProfileForm, onProfileUpdate } = this;
 
@@ -145,16 +148,19 @@ class Profile extends Component {
 				<ChangeName
 					onSubmit={onProfileUpdate("changeName")}
 					open={changeName}
+					formError={updateErrorName}
 					handleClose={closeProfileForm("changeName")}
 				/>
 				<ChangeEmail
 					onSubmit={onProfileUpdate("changeEmail")}
 					open={changeEmail}
+					formError={updateErrorEmail}
 					handleClose={closeProfileForm("changeEmail")}
 				/>
 				<ChangePassword
 					onSubmit={onProfileUpdate("changePassword")}
 					open={changePassword}
+					formError={updateErrorPassword}
 					handleClose={closeProfileForm("changePassword")}
 				/>
 			</Layout>
@@ -164,7 +170,10 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
 	return {
-		user: state.auth.user
+		user: state.auth.user,
+		updateErrorName: state.auth.updateErrorName,
+		updateErrorEmail: state.auth.updateErrorEmail,
+		updateErrorPassword: state.auth.updateErrorPassword
 	};
 };
 
