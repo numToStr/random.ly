@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Grid, Typography, IconButton, Tooltip } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
+
 import Layout from "../../components/Layout/Layout";
-import { Grid, Typography } from "@material-ui/core";
 import ChangeName from "../../components/Forms/Profile/ChangeName";
 import ChangeEmail from "../../components/Forms/Profile/ChangeEmail";
 import ChangePassword from "../../components/Forms/Profile/ChangePassword";
@@ -74,7 +76,7 @@ class Profile extends Component {
 					Your Account
 				</Typography>
 				<Grid container justify="center">
-					<Grid item xs={9} sm={3}>
+					<Grid item xs={12} sm={3}>
 						<Typography
 							align="center"
 							color="textSecondary"
@@ -90,7 +92,11 @@ class Profile extends Component {
 						>
 							{name}
 						</Typography>
-						<Typography variant="caption" align="center" paragraph>
+						<Typography
+							variant="caption"
+							align="center"
+							gutterBottom
+						>
 							<span
 								onClick={openProfileForm("changeName")}
 								style={{
@@ -102,7 +108,7 @@ class Profile extends Component {
 							</span>
 						</Typography>
 					</Grid>
-					<Grid item xs={9} sm={3}>
+					<Grid item xs={12} sm={3}>
 						<Typography
 							align="center"
 							color="textSecondary"
@@ -133,7 +139,11 @@ class Profile extends Component {
 								Change your email
 							</span>
 						</Typography>
-						<Typography variant="caption" align="center" paragraph>
+						<Typography
+							variant="caption"
+							align="center"
+							gutterBottom
+						>
 							<span
 								onClick={openProfileForm("changePassword")}
 								style={{
@@ -143,6 +153,18 @@ class Profile extends Component {
 							>
 								Reset your password
 							</span>
+						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography
+							align="center"
+							style={{ marginTop: "3rem" }}
+						>
+							<Tooltip title="Delete Account">
+								<IconButton color="primary">
+									<Delete />
+								</IconButton>
+							</Tooltip>
 						</Typography>
 					</Grid>
 				</Grid>
