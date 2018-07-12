@@ -90,17 +90,16 @@ class Profile extends Component {
 						>
 							{name}
 						</Typography>
-						<Typography
-							variant="caption"
-							align="center"
-							paragraph
-							onClick={openProfileForm("changeName")}
-							style={{
-								cursor: "pointer",
-								textDecoration: "underline"
-							}}
-						>
-							Modify your name
+						<Typography variant="caption" align="center" paragraph>
+							<span
+								onClick={openProfileForm("changeName")}
+								style={{
+									cursor: "pointer",
+									textDecoration: "underline"
+								}}
+							>
+								Modify your name
+							</span>
 						</Typography>
 					</Grid>
 					<Grid item xs={9} sm={3}>
@@ -123,25 +122,27 @@ class Profile extends Component {
 							variant="caption"
 							align="center"
 							gutterBottom
-							onClick={openProfileForm("changeEmail")}
-							style={{
-								cursor: "pointer",
-								textDecoration: "underline"
-							}}
 						>
-							Change your email
+							<span
+								onClick={openProfileForm("changeEmail")}
+								style={{
+									cursor: "pointer",
+									textDecoration: "underline"
+								}}
+							>
+								Change your email
+							</span>
 						</Typography>
-						<Typography
-							variant="caption"
-							align="center"
-							paragraph
-							onClick={openProfileForm("changePassword")}
-							style={{
-								cursor: "pointer",
-								textDecoration: "underline"
-							}}
-						>
-							Reset your password
+						<Typography variant="caption" align="center" paragraph>
+							<span
+								onClick={openProfileForm("changePassword")}
+								style={{
+									cursor: "pointer",
+									textDecoration: "underline"
+								}}
+							>
+								Reset your password
+							</span>
 						</Typography>
 					</Grid>
 				</Grid>
