@@ -46,9 +46,32 @@ const header = ({
 	classes: { white, headerLogo, headerBtns, toolbar, svgFill },
 	isAuth,
 	toggleDrawer,
-	location: { pathname, search },
+	location: { pathname },
 	history
 }) => {
+	let iconButton = null;
+	if (/profile/g.test(pathname)) {
+		iconButton = (
+			<IconButton
+				onClick={history.goBack}
+				color="inherit"
+				aria-label="Menu"
+			>
+				<ArrowBack />
+			</IconButton>
+		);
+	} else {
+		iconButton = (
+			<IconButton
+				onClick={toggleDrawer("left", true)}
+				color="inherit"
+				aria-label="Menu"
+			>
+				<MenuIcon />
+			</IconButton>
+		);
+	}
+
 	return (
 		<Fragment>
 			<AppBar
@@ -60,40 +83,14 @@ const header = ({
 			>
 				<Toolbar classes={{ gutters: toolbar }}>
 					<Hidden implementation="css" mdUp>
-						{/profile/g.test(pathname) ? (
-							<IconButton
-								onClick={history.goBack}
-								color="inherit"
-								aria-label="Menu"
-							>
-								<ArrowBack />
-							</IconButton>
-						) : (
-							<IconButton
-								onClick={toggleDrawer("left", true)}
-								color="inherit"
-								aria-label="Menu"
-							>
-								<MenuIcon />
-							</IconButton>
-						)}
+						{iconButton}
 					</Hidden>
 					<Typography
 						variant="title"
 						color="inherit"
 						className={headerLogo}
 					>
-						<NavLink
-							to={{
-								pathname,
-								search
-							}}
-							style={{
-								lineHeight: 0
-							}}
-						>
-							<Logo width={105} color={svgFill} />
-						</NavLink>
+						<Logo width={105} color={svgFill} />
 					</Typography>
 					<ThemeChooser />
 					<Hidden implementation="css" smDown>
