@@ -108,4 +108,22 @@ const updatePassword = (req, res) => {
 	});
 };
 
-module.exports = { updateName, updateEmail, updatePassword };
+const deleteUser = (req, res) => {
+	const U = req._user;
+
+	User.findByIdAndRemove(U._id).then(u => {
+		if (u) {
+			res.status(200).send({
+				status: 1,
+				message: "Successfully deleted"
+			});
+		} else {
+			res.status(200).send({
+				status: 0,
+				err: "Something went wrong!"
+			});
+		}
+	});
+};
+
+module.exports = { updateName, updateEmail, updatePassword, deleteUser };
