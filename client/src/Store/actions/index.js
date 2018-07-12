@@ -11,4 +11,9 @@ export {
 
 export { themeChange } from "./theme";
 
-export { onUpdateName, onUpdateEmail, onUpdatePassword } from "./user";
+export {
+	onUpdateName,
+	onUpdateEmail,
+	onUpdatePassword,
+	onDeleteUser
+} from "./user";

@@ -11,8 +11,9 @@ import ChangePassword from "../../components/Forms/Profile/ChangePassword";
 import {
 	onUpdateName,
 	onUpdateEmail,
-	onUpdatePassword
-} from "../../Store/actions/user";
+	onUpdatePassword,
+	onDeleteUser
+} from "../../Store/actions/index";
 
 class Profile extends Component {
 	state = {
@@ -53,6 +54,12 @@ class Profile extends Component {
 		}
 	};
 
+	onProfileDelete = () => {
+		const { deleteUser } = this.props;
+
+		deleteUser();
+	};
+
 	render() {
 		const { changeName, changeEmail, changePassword } = this.state;
 		const {
@@ -61,7 +68,12 @@ class Profile extends Component {
 			updateErrorEmail,
 			updateErrorPassword
 		} = this.props;
-		const { openProfileForm, closeProfileForm, onProfileUpdate } = this;
+		const {
+			openProfileForm,
+			closeProfileForm,
+			onProfileUpdate,
+			onProfileDelete
+		} = this;
 
 		return (
 			<Layout>
@@ -161,7 +173,10 @@ class Profile extends Component {
 							style={{ marginTop: "3rem" }}
 						>
 							<Tooltip title="Delete Account">
-								<IconButton color="primary">
+								<IconButton
+									color="primary"
+									onClick={onProfileDelete}
+								>
 									<Delete />
 								</IconButton>
 							</Tooltip>
@@ -204,7 +219,8 @@ const mapDispatchToProps = dispatch => {
 	return {
 		updateName: (data, cb) => dispatch(onUpdateName(data, cb)),
 		updateEmail: (data, cb) => dispatch(onUpdateEmail(data, cb)),
-		updatePassword: (data, cb) => dispatch(onUpdatePassword(data, cb))
+		updatePassword: (data, cb) => dispatch(onUpdatePassword(data, cb)),
+		deleteUser: () => dispatch(onDeleteUser())
 	};
 };
 

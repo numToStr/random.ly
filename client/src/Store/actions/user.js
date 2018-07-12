@@ -4,7 +4,8 @@ import {
 	UPDATE_USER_NAME,
 	UPDATE_USER_EMAIL,
 	UPDATE_USER_PASSWORD,
-	UPDATE_USER_FAIL
+	UPDATE_USER_FAIL,
+	DELETE_USER
 } from "./actionTypes";
 
 const updateName = user => {
@@ -33,6 +34,12 @@ const updateFail = (err, which) => {
 		type: UPDATE_USER_FAIL,
 		err,
 		which
+	};
+};
+
+const deleteUser = () => {
+	return {
+		type: DELETE_USER
 	};
 };
 
@@ -85,6 +92,16 @@ export const onUpdatePassword = (data, callback) => {
 
 			if (callback) {
 				callback(user);
+			}
+		});
+	};
+};
+
+export const onDeleteUser = (data, callback) => {
+	return dispatch => {
+		axios.delete("/user/delete").then(({ data }) => {
+			if (data.status) {
+				dispatch(deleteUser());
 			}
 		});
 	};

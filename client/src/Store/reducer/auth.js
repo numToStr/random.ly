@@ -6,7 +6,8 @@ import {
 	UPDATE_USER_NAME,
 	UPDATE_USER_EMAIL,
 	UPDATE_USER_FAIL,
-	UPDATE_USER_PASSWORD
+	UPDATE_USER_PASSWORD,
+	DELETE_USER
 } from "../actions/actionTypes";
 
 const initState = {
@@ -104,6 +105,8 @@ const reducer = (state = initState, action) => {
 			return updateUser(state, action);
 		case UPDATE_USER_FAIL:
 			return updateFail(state, action);
+		case DELETE_USER:
+			return authLogout(state, action);
 		case AUTH_LOGOUT:
 			return authLogout(state, action);
 		default:
